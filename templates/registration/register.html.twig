@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-md-center">
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_row(form.fullName) }}
+            {{ form_errors(form.fullName) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.username) }}
+            {{ form_errors(form.username) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.email) }}
+            {{ form_errors(form.email) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.password.first) }}
+            {{ form_errors(form.password.first) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.password.second) }}
+            {{ form_errors(form.password.second) }}
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="s'inscrire">
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}
