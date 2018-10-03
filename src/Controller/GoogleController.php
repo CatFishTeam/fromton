@@ -13,7 +13,7 @@ class GoogleController extends AbstractController
     /**
      * Link to this controller to start the "connect" process
      *
-     * @Route(name="connect_google")
+     * @Route("connect/google", name="connect_google")
      *
      * @param ClientRegistry $clientRegistry
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -28,7 +28,7 @@ class GoogleController extends AbstractController
     /**
      * Google redirects to back here afterwards
      *
-     * @Route(name="connect_google_check")
+     * @Route("connect/google/check", name="connect_google_check")
      *
      * @param Request $request
      * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse

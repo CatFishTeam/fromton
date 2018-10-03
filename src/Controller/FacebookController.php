@@ -13,7 +13,7 @@ class FacebookController extends AbstractController
     /**
      * Link to this controller to start the "connect" process
      *
-     * @Route(name="connect_facebook")
+     * @Route("connect/facebook", name="connect_facebook")
      *
      * @param ClientRegistry $clientRegistry
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -28,7 +28,7 @@ class FacebookController extends AbstractController
     /**
      * facebook redirects to back here afterwards
      *
-     * @Route(name="connect_facebook_check")
+     * @Route("connect/facebook/check", name="connect_facebook_check")
      *
      * @param Request $request
      * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse

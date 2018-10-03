@@ -4,7 +4,9 @@ security:
 
     providers:
         database_users:
-            entity: { class: App\Entity\User, property: username }
+            entity:
+                class: App\Entity\User
+                property: username
 
     firewalls:
         dev:
@@ -29,13 +31,13 @@ security:
                 # Securisation des formulaires
                 csrf_token_generator: security.csrf.token_manager
                 # La page par defaut apres une connexion reussie
-                default_target_path: admin
+                default_target_path: homepage
 
             logout:
                 # La route où se trouve le process de deconnexion
                 path: security_logout
                 # La route sur laquelle doit etre rediriger l'utilisateur apres une deconnexion
-                target: index
+                target: homepage
 
             remember_me:
                 secret:   '%kernel.secret%'
@@ -44,8 +46,8 @@ security:
 
             guard:
                 authenticators:
-                    - App\Security\GoogleAuthenticator
-                    - App\Security\FacebookAuthenticator
+                - App\Security\GoogleAuthenticator
+                - App\Security\FacebookAuthenticator
                 entry_point: App\Security\TokenAuthenticator
 
     access_control:
