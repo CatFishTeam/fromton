@@ -5,8 +5,8 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 import $ from 'jquery'
-window.jQuery = $
-window.$ = $
+window.jQuery = $;
+window.$ = $;
 
 import 'bootstrap'
 
