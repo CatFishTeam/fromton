@@ -98,8 +98,35 @@
     "fzaninotto/faker": {
         "version": "v1.8.0"
     },
+    "guzzlehttp/guzzle": {
+        "version": "6.3.3"
+    },
+    "guzzlehttp/promises": {
+        "version": "v1.3.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.4.2"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
+    },
+    "knpuniversity/oauth2-client-bundle": {
+        "version": "1.20",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.20",
+            "ref": "b79787c589eaf10e35882634d6d6783f745ae7e8"
+        }
+    },
+    "league/oauth2-client": {
+        "version": "2.3.0"
+    },
+    "league/oauth2-facebook": {
+        "version": "2.0.1"
+    },
+    "league/oauth2-google": {
+        "version": "2.2.0"
     },
     "monolog/monolog": {
         "version": "1.23.0"
@@ -124,6 +151,9 @@
     },
     "psr/container": {
         "version": "1.0.0"
+    },
+    "psr/http-message": {
+        "version": "1.0.1"
     },
     "psr/link": {
         "version": "1.0.0"

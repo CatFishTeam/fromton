@@ -12,6 +12,15 @@
             <form action="{{ path('security_login') }}" method="post">
                 <fieldset>
                     <legend><i class="fa fa-lock" aria-hidden="true"></i> Connexion</legend>
+                    <div class="form-group fb">
+                        <a href="{{ path('connect_facebook') }}" class="btn btn-social btn-facebook btn-block btn-lg"><i class="fab fa-facebook-f"></i>Se connecter avec facebook</a>
+                    </div>
+                    <div class="form-group fb">
+                        <a href="{{ path('connect_google') }}" class="btn btn-social btn-google-plus btn-block btn-lg"><i class="fab fa-google-plus-g"></i>Se connecter avec Google</a>
+                    </div>
+                    <div class="ou"><span>{{ 'user_fb_connect_or'|trans({}, 'user') }}</span>
+                        <hr>
+                    </div>
                     <div class="form-group">
                         <label for="username">Username</label>
                         <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" />
