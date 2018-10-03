@@ -6,20 +6,19 @@ services:
         image: postgres:10.1
         restart: always
         environment:
-        - POSTGRES_ROOT_PASSWORD=${DB_PASSWORD_ROOT}
+            - POSTGRES_DB=fromton
+            - POSTGRES_USER=fromton
+            - POSTGRES_PASSWORD=fromton
         ports:
-        - 5432:5432
+            - 5432:5432
         volumes:
-        - ./conf/postgres/:/docker-entrypoint-initdb.d/
+            - ./conf/postgres/:/docker-entrypoint-initdb.d/
     php:
         container_name: fromton-php
         build:
             context: conf/php7-fpm
             args:
                 TIMEZONE: ${TIMEZONE}
-        links:
-          - db
-          - mailhog
         volumes:
             - ../:/var/www/symfony
             - ./logs/symfony:/var/www/symfony/app/logs
@@ -31,8 +30,11 @@ services:
             - 80:80
         depends_on:
             - php
+            - db
+            - mailhog
         volumes:
             - ./logs/nginx/:/var/log/nginx
+
     mailhog:
         container_name: fromton-mailhog
         image: mailhog/mailhog
