@@ -76,8 +76,8 @@ knpu_oauth2_client:
         facebook:
             # this will be one of the supported types
             type: facebook
-            client_id: '%env(resolve:OAUTH_FACEBOOK_ID)%'
-            client_secret: '%env(resolve:OAUTH_FACEBOOK_SECRET)%'
+            client_id: '%env(resolve:FB_CLIENT_ID)%'
+            client_secret: '%env(resolve:FB_CLIENT_SECRET)%'
             # the route that you're redirected to after
             # see the controller example below
             redirect_route: connect_facebook_check

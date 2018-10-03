@@ -2,34 +2,39 @@ version: '2'
 
 services:
     db:
+        container_name: fromton-db
         image: postgres:10.1
         restart: always
         environment:
-        - POSTGRES_DB=${DB_NAME}
-        - POSTGRES_USER=${DB_USER}
-        - POSTGRES_PASSWORD=${DB_PASSWORD}
+        - POSTGRES_ROOT_PASSWORD=${DB_PASSWORD_ROOT}
         ports:
         - 5432:5432
         volumes:
         - ./conf/postgres/:/docker-entrypoint-initdb.d/
     php:
+        container_name: fromton-php
         build:
             context: conf/php7-fpm
             args:
                 TIMEZONE: ${TIMEZONE}
+        links:
+          - db
+          - mailhog
         volumes:
             - ../:/var/www/symfony
             - ./logs/symfony:/var/www/symfony/app/logs
     nginx:
+        container_name: fromton-nginx
         build:
             context: conf/nginx
         ports:
             - 80:80
-        volumes_from:
+        depends_on:
             - php
         volumes:
             - ./logs/nginx/:/var/log/nginx
     mailhog:
+        container_name: fromton-mailhog
         image: mailhog/mailhog
         ports:
         - 1025:1025 # smtp server
