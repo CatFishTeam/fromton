@@ -37,12 +37,12 @@ security:
                 # La route où se trouve le process de deconnexion
                 path: security_logout
                 # La route sur laquelle doit etre rediriger l'utilisateur apres une deconnexion
-                target: homepage
+                target: home
 
-            remember_me:
-                secret:   '%kernel.secret%'
-                lifetime: 604800 # 1 week in seconds
-                path:     /
+#            remember_me:
+#                secret:   '%kernel.secret%'
+#                lifetime: 604800 # 1 week in seconds
+#                path:     /
 
             guard:
                 authenticators:

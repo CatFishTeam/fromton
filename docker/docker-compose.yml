@@ -24,10 +24,12 @@ services:
             - ./logs/symfony:/var/www/symfony/app/logs
     nginx:
         container_name: fromton-nginx
+        image: valian/docker-nginx-auto-ssl
         build:
             context: conf/nginx
         ports:
             - 80:80
+            - 443:443
         depends_on:
             - php
             - db
@@ -41,3 +43,12 @@ services:
         ports:
         - 1025:1025 # smtp server
         - 8025:8025 # web ui
+
+    adminer:
+        container_name: fromton-adminer
+        image: adminer
+        restart: always
+        depends_on:
+        - db
+        ports:
+        - 8090:8080
