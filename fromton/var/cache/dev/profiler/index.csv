@@ -299,3 +299,7 @@ e598b9,172.19.0.1,GET,http://dev.fromton.io/favicon.ico,1538741476,246611,200
 246611,172.19.0.1,GET,http://dev.fromton.io/favicon.ico,1538741476,,404
 62dc18,172.25.0.1,GET,http://dev.fromton.io/,1538744707,,200
 b5faa4,172.25.0.1,GET,http://dev.fromton.io/login,1538744710,,200
+95afce,172.25.0.1,GET,http://dev.fromton.io/connect/google,1538744776,,302
+346f39,172.25.0.1,POST,http://dev.fromton.io/login,1538744782,,302
+3e671a,172.25.0.1,GET,http://dev.fromton.io/login,1538744782,,200
+fe4188,172.25.0.1,GET,http://dev.fromton.io/login,1538744884,,200
