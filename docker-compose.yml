@@ -1,0 +1,50 @@
+version: '2'
+
+services:
+    db:
+        container_name: fromton-db
+        image: postgres:10.1
+        restart: always
+        environment:
+            - POSTGRES_DB=fromton
+            - POSTGRES_USER=fromton
+            - POSTGRES_PASSWORD=fromton
+        ports:
+            - 5432:5432
+        volumes:
+            - ./conf/postgres/:/docker-entrypoint-initdb.d/
+    php:
+        container_name: fromton-php
+        build: ./php-fpm
+        volumes:
+            - ./fromton:/var/www/fromton
+            - ./php-fpm/config/php.ini:/usr/local/etc/php/php.ini
+    nginx:
+        container_name: fromton-nginx
+        image: nginx:latest
+        ports:
+            - 80:80
+            - 443:443
+        depends_on:
+            - php
+            - db
+            - mailhog
+        volumes:
+            - ./fromton:/var/www/fromton
+            - ./nginx/fromton.conf:/etc/nginx/conf.d/fromton.conf
+
+    mailhog:
+        container_name: fromton-mailhog
+        image: mailhog/mailhog
+        ports:
+        - 1025:1025 # smtp server
+        - 8025:8025 # web ui
+
+    adminer:
+        container_name: fromton-adminer
+        image: adminer
+        restart: always
+        depends_on:
+        - db
+        ports:
+        - 8090:8080
