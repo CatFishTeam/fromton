@@ -119,6 +119,9 @@
             "ref": "b79787c589eaf10e35882634d6d6783f745ae7e8"
         }
     },
+    "laupifrpar/pusher-bundle": {
+        "version": "2.0.1"
+    },
     "league/oauth2-client": {
         "version": "2.3.0"
     },
@@ -136,6 +139,9 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.1.1"
+    },
+    "paragonie/sodium_compat": {
+        "version": "v1.7.0"
     },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
@@ -163,6 +169,15 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    },
+    "pusher/pusher-php-server": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "8dd3ea817217453e14ab596317177465211e01d2"
+        }
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
