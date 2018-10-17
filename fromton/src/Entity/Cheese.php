@@ -23,18 +23,18 @@ class Cheese
 
     /**
      *
-     * @ORMColumn(type="string", unique=true)
+     * @ORM\Column(type="string", unique=true)
      */
     private $name;
 
     /**
-     * @ORMColumn(type="text")
+     * @ORM\Column(type="text")
      */
     private $description;
 
     /**
-     * @ManyToOne(targetEntity="Category")
-     * @JoinColumn(name="category_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
 

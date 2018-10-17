@@ -7,7 +7,6 @@
         "ext-iconv": "*",
         "fzaninotto/faker": "^1.8",
         "knpuniversity/oauth2-client-bundle": "^1.22",
-        "laupifrpar/pusher-bundle": "^2.0",
         "league/oauth2-facebook": "^2.0",
         "league/oauth2-google": "^2.2",
         "sensio/framework-extra-bundle": "^5.2",

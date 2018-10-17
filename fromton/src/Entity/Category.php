@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @UniqueEntity("name")
@@ -20,12 +21,12 @@ class Category
     private $id;
 
     /**
-     * @ORMColumn(type="string", unique=true)
+     * @ORM\Column(type="string", unique=true)
      */
     private $name;
 
     /**
-     * @ORMColumn(type="text")
+     * @ORM\Column(type="text")
      */
     private $description;
 
