@@ -16,3 +16,7 @@ require('@fortawesome/fontawesome-free/js/all.js');
 $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
 });
+
+//Images
+require('../images/svg/mouse.svg');
+require('../images/svg/cheese.svg');

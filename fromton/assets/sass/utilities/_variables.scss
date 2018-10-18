@@ -1,0 +1,30 @@
+// Colors
+$beige: #F3E0B5;
+$brown: #C38F52;
+$brown1: #A13C3D;
+$brown12: #933738;
+$brown2: #61070D;
+$brown22: #59070C;
+$red: #C52929;
+$gold: #EDCC60;
+
+$colors: (
+    beige: $beige,
+    brown: $brown,
+    brown1: $brown1,
+    brown12: $brown12,
+    brown2: $brown2,
+    brown22: $brown22,
+    red: $red,
+    gold: $gold
+);
+
+@mixin gen-props($prefix, $property) {
+    @each $color-name, $color in $colors {
+        .#{$prefix}-#{$color-name} {
+            #{$property}: $color !important;
+    }
+}
+}
+@include gen-props('text', 'color');
+@include gen-props('bg', 'background');
