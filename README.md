@@ -12,6 +12,16 @@
 
 - Go to **dev.fromton.io** (or **dev.fromton.io:your-nginx-port** described in docker-compose file) for the app
 
+## Setup database
+
+- Check that DB exists by logging on Adminer with docker-compose credentials
+
+- Connect to fromton-php container in terminal : `docker exec -ti fromton-php sh`
+
+- Inside php container, create migration files : `bin/console make:migration`
+
+- Run the migrations : `bin/console doctrine:migrations:migrate`
+
 
 ## How to add an image
 The images are manage by webpack
