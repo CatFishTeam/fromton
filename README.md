@@ -22,6 +22,8 @@
 
 - Run the migrations : `bin/console doctrine:migrations:migrate`
 
+- Run the fixtures : `bin/console doctrine:fixtures:load`
+
 
 ## How to add an image
 The images are manage by webpack
