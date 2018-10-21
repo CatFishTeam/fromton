@@ -26,7 +26,8 @@ Encore
 
     .configureFilenames({
         css: 'css/[name].css',
-        js: 'js/[name].js'
+        js: 'js/[name].js',
+        images: '[path][name].[hash:8].[ext]'
     })
     .addEntry('fromton', [
         './assets/js/app.js',
