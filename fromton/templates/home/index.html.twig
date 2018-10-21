@@ -2,15 +2,14 @@
 
 {% block body %}
     <section class="row">
-        <div class="col flex-row bg-brown2">
-            <div class="">
-                <img src="{{ asset('build/assets/images/svg/mouse.svg') }}" alt="mouse">
-            </div>
-            <div class="">
-                <img src="{{ asset('build/assets/images/svg/mouse.svg') }}" alt="mouse">
-            </div>
-        </div>
-        <div class="col"></div>
-        <div class="col"></div>
+        {% for cheese in cheeses  %}
+            {{ cycle(['<div class="col flex-row bg-brown2">', ''], loop.index0)|raw }}
+                <div>
+                    {{ cheese.name }}
+                    {{ cheese.description }}
+                    <img src="{{ asset('build/assets/images/svg/mouse.svg') }}" alt="mouse">
+                </div>
+            {{ cycle(['</div>', ''], loop.index0)|raw }}
+        {% endfor %}
     </section>
 {% endblock %}
