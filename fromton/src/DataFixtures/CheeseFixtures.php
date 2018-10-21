@@ -16,13 +16,19 @@ class CheeseFixtures extends AbstractFixture implements DependentFixtureInterfac
 
         $faker = Faker\Factory::create('fr_FR');
 
+        $categories = [];
+        for($i = 0; $i < 5; $i++) {
+            $categories[$i] = new Category();
+            $categories[$i]->setName($faker->name);
+            $categories[$i]->setDescription($faker->text);
+            $manager->persist($categories[$i]);
+        }
+
         for ($i = 0; $i < 10; $i++) {
             $cheese = new Cheese();
             $cheese->setName($faker->name);
             $cheese->setDescription($faker->text);
-
-            $category = $this->get('doctrine.manager')->getRepository(Category::class)->findOneBy([]);
-            $cheese->setCategory($category);
+            $cheese->setCategory($categories[rand(0,4)]);
             $manager->persist($cheese);
         }
 
