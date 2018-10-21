@@ -34,6 +34,7 @@ class UserFixtures extends Fixture
             $user->setUsername($faker->userName);
             $user->setEmail($faker->email);
             $user->setPassword($this->passwordEncoder->encodePassword($user, $faker->password));
+            $user->setCreatedAt($faker->dateTime);
             $manager->persist($user);
         }
 

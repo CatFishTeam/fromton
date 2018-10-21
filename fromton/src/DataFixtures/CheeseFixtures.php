@@ -2,12 +2,14 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Category;
 use App\Entity\Cheese;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker;
 
-class CheeseFixtures extends Fixture
+class CheeseFixtures extends AbstractFixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -18,10 +20,17 @@ class CheeseFixtures extends Fixture
             $cheese = new Cheese();
             $cheese->setName($faker->name);
             $cheese->setDescription($faker->text);
-            $cheese->setCategory($faker->name);
+
+            $category = $this->get('doctrine.manager')->getRepository(Category::class)->findOneBy([]);
+            $cheese->setCategory($category);
             $manager->persist($cheese);
         }
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return array('App\DataFixtures\CategoryFixtures');
     }
 }
