@@ -219,8 +219,8 @@ typings/
 /.web-server-pid
 
 ### Symfony Patch ###
-/web/css/
-/web/js/
+/fromton/public/build/css/
+/fromton/public/build/js/
 
 
 # End of https://www.gitignore.io/api/node,symfony,intellij,composer
