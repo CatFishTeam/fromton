@@ -16,11 +16,12 @@ class RegistrationController extends Controller
 {
     /**
      * @Route("/register", name="user_registration")
-     * @param Request                      $request
+     * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param EventDispatcherInterface     $eventDispatcher
+     * @param EventDispatcherInterface $eventDispatcher
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, EventDispatcherInterface $eventDispatcher)
     {
@@ -41,6 +42,10 @@ class RegistrationController extends Controller
             $dateNow = new DateTime;
             $dateNow->getTimestamp();
             $user->setCreatedAt($dateNow);
+            $user->setToken(random_bytes(20));
+
+            $user->setToken(random_bytes(20));
+
             // On enregistre l'utilisateur dans la base
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

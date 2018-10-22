@@ -1,0 +1,9 @@
+easy_admin:
+  design:
+    brand_color: '#A13C3D'
+    menu:
+      - { label: Dashboard, icon: dashboard, route: admin_dashboard, default: true }
+      - { entity: 'User', icon: 'users', label: 'Users' }
+      - { entity: 'Cheese', icon: 'book', label: 'Cheeses' }
+      - { entity: 'Category', icon: 'th-list', label: 'Categories' }
+      - label: 'Env: %env(APP_ENV)%'

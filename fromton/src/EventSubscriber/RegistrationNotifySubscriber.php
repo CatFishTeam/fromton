@@ -31,14 +31,20 @@ class RegistrationNotifySubscriber implements EventSubscriberInterface
         /** @var User $user */
         $user = $event->getSubject();
 
-        $subject = "Bienvenue";
-        $body = "Vive le fromton";
+        $subject = "[FROMTON] Validez votre inscription";
 
         $message = (new \Swift_Message())
             ->setSubject($subject)
             ->setTo($user->getEmail())
             ->setFrom($this->sender)
-            ->setBody($body, 'text/html')
+            ->setBody(
+                $this->renderView(
+                // templates/emails/registration.html.twig
+                    'emails/registration.html.twig',
+                    array('user' => $user)
+                ),
+                'text/html'
+            )
         ;
 
         $this->mailer->send($message);

@@ -1,0 +1,25 @@
+easy_admin:
+  entities:
+    Cheese:
+      class: App\Entity\Cheese
+      label: 'Cheeses'
+      list:
+        fields:
+        - id
+        - name
+        - description
+        - category
+      show:
+        fields:
+        - id
+        - name
+        - description
+        - category
+      form:
+        fields:
+        - { type: 'group', css_class: 'col-sm-8', label: 'Basic information', icon: 'pencil' }
+        - { property: 'name', css_class: 'large' }
+        - { property: 'description' }
+        - { type: 'divider' }
+        - { property: 'category', type: 'easyadmin_autocomplete' }
+        - { type: 'group', css_class: 'col-sm-4', label: 'Product Details', icon: 'cube' }
