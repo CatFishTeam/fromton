@@ -22,13 +22,14 @@ class Cheese
     private $id;
 
     /**
-     *
      * @ORM\Column(type="string", unique=true)
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $description;
 
