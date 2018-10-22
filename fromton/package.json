@@ -1,10 +1,10 @@
 {
   "scripts": {
-  "dev-server": "encore dev-server",
-  "dev": "encore dev",
-  "watch": "encore dev --watch",
-  "build": "encore production",
-  "postinstall": "encore production"
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production",
+    "postinstall": "encore production"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.3.1",
