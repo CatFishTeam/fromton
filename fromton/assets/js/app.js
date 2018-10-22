@@ -17,6 +17,9 @@ $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
 });
 
+//JS
+import './_navbar'
+
 //Images
 require('../images/svg/mouse.svg');
 require('../images/svg/cheese.svg');

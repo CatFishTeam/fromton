@@ -4,6 +4,18 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <div class="burgerMenu">
+            <i class="fas fa-bars"></i>
+            <div class="burgerMenu__links">
+                <span class="menuClose">&times;</span>
+                <ul>
+                    <li><a href="{{ path('home') }}">Accueil</a></li>
+                    <li><a href="{{ path('users') }}">Communauté</a></li>
+                </ul>
+            </div>
+        </div>
+
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" class="bg-brown2">
         </form>
