@@ -5,3 +5,22 @@ nav
         img
             width: 2.5rem
             margin-right: 1rem
+    .notification
+        width: 45px
+        &__number
+            position: relative
+            top: -12px
+            left: -17px
+            font-size: 0.8rem
+            color: white
+            &--overten
+                position: relative
+                top: -12px
+                left: -21px
+                font-size: 0.7rem
+                color: white
+            &--overninethousand
+                &::after
+                    content: "+"
+                    position: absolute
+                    top: -6px

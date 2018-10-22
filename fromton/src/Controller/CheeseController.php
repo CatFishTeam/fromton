@@ -3,11 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Cheese;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CheeseController extends AbstractController {
 
     /**
-     * @param Cheese $cheese
      * @Route ("/{name}", name="cheese_show", methods={"GET"})
      */
     public function show(Cheese $cheese)
