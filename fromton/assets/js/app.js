@@ -20,4 +20,5 @@ $(document).ready(function() {
 //Images
 require('../images/svg/mouse.svg');
 require('../images/svg/cheese.svg');
+require('../images/svg/roundedChesse.svg');
 require('../images/svg/camembert.svg');

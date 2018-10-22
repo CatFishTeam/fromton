@@ -1,1 +1,3 @@
-{{ cheese.name }}
+<img src="{{ asset('build/assets/images/svg/roundedChesse.svg') }}" alt="Rounded Cheese">
+<h3>{{ cheese.name }}</h3>
+<p>{{ cheese.description|slice(0, 50) ~ '...' }}</p>
