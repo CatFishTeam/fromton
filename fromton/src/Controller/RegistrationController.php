@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
+use DateTime;
 
 class RegistrationController extends Controller
 {
@@ -35,7 +36,11 @@ class RegistrationController extends Controller
 
             // Par defaut l'utilisateur aura toujours le rôle ROLE_USER
             $user->setRoles(['ROLE_USER']);
-
+            $user->setValidate(false);
+            $user->setXp(1);
+            $dateNow = new DateTime;
+            $dateNow->getTimestamp();
+            $user->setCreatedAt($dateNow);
             // On enregistre l'utilisateur dans la base
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
