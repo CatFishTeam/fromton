@@ -65,6 +65,20 @@ class User implements UserInterface, \Serializable
     private $roles = [];
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $validate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $xp;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
@@ -133,6 +147,26 @@ class User implements UserInterface, \Serializable
     public function setRoles(array $roles): void
     {
         $this->roles = $roles;
+    }
+
+    public function isValidate(): bool
+    {
+        return $this->validate;
+    }
+
+    public function setValidate(bool $validate): void
+    {
+        $this->validate = $validate;
+    }
+
+    public function getXp(): int
+    {
+        return $this->xp;
+    }
+
+    public function setXp(int $xp): void
+    {
+        $this->xp = $xp;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
