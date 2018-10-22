@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CheeseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Cheese;
@@ -14,12 +15,14 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        $cheeses = $this->getDoctrine()
-            ->getRepository(Cheese::class)
-            ->findBy([],[], 4);
+        $cheeseRepository = $this->getDoctrine()->getRepository(Cheese::class);
 
-        dump($cheeses);
+        $cheeses = $cheeseRepository->findBy([],[], 4);
+        $cheeseOfTheWeek = $cheeseRepository->cheeseOfTheWeek();
 
-        return $this->render('home/index.html.twig', ['cheeses' => $cheeses]);
+        dump($cheeseOfTheWeek);
+
+        return $this->render('home/index.html.twig', ['cheeses' => $cheeses, 'cheeseOfTheWeek' => $cheeseOfTheWeek]);
     }
+
 }

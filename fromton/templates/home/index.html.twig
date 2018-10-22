@@ -2,8 +2,9 @@
 
 {% block body %}
     <section class="row">
+        {#
         {% for cheese in cheeses  %}
-            {{ cycle(['<div class="col flex-row bg-brown2">', ''], loop.index0)|raw }}
+            {{ cycle(['<div class="col flex-row bg-brown2">', ' '], loop.index0)|raw }}
                 <div>
                     {{ cheese.name }}
                     {{ cheese.description }}
@@ -11,5 +12,9 @@
                 </div>
             {{ cycle(['</div>', ''], loop.index0)|raw }}
         {% endfor %}
+        #}
+        <div class="col">
+            {%  include 'components/cheeseOfTheWeek.html.twig' with {'cheese' : cheeseOfTheWeek } only %}
+        </div>
     </section>
 {% endblock %}
