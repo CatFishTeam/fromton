@@ -48,6 +48,10 @@ class Cheese
         return $this->id;
     }
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="cheeses")
+     */
+    private $location;
 
     /**
      * @return mixed
@@ -95,6 +99,18 @@ class Cheese
     public function setCategory($category): void
     {
         $this->category = $category;
+    }
+
+    public function getLocation(): ?Location
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?Location $location): self
+    {
+        $this->location = $location;
+
+        return $this;
     }
 
 }
