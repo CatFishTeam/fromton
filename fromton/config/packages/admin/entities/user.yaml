@@ -23,6 +23,7 @@ easy_admin:
         - email
         - password
         - roles
+        - validate
         - created_at
       show:
         fields:
@@ -32,6 +33,7 @@ easy_admin:
         - email
         - password
         - roles
+        - validate
         - created_at
       form:
         fields:
@@ -44,4 +46,5 @@ easy_admin:
         - { property: 'password', type: 'password' }
         - { type: 'group', label: 'Advanced Settings', icon: 'warning' }
 #        - { property: 'roles' }
+        - { property: 'validate'}
         - { property: 'created_at'}

@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CheeseController extends AbstractController {
 
     /**
-     * @Route ("/{name}", name="cheese_show", methods={"GET"})
+     * @Route ("/cheese/{name}", name="cheese_show", methods={"GET"})
      */
     public function show(Cheese $cheese)
     {
