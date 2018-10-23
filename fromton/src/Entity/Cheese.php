@@ -1,7 +1,9 @@
 <?php
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToMany;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -39,6 +41,17 @@ class Cheese
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
+
+    /**
+     * @ManyToMany(targetEntity="User", mappedBy="cheeses")
+     */
+    private $users;
+
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -111,6 +124,11 @@ class Cheese
         $this->location = $location;
 
         return $this;
+    }
+
+    public function addUser(User $user)
+    {
+        $this->users[] = $user;
     }
 
 }
