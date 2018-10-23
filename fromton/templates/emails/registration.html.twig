@@ -1,10 +1,10 @@
 <h3>Bienvenue sur Fromton</h3>
 
-A que coucou {{ user.name }}!
+A que coucou {{ user.username }}!
 
 Avant de pouvoir acceder au site, veuillez valider votre inscription en cliquant sur le lien suivant
 
-<a href="{{ url('validateRegistration', {'token', user.token}) }}">Valider mon inscription !</a>.
+<a href="{{ url('user_registration_validate', {'userId': user.id, 'token': user.token}) }}">Valider mon inscription !</a>.
 
 A bientot !
 

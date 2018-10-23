@@ -74,7 +74,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var boolean
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : 0})
      */
     private $validate;
 
