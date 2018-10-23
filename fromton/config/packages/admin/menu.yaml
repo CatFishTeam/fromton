@@ -6,4 +6,6 @@ easy_admin:
       - { entity: 'User', icon: 'users', label: 'Users' }
       - { entity: 'Cheese', icon: 'book', label: 'Cheeses' }
       - { entity: 'Category', icon: 'th-list', label: 'Categories' }
+      - { entity: 'Location', icon: 'globe', label: 'Locations' }
+      - { entity: 'Country', icon: 'globe', label: 'Countries' }
       - label: 'Env: %env(APP_ENV)%'

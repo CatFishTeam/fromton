@@ -1,33 +1,60 @@
 {% extends '@EasyAdmin/default/layout.html.twig' %}
 
 {% block main %}
-    <a href="{{ path('easyadmin', { entity: 'User', action: 'list' }) }}">
-        <div class="info-box">
-            <span class="info-box-icon bg-blue"><i class="fa fa-user"></i></span>
-            <div class="info-box-content">
-                <span class="info-box-text">Users</span>
-                <span class="info-box-number">{{ usersNb }}</span>
-            </div>
-        </div>
-    </a>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="{{ path('easyadmin', { entity: 'User', action: 'list' }) }}">
+                <div class="info-box">
+                    <span class="info-box-icon bg-blue"><i class="fa fa-user"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Users</span>
+                        <span class="info-box-number">{{ usersNb }}</span>
+                    </div>
+                </div>
+            </a>
 
-    <a href="{{ path('easyadmin', { entity: 'Cheese', action: 'list' }) }}">
-        <div class="info-box">
-            <span class="info-box-icon bg-yellow"><i class="fa fa-book"></i></span>
-            <div class="info-box-content">
-                <span class="info-box-text">Cheeses</span>
-                <span class="info-box-number">{{ cheesesNb }}</span>
-            </div>
-        </div>
-    </a>
+            <a href="{{ path('easyadmin', { entity: 'Cheese', action: 'list' }) }}">
+                <div class="info-box">
+                    <span class="info-box-icon bg-brown"><i class="fa fa-book"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Cheeses</span>
+                        <span class="info-box-number">{{ cheesesNb }}</span>
+                    </div>
+                </div>
+            </a>
 
-    <a href="{{ path('easyadmin', { entity: 'Category', action: 'list' }) }}">
-        <div class="info-box">
-            <span class="info-box-icon bg-grey"><i class="fa fa-th-list"></i></span>
-            <div class="info-box-content">
-                <span class="info-box-text">Categories</span>
-                <span class="info-box-number">{{ categoriesNb }}</span>
-            </div>
+            <a href="{{ path('easyadmin', { entity: 'Category', action: 'list' }) }}">
+                <div class="info-box">
+                    <span class="info-box-icon bg-yellow"><i class="fa fa-th-list"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Categories</span>
+                        <span class="info-box-number">{{ categoriesNb }}</span>
+                    </div>
+                </div>
+            </a>
         </div>
-    </a>
+
+        <div class="col-md-6">
+            <a href="{{ path('easyadmin', { entity: 'Location', action: 'list' }) }}">
+                <div class="info-box">
+                    <span class="info-box-icon bg-gray"><i class="fa fa-globe"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Locations</span>
+                        <span class="info-box-number">{{ locationsNb }}</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ path('easyadmin', { entity: 'Country', action: 'list' }) }}">
+                <div class="info-box">
+                    <span class="info-box-icon bg-green"><i class="fa fa-globe"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Countries</span>
+                        <span class="info-box-number">{{ countriesNb }}</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
 {% endblock %}

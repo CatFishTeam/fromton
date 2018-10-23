@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Entity\Cheese;
+use App\Entity\Country;
+use App\Entity\Location;
 use App\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
@@ -19,11 +21,15 @@ class AdminController extends BaseAdminController
         $cheesesNb = $this->getDoctrine()->getRepository(Cheese::class)->count([]);
         $usersNb = $this->getDoctrine()->getRepository(User::class)->count([]);
         $categoriesNb = $this->getDoctrine()->getRepository(Category::class)->count([]);
+        $locationsNb = $this->getDoctrine()->getRepository(Location::class)->count([]);
+        $countriesNb = $this->getDoctrine()->getRepository(Country::class)->count([]);
 
         return $this->render('admin/dashboard.html.twig', [
             'cheesesNb' => $cheesesNb,
             'usersNb' => $usersNb,
             'categoriesNb' => $categoriesNb,
+            'locationsNb' => $locationsNb,
+            'countriesNb' => $countriesNb,
         ]);
     }
 
