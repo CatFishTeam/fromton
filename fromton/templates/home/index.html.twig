@@ -1,18 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <section class="row">
-        {% for cheese in cheeses  %}
-            {{ cycle(['<div class="col flex-row bg-brown2">', ' '], loop.index0)|raw }}
-                <div>
-                    {{ cheese.name }}
-                    {{ cheese.description }}
-                    <img src="{{ asset('build/assets/images/svg/mouse.svg') }}" alt="mouse">
+    <section class="container-fluid">
+        <div class="row mt-5">
+            {% for cheese in cheeses  %}
+                {% if loop.index == 1 or loop.index == 3 %}<div class="col flex-row">{% endif %}
+                <div class="col home home__cheese">
+                    <img src="{{ asset('build/assets/images/svg/mouse.svg') }}" alt="mouse" class="home home__cheese__img">
+                    <h4 class="home home__cheese__title">{{ cheese.name }}</h4>
+                    <div class="home__cheese__rating">
+                        <div class="rateYo" data-rating="4"></div>
+                    </div>
                 </div>
-            {{ cycle(['</div>', ''], loop.index0)|raw }}
-        {% endfor %}
-        <div class="col">
-            {%  include 'components/cheeseOfTheWeek.html.twig' with {'cheese' : cheeseOfTheWeek } only %}
+                {% if loop.index % 2 == 0 %}</div>{% endif %}
+            {% endfor %}
+            <div class="col">
+                {%  include 'components/cheeseOfTheWeek.html.twig' with {'cheese' : cheeseOfTheWeek } only %}
+            </div>
         </div>
     </section>
 {% endblock %}

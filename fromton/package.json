@@ -15,5 +15,8 @@
     "popper.js": "^1.14.4",
     "sass-loader": "^7.1.0",
     "webpack-notifier": "^1.6.0"
+  },
+  "dependencies": {
+    "rateyo": "^2.3.5"
   }
 }
