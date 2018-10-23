@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Communauté{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Les users</h1>
+
+        <div class="users">
+            {% for user in users %}
+                {% if user != me %}
+                    <div class="users__single">
+                        {{ user.fullName }}
+                        {% if follow is not defined or (follow is defined and user != follow) %}
+                            <a href="{{ path('follow', {'id': user.id}) }}">Suivre cet utilisateur</a>
+                        {% else %}
+                            <span>Vous suivez cet individu</span>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

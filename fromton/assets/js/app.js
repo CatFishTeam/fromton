@@ -17,8 +17,14 @@ $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
 });
 
+//JS
+import './_navbar'
+
 //Images
 require('../images/svg/mouse.svg');
 require('../images/svg/cheese.svg');
+require('../images/svg/notification.svg');
+require('../images/svg/notification_new.svg');
+
+//@TODO change to images (only for dev purpose)
 require('../images/svg/roundedChesse.svg');
-require('../images/svg/camembert.svg');
