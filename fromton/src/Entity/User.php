@@ -58,6 +58,13 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=64, nullable=false)
+     */
+    private $token;
+
+    /**
      * @var array
      *
      * @ORM\Column(type="json")
@@ -67,7 +74,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var boolean
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : 0})
      */
     private $validate;
 
@@ -83,7 +90,7 @@ class User implements UserInterface, \Serializable
      */
     private $created_at;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -128,6 +135,24 @@ class User implements UserInterface, \Serializable
     {
         $this->password = $password;
     }
+
+    /**
+     * @return string
+     */
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string $token
+     */
+    public function setToken(string $token): void
+    {
+        $this->token = $token;
+    }
+
+
 
     /**
      * Retourne les rôles de l'user

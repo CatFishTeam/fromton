@@ -36,7 +36,8 @@ class UserFixtures extends Fixture
             $user->setPassword($this->passwordEncoder->encodePassword($user, $faker->password));
             $user->setCreatedAt($faker->dateTime);
             $user->setXp($faker->numberBetween(1, 3000));
-            $user->setValidate($faker->boolean);
+            $user->setValidate(true);
+            $user->setToken(md5(random_bytes(20)));
             $manager->persist($user);
         }
 

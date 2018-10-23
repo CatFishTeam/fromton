@@ -10,6 +10,7 @@ require('@fortawesome/fontawesome-free/js/all.js');
 //Components
 import './components/navbar'
 import './components/rating'
+import './components/notify.js';
 
 //Images
 require('../images/svg/mouse.svg');

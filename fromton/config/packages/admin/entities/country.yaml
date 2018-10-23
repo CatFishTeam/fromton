@@ -1,0 +1,20 @@
+easy_admin:
+  entities:
+    Country:
+      class: App\Entity\Country
+      label: 'Countries'
+      list:
+        fields:
+        - id
+        - name
+        - country_code
+      show:
+        fields:
+        - id
+        - name
+        - country_code
+      form:
+        fields:
+        - { type: 'group', css_class: 'col-sm-8', label: 'Basic information', icon: 'pencil' }
+        - { property: 'name' }
+        - { property: 'country_code' }
