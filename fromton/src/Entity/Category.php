@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -30,6 +31,11 @@ class Category
      * @ORM\Column(type="text")
      */
     private $description;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cheese", mappedBy="location")
+     */
+    private $cheeses;
 
     /**
      * @return int
@@ -69,6 +75,14 @@ class Category
     public function setDescription($description): void
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return Collection|Cheese[]
+     */
+    public function getCheeses(): Collection
+    {
+        return $this->cheeses;
     }
 
     public function __toString()

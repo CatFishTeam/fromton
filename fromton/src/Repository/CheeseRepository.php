@@ -30,11 +30,12 @@ class CheeseRepository extends ServiceEntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery('
-    SELECT c, l, p, ca
+    SELECT c, l, p, ca, a
     FROM App\Entity\Cheese c
     JOIN c.location l
     JOIN l.country p
     JOIN c.category ca
+    JOIN c.animal a
     WHERE LOWER(c.name) LIKE :name
 ');
 
