@@ -57,7 +57,7 @@ class CheeseRepository extends ServiceEntityRepository
         foreach ($usersCheesesRatings as $rating){
             $globalRating += $rating->getRating()->getMark();
         }
-        $globalRating = $globalRating / count($usersCheesesRatings);
+        $globalRating = $globalRating / (count($usersCheesesRatings) > 0 ? count($usersCheesesRatings) : 1);
         return $globalRating;
     }
 }
