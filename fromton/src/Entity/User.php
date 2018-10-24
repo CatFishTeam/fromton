@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\OneToMany;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -95,17 +96,13 @@ class User implements UserInterface, \Serializable
     private $created_at;
 
     /**
-     * @ManyToMany(targetEntity="User")
-     * @JoinTable(name="users_cheeses",
-     *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="cheese_id", referencedColumnName="id")}
-     *      )
+     * @OneToMany(targetEntity="UsersCheesesRatings", mappedBy="user")
      */
-    private $cheeses;
+    private $eventsPeopleRoles;
 
     public function __construct()
     {
-        $this->cheeses = new ArrayCollection();
+        $this->eventsPeopleRoles = new ArrayCollection();
     }
 
     public function getId(): ?int
