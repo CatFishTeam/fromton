@@ -1,1 +1,11 @@
-coucou
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    coucou
+    {{ user.id }}
+    {{ user.fullname }}
+    {{ user.username }}
+    {{ user.email }}
+    {{ level }}
+{% endblock %}
