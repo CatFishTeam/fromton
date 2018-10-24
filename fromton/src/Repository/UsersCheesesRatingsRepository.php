@@ -25,8 +25,4 @@ class UsersCheesesRatingsRepository extends ServiceEntityRepository
         return $this->findOneBy(['user' => $user, 'cheese' => $cheese], ['id'=>'DESC']);
     }
 
-    public function getGlobalRating()
-    {
-
-    }
 }
