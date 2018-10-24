@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\Cheese;
+use App\Entity\User;
 use \App\Entity\UsersCheesesRatings;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -17,5 +19,9 @@ class UsersCheesesRatingsRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, UsersCheesesRatings::class);
+    }
+
+    public function getRating(User $user, Cheese $cheese){
+        return $this->findBy(['user' => $user, 'cheese' => $cheese]);
     }
 }

@@ -24,7 +24,9 @@ class CheeseController extends AbstractController {
      */
     public function show(Cheese $cheese)
     {
-        dump($this->getDoctrine()->getRepository(UsersCheesesRatings::class)->findAll());
+        $rating = $this->getDoctrine()->getRepository(UsersCheesesRatings::class)->getRating($this->getUser(), $cheese);
+        dump($rating);
+
         return $this->render('cheese/show.html.twig', ['cheese' => $cheese]);
     }
 
@@ -38,7 +40,7 @@ class CheeseController extends AbstractController {
         $data = \GuzzleHttp\json_decode($request->getContent(), true);
 
         //$data['cheese']
-        $cheese = $this->getDoctrine()->getRepository(Cheese::class)->find(1);
+        $cheese = $this->getDoctrine()->getRepository(Cheese::class)->find($data['cheese']);
 
         $rating = new Rating();
         $rating->setMark($data['rating']);
