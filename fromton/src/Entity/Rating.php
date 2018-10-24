@@ -41,11 +41,13 @@ class Rating
     /**
      * @OneToMany(targetEntity="UsersCheesesRatings", mappedBy="rating")
      */
-    private $eventsPeopleRoles;
+    private $usersCheesesRatings;
 
     public function __construct()
     {
-        $this->eventsPeopleRoles = new ArrayCollection();
+        $this->created_at = new \DateTime();
+        $this->updated_at = new \DateTime();
+        $this->usersCheesesRatings = new ArrayCollection();
     }
 
     public function getId(): ?int

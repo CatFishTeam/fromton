@@ -95,7 +95,7 @@ class User implements UserInterface, \Serializable
     /**
      * @OneToMany(targetEntity="UsersCheesesRatings", mappedBy="user")
      */
-    private $eventsPeopleRoles;
+    private $usersCheesesRatings;
 
     /**
      * Many Users have Many Users.
@@ -115,9 +115,9 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
+        $this->usersCheesesRatings = new ArrayCollection();
         $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
         $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->eventsPeopleRoles = new ArrayCollection();
     }
 
     public function getId(): int
