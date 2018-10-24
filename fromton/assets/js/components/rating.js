@@ -14,8 +14,9 @@ if(levels.length > 0){
 
 //Show Cheese
 const stars = $('.show__cheese__rating--user');
-stars.rateYo().on("rateyo.set", function (e, data) {
-    //@TODO add cheese
+stars.rateYo({rating: stars.data('rating')})
+    .on("rateyo.set", function (e, data) {
+    data['cheese'] =  stars.data('cheese');
     fetch('/cheese/setNote', {
         method: "POST",
         body: JSON.stringify(data),
