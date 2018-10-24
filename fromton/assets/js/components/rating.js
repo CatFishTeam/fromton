@@ -17,7 +17,7 @@ const stars = $('.show__cheese__rating--user');
 stars.rateYo({rating: stars.data('rating')})
     .on("rateyo.set", (e, data) => {
     if(window.isAuthenticated === "false"){
-        window.toastr.error('Vous devez être authentifié pour voter.<br><a href="/login">Se connecter</a>');
+        window.toastr.error('Vous devez être authentifié pour voter.<br><a href="/login">Se connecter &larr;</a>');
         return;
     }
     data['cheese'] =  stars.data('cheese');
