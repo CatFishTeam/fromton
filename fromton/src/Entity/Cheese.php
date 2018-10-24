@@ -46,11 +46,11 @@ class Cheese
     /**
      * @OneToMany(targetEntity="UsersCheesesRatings", mappedBy="cheese")
      */
-    private $eventsPeopleRoles;
+    private $usersCheesesRatings;
 
     public function __construct()
     {
-        $this->eventsPeopleRoles = new ArrayCollection();
+        $this->usersCheesesRatings = new ArrayCollection();
     }
 
     /**
