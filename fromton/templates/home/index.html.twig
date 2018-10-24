@@ -9,8 +9,9 @@
                     <img src="{{ asset('build/assets/images/svg/mouse.svg') }}" alt="mouse" class="home home__cheese__img">
                     <h4 class="home home__cheese__title">{{ cheese.name }}</h4>
                     <div class="home__cheese__rating">
-                        <div class="rateYo" data-rating="4"></div>
+                        <div class="rating" data-rating="4"></div>
                     </div>
+                    <a class="home__cheese__link text-beige2" href="{{ url('cheese_show', {name: cheese.name}) }}">Notez-le !</a>
                 </div>
                 {% if loop.index % 2 == 0 %}</div>{% endif %}
             {% endfor %}

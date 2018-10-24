@@ -40,7 +40,16 @@ class UserFixtures extends Fixture
             $user->setToken(md5(random_bytes(20)));
             $manager->persist($user);
         }
-
+        $user = new User();
+        $user->setFullName("admin");
+        $user->setUsername("admin");
+        $user->setEmail("mael.mayon@free.fr");
+        $user->setPassword("admin");
+        $user->setCreatedAt($faker->dateTime);
+        $user->setXp($faker->numberBetween(1, 3000));
+        $user->setValidate(true);
+        $user->setToken(md5(random_bytes(20)));
+        $manager->persist($user);
         $manager->flush();
     }
 }
