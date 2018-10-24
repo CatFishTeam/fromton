@@ -4,6 +4,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\OneToMany;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -43,14 +44,13 @@ class Cheese
     private $category;
 
     /**
-     * @ManyToMany(targetEntity="User", mappedBy="cheeses")
+     * @OneToMany(targetEntity="UsersCheesesRatings", mappedBy="cheese")
      */
-    private $users;
-
+    private $eventsPeopleRoles;
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->eventsPeopleRoles = new ArrayCollection();
     }
 
     /**
@@ -125,10 +125,4 @@ class Cheese
 
         return $this;
     }
-
-    public function addUser(User $user)
-    {
-        $this->users[] = $user;
-    }
-
 }
