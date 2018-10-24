@@ -25,10 +25,20 @@
 
             <a href="{{ path('easyadmin', { entity: 'Category', action: 'list' }) }}">
                 <div class="info-box">
-                    <span class="info-box-icon bg-yellow"><i class="fa fa-th-list"></i></span>
+                    <span class="info-box-icon bg-orange"><i class="fa fa-th-list"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Categories</span>
                         <span class="info-box-number">{{ categoriesNb }}</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ path('easyadmin', { entity: 'Animal', action: 'list' }) }}">
+                <div class="info-box">
+                    <span class="info-box-icon bg-purple"><i class="fa fa-paw"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Animals</span>
+                        <span class="info-box-number">{{ animalsNb }}</span>
                     </div>
                 </div>
             </a>
