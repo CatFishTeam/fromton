@@ -9,6 +9,7 @@ easy_admin:
         - name
         - description
         - category
+        - animal
         - location
       show:
         fields:
@@ -16,6 +17,7 @@ easy_admin:
         - name
         - description
         - category
+        - animal
         - location
       form:
         fields:
@@ -24,5 +26,6 @@ easy_admin:
         - { property: 'description' }
         - { type: 'divider' }
         - { property: 'category', type: 'easyadmin_autocomplete' }
+        - { property: 'animal', type: 'easyadmin_autocomplete' }
         - { property: 'location', type: 'easyadmin_autocomplete' }
         - { type: 'group', css_class: 'col-sm-4', label: 'Product Details', icon: 'cube' }

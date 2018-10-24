@@ -56,6 +56,9 @@ class GoogleAuthenticator extends SocialAuthenticator
             $user->setEmail($googleUser->getEmail());
             $user->setFullname($googleUser->getName());
             $user->setUsername($googleUser->getName());
+            $user->setToken(md5(random_bytes(20)));
+            $user->setValidate(true);
+            $user->setXp(1);
             $user->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')));
             $this->em->persist($user);
             $this->em->flush();

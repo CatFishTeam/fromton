@@ -17,8 +17,8 @@ $('#searchbar').on('keyup', (data) => {
                                         <img src='/build/assets/images/svg/roundedChesse.c4eacb29.svg'>
                                         <div class="search-result-content">
                                             <p>${value.name}</p>
-                                            <span>${value.category.name}</span>
-                                            <span>${value.location.name} - ${value.location.country.name}</span>
+                                            <span>Pate ${value.category.name} - Lait de ${value.animal.name}</span>
+                                            <span><i class="fa fa-map-marker"></i> ${value.location.name} - <i class="fa fa-globe"></i> ${value.location.country.name}</span>
                                         </div>
                                     </a>`
                     ul.append(li);

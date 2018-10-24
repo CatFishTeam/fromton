@@ -44,6 +44,12 @@ class Cheese
     private $category;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Animal")
+     * @ORM\JoinColumn(name="animal_id", referencedColumnName="id")
+     */
+    private $animal;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="cheeses")
      */
     private $location;
@@ -123,6 +129,18 @@ class Cheese
     public function setLocation(?Location $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    public function getAnimal(): ?Animal
+    {
+        return $this->animal;
+    }
+
+    public function setAnimal(?Animal $animal): self
+    {
+        $this->animal = $animal;
 
         return $this;
     }
