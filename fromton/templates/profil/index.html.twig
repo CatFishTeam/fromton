@@ -1,1 +1,11 @@
-coucou
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h3>{{ user.fullname }} : {{ user.username }}</h3>
+    <p>Email: {{ user.email }}</p>
+    <p>Niveau: {{ level }}</p>
+    <p>Expérience nécessaire pour le prochain niveau: {{ reste }}</p>
+
+{% endblock %}
