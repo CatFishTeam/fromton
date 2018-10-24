@@ -42,9 +42,9 @@ class UserFixtures extends Fixture
         }
         $user = new User();
         $user->setFullName("admin");
-        $user->setUsername("admin");
-        $user->setEmail("mael.mayon@free.fr");
-        $user->setPassword("admin");
+        $user->setUsername("root");
+        $user->setEmail($faker->email);
+        $user->setPassword($this->passwordEncoder->encodePassword($user, "root"));
         $user->setCreatedAt($faker->dateTime);
         $user->setXp($faker->numberBetween(1, 3000));
         $user->setValidate(true);
