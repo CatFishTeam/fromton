@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -33,7 +34,7 @@ class Category
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -68,6 +69,11 @@ class Category
     public function setDescription($description): void
     {
         $this->description = $description;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
 }

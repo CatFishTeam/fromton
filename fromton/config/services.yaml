@@ -34,9 +34,8 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    App\EventSubscriber\RegistrationNotifySubscriber:
+    App\Controller\RegistrationController:
         $sender: '%app.notifications.email_sender%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    Symfony\Component\Asset\UrlPackage: '@assets.url_package'

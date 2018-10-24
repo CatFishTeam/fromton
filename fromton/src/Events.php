@@ -12,5 +12,4 @@ final class Events
 *
 * @var string
 */
-const USER_REGISTERED = 'user.registered';
 }

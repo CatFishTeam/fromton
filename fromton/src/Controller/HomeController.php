@@ -10,7 +10,7 @@ class HomeController extends AbstractController
 {
 
     /**
-     * @Route("/", name="home", methods={"GET"})
+     * @Route("/", name="home", methods={"GET"}, host="dev.fromton.io")
      */
     public function index()
     {

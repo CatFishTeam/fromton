@@ -1,7 +1,9 @@
 <?php
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToMany;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -41,13 +43,28 @@ class Cheese
     private $category;
 
     /**
+     * @ManyToMany(targetEntity="User", mappedBy="cheeses")
+     */
+    private $users;
+
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
+
+    /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="cheeses")
+     */
+    private $location;
 
     /**
      * @return mixed
@@ -95,6 +112,23 @@ class Cheese
     public function setCategory($category): void
     {
         $this->category = $category;
+    }
+
+    public function getLocation(): ?Location
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?Location $location): self
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    public function addUser(User $user)
+    {
+        $this->users[] = $user;
     }
 
 }

@@ -2,7 +2,11 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\ManyToMany;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -58,6 +62,13 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=64, nullable=false)
+     */
+    private $token;
+
+    /**
      * @var array
      *
      * @ORM\Column(type="json")
@@ -67,7 +78,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var boolean
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : 0})
      */
     private $validate;
 
@@ -83,7 +94,21 @@ class User implements UserInterface, \Serializable
      */
     private $created_at;
 
-    public function getId(): int
+    /**
+     * @ManyToMany(targetEntity="User")
+     * @JoinTable(name="users_cheeses",
+     *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="cheese_id", referencedColumnName="id")}
+     *      )
+     */
+    private $cheeses;
+
+    public function __construct()
+    {
+        $this->cheeses = new ArrayCollection();
+    }
+
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -128,6 +153,24 @@ class User implements UserInterface, \Serializable
     {
         $this->password = $password;
     }
+
+    /**
+     * @return string
+     */
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string $token
+     */
+    public function setToken(string $token): void
+    {
+        $this->token = $token;
+    }
+
+
 
     /**
      * Retourne les rôles de l'user
@@ -179,6 +222,16 @@ class User implements UserInterface, \Serializable
         $this->created_at = $created_at;
 
         return $this;
+    }
+
+    public function getCheeses() {
+        return $this->cheeses;
+    }
+
+    public function addCheese(Cheese $cheese)
+    {
+        $cheese->addUser($this); // synchronously updating inverse side
+        $this->cheeses[] = $cheese;
     }
 
     /**

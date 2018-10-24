@@ -25,7 +25,7 @@ class AppExtension extends AbstractExtension
     public function getNotifications()
     {
         $url = $this->assetsPackage->getUrl("build/assets/images/svg/notification_new.svg");
-        $notifications = 100;
+        $notifications = 12;
         if ($notifications >= 1){
             $output = "<img src=".$url." class='notification' alt='notification'><span class='notification__number ". ($notifications > 10 ? 'notification__number--overten' : '')." ".($notifications > 99 ? 'notification__number--overninethousand' : '') ."'>".($notifications > 99 ? '99' : $notifications)."</span>";
             return $output;

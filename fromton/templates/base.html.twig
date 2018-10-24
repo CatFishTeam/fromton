@@ -18,6 +18,13 @@
 
         {% block javascripts %}
             <script src="{{ asset('build/js/fromton.js') }}" type="text/javascript"></script>
+            <script type="text/javascript">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        toastr.{{ label }}("{{ message }}");
+                    {% endfor %}
+                {% endfor %}
+            </script>
         {% endblock %}
     </body>
 </html>
