@@ -3,13 +3,13 @@ import 'rateyo'
 //Home
 const levels = $(".home__cheese__rating .rating");
 if(levels.length > 0){
-    Object.keys(levels).forEach(function(key) {
-        let rating = $(levels[key]).data('rating')
+    for(const key in Object.keys(levels)){
+        let rating = $(levels[key]).data('rating');
         $(levels[key]).rateYo({
             readOnly: true,
             rating: rating
         });
-    });
+    }
 }
 
 //Show Cheese
