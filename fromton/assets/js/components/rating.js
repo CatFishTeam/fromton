@@ -15,7 +15,11 @@ if(levels.length > 0){
 //Show Cheese
 const stars = $('.show__cheese__rating--user');
 stars.rateYo({rating: stars.data('rating')})
-    .on("rateyo.set", function (e, data) {
+    .on("rateyo.set", (e, data) => {
+    if(window.isAuthenticated === "false"){
+        window.toastr.error('Vous devez être authentifié pour voter.<br><a href="/login">Se connecter</a>');
+        return;
+    }
     data['cheese'] =  stars.data('cheese');
     fetch('/cheese/setNote', {
         method: "POST",
@@ -26,8 +30,9 @@ stars.rateYo({rating: stars.data('rating')})
             return response.json();
         })
         .then(function(myJson) {
+            window.toastr.success('Votre notre a bien été enregistrée !');
             console.log(JSON.stringify(myJson));
         });
 });
 
-$('.show__cheese__rating--global').rateYo({rating: stars.data('rating')});
+$('.show__cheese__rating--global').rateYo({rating: $('.show__cheese__rating--global').data('rating')});

@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Traits\TimestampableTrait;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -17,6 +18,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface, \Serializable
 {
+    use TimestampableTrait;
+
     /**
      * @var int
      *
@@ -86,10 +89,6 @@ class User implements UserInterface, \Serializable
      */
     private $xp;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $created_at;
 
     /**
      * @ORM\OneToMany(targetEntity="UsersCheesesRatings", mappedBy="user")
@@ -221,18 +220,6 @@ class User implements UserInterface, \Serializable
     public function setXp(int $xp): void
     {
         $this->xp = $xp;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
     }
 
     public function getCheeses() {

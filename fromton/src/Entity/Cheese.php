@@ -1,10 +1,10 @@
 <?php
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\OneToMany;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -24,6 +24,16 @@ class Cheese
      * @ORM\Column(type="integer")
      */
     private $id;
+
+
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    /*
+    private $slug;
+    */
+
 
     /**
      * @ORM\Column(type="string", unique=true)
@@ -144,4 +154,14 @@ class Cheese
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    /*
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+    */
 }

@@ -28,18 +28,17 @@ class CheeseController extends AbstractController {
         $usersCheesesRatingsRepo = $this->getDoctrine()->getRepository(UsersCheesesRatings::class);
         $rating = 0;
         if($this->getUser()){
-            //@todo if co and 0 note
             if($usersCheesesRatingsRepo->getRating($this->getUser(), $cheese) !== null){
                 $rating =  $usersCheesesRatings = $usersCheesesRatingsRepo->getRating($this->getUser(), $cheese)->getRating()->getMark();
             }
         };
-        //$globalRating = $usersCheesesRatingsRepo->getGlobalRating($cheese);
+        $globalRating = $this->getDoctrine()->getRepository(Cheese::class)->globalRating($cheese);
 
         return $this->render('cheese/show.html.twig',
             [
                 'cheese' => $cheese,
                 'rating' => $rating,
-                'globalRating' => 0
+                'globalRating' => $globalRating
             ]);
     }
 
