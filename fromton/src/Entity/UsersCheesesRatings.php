@@ -24,13 +24,13 @@ class UsersCheesesRatings
     private $id;
 
     /**
-     * @ManyToOne(targetEntity="User", inversedBy="usersCheesesRatings", cascade={"persist"}, fetch="EAGER")
+     * @ManyToOne(targetEntity="User", inversedBy="usersCheesesRatings", cascade={"persist"})
      * @JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
 
     /**
-     * @ManyToOne(targetEntity="Cheese", inversedBy="usersCheesesRatings", cascade={"persist"}, fetch="EAGER")
+     * @ManyToOne(targetEntity="Cheese", inversedBy="usersCheesesRatings", cascade={"persist"})
      * @JoinColumn(name="cheese_id", referencedColumnName="id", nullable=false)
      */
     private $cheese;

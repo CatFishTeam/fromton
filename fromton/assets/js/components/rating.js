@@ -29,3 +29,5 @@ stars.rateYo({rating: stars.data('rating')})
             console.log(JSON.stringify(myJson));
         });
 });
+
+$('.show__cheese__rating--global').rateYo({rating: stars.data('rating')});

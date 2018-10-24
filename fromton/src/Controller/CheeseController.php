@@ -24,16 +24,28 @@ class CheeseController extends AbstractController {
      */
     public function show(Cheese $cheese)
     {
-        $usersCheesesRatings = $this->getDoctrine()->getRepository(UsersCheesesRatings::class)->getRating($this->getUser(), $cheese);
-        dump($usersCheesesRatings->getRating()->getMark());
-        return $this->render('cheese/show.html.twig', ['cheese' => $cheese, 'rating' => $usersCheesesRatings->getRating()->getMark()]);
+        //@todo If user not connected !!!
+        //@todo Remove on add or get last or create globalRating column and update on click
+        $usersCheesesRatingsRepo = $this->getDoctrine()->getRepository(UsersCheesesRatings::class);
+        $rating = 0;
+        if($this->getUser()){
+            $rating =  $usersCheesesRatings = $usersCheesesRatingsRepo->getRating($this->getUser(), $cheese)->getRating()->getMark();
+        };
+        //$globalRating = $usersCheesesRatingsRepo->getGlobalRating($cheese);
+
+        return $this->render('cheese/show.html.twig',
+            [
+                'cheese' => $cheese,
+                'rating' => $rating,
+                'globalRating' => 0
+            ]);
     }
 
     /**
      * @Security("is_granted('ROLE_USER')")
      * @Route ("/cheese/setNote", name="cheese_setnot", methods={"POST"})
      */
-    public function setNote(Request $request)
+    public function setMark(Request $request)
     {
         //@TODO: If user is connected -> ...  Else: toastr."Vous devez être connecté"
         $data = \GuzzleHttp\json_decode($request->getContent(), true);
