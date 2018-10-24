@@ -22,12 +22,24 @@
         <div class="navbar-nav m-auto">
             <a class="navbar-brand text-beige" href="/"><img src="{{ asset('build/assets/images/svg/cheese.svg') }}" alt="mouse">FROMTON</a>
         </div>
+        <div class="nav-item">
+            <img src="{{ asset('build/assets/images/svg/notification.svg') }}" alt="notification">
+        </div>
+        {{ notifications()|raw }}
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="{{ asset('build/assets/images/svg/mouse.svg') }}" alt="mouse">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ path('security_login')}}">Connexion</a>
+                {%  if not app.user %}
+                    <a class="dropdown-item" href="{{ path('security_login')}}">Connexion</a>
+                    <a class="dropdown-item" href="{{ path('user_registration')}}">Créer un compte</a>
+                {%  endif %}
+                {%  if app.user %}
+                    <a class="dropdown-item" href="{{ path('profil_index', {'id': app.user.id}) }}">Mon compte</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ path('security_logout')}}">Déconnexion</a>
+                {%  endif %}
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Something else here</a>
             </div>

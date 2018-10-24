@@ -4,7 +4,7 @@
 
 - Ask a team member for .env content
 
-- Add the following vhost to your machine : `127.0.0.1 dev.fromton.io`
+- Add the following host to your machine (in `/etc/hosts`) : `127.0.0.1 dev.fromton.io`
 
 - Run `docker-compose up` to launch project with Docker
 

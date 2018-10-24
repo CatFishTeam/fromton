@@ -1,7 +1,11 @@
 <?php
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\OneToMany;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -22,13 +26,14 @@ class Cheese
     private $id;
 
     /**
-     *
      * @ORM\Column(type="string", unique=true)
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $description;
 
@@ -39,13 +44,27 @@ class Cheese
     private $category;
 
     /**
+     * @OneToMany(targetEntity="UsersCheesesRatings", mappedBy="cheese")
+     */
+    private $eventsPeopleRoles;
+
+    public function __construct()
+    {
+        $this->eventsPeopleRoles = new ArrayCollection();
+    }
+
+    /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="cheeses")
+     */
+    private $location;
 
     /**
      * @return mixed
@@ -95,4 +114,15 @@ class Cheese
         $this->category = $category;
     }
 
+    public function getLocation(): ?Location
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?Location $location): self
+    {
+        $this->location = $location;
+
+        return $this;
+    }
 }

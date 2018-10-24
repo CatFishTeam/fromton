@@ -1,10 +1,10 @@
 {
   "scripts": {
-  "dev-server": "encore dev-server",
-  "dev": "encore dev",
-  "watch": "encore dev --watch",
-  "build": "encore production",
-  "postinstall": "encore production"
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production",
+    "postinstall": "encore production"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.3.1",
@@ -15,5 +15,9 @@
     "popper.js": "^1.14.4",
     "sass-loader": "^7.1.0",
     "webpack-notifier": "^1.6.0"
+  },
+  "dependencies": {
+    "rateyo": "^2.3.5",
+    "toastr": "^2.1.4"
   }
 }

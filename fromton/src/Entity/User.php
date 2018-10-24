@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\OneToMany;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -61,6 +63,13 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=64, nullable=false)
+     */
+    private $token;
+
+    /**
      * @var array
      *
      * @ORM\Column(type="json")
@@ -68,9 +77,28 @@ class User implements UserInterface, \Serializable
     private $roles = [];
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : 0})
+     */
+    private $validate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $xp;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
+
+    /**
+     * @OneToMany(targetEntity="UsersCheesesRatings", mappedBy="user")
+     */
+    private $eventsPeopleRoles;
 
     /**
      * Many Users have Many Users.
@@ -88,9 +116,11 @@ class User implements UserInterface, \Serializable
      */
     private $myFriends;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
         $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->eventsPeopleRoles = new ArrayCollection();
     }
 
     public function getId(): int
@@ -140,6 +170,24 @@ class User implements UserInterface, \Serializable
     }
 
     /**
+     * @return string
+     */
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string $token
+     */
+    public function setToken(string $token): void
+    {
+        $this->token = $token;
+    }
+
+
+
+    /**
      * Retourne les rôles de l'user
      */
     public function getRoles(): array
@@ -159,6 +207,26 @@ class User implements UserInterface, \Serializable
         $this->roles = $roles;
     }
 
+    public function isValidate(): bool
+    {
+        return $this->validate;
+    }
+
+    public function setValidate(bool $validate): void
+    {
+        $this->validate = $validate;
+    }
+
+    public function getXp(): int
+    {
+        return $this->xp;
+    }
+
+    public function setXp(int $xp): void
+    {
+        $this->xp = $xp;
+    }
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->created_at;
@@ -169,6 +237,16 @@ class User implements UserInterface, \Serializable
         $this->created_at = $created_at;
 
         return $this;
+    }
+
+    public function getCheeses() {
+        return $this->cheeses;
+    }
+
+    public function addCheese(Cheese $cheese)
+    {
+        $cheese->addUser($this); // synchronously updating inverse side
+        $this->cheeses[] = $cheese;
     }
 
     /**

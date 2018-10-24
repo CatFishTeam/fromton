@@ -2,16 +2,15 @@
 
 namespace App\Controller;
 
-use App\Repository\CheeseRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Cheese;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
 
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="home", methods={"GET"}, host="dev.fromton.io")
      */
     public function index()
     {
@@ -19,8 +18,6 @@ class HomeController extends AbstractController
 
         $cheeses = $cheeseRepository->findBy([],[], 4);
         $cheeseOfTheWeek = $cheeseRepository->cheeseOfTheWeek();
-
-        dump($cheeseOfTheWeek);
 
         return $this->render('home/index.html.twig', ['cheeses' => $cheeses, 'cheeseOfTheWeek' => $cheeseOfTheWeek]);
     }

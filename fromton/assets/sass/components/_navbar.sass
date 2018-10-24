@@ -5,7 +5,6 @@ nav
         img
             width: 2.5rem
             margin-right: 1rem
-
     .burgerMenu
         z-index: 9
         .fa-bars
@@ -41,3 +40,24 @@ nav
                         color: $beige
                         font-size: 24px
                         font-family: Lora
+    .notification
+        width: 45px
+        cursor: pointer
+        &__number
+            position: relative
+            top: -12px
+            left: -17px
+            font-size: 0.8rem
+            color: white
+            cursor: pointer
+            &--overten
+                position: relative
+                top: -12px
+                left: -20px
+                font-size: 0.7rem
+                color: white
+            &--overninethousand
+                &::after
+                    content: "+"
+                    position: absolute
+                    top: -6px
