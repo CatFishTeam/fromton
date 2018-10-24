@@ -21,7 +21,7 @@ class Rating
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $mark;
 
@@ -47,12 +47,12 @@ class Rating
         return $this->id;
     }
 
-    public function getMark(): ?int
+    public function getMark(): ?float
     {
         return $this->mark;
     }
 
-    public function setMark(int $mark): self
+    public function setMark(float $mark): self
     {
         $this->mark = $mark;
 
