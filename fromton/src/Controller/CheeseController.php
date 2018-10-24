@@ -24,10 +24,9 @@ class CheeseController extends AbstractController {
      */
     public function show(Cheese $cheese)
     {
-        $rating = $this->getDoctrine()->getRepository(UsersCheesesRatings::class)->getRating($this->getUser(), $cheese);
-        dump($rating);
-
-        return $this->render('cheese/show.html.twig', ['cheese' => $cheese]);
+        $usersCheesesRatings = $this->getDoctrine()->getRepository(UsersCheesesRatings::class)->getRating($this->getUser(), $cheese);
+        dump($usersCheesesRatings->getRating()->getMark());
+        return $this->render('cheese/show.html.twig', ['cheese' => $cheese, 'rating' => $usersCheesesRatings->getRating()->getMark()]);
     }
 
     /**
@@ -39,7 +38,6 @@ class CheeseController extends AbstractController {
         //@TODO: If user is connected -> ...  Else: toastr."Vous devez être connecté"
         $data = \GuzzleHttp\json_decode($request->getContent(), true);
 
-        //$data['cheese']
         $cheese = $this->getDoctrine()->getRepository(Cheese::class)->find($data['cheese']);
 
         $rating = new Rating();
