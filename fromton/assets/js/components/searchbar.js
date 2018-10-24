@@ -8,6 +8,9 @@ $('#searchbar').on('keyup', (data) => {
             .then(function (data) {
                 let ul = $('#searchbar-dropdown');
 
+                ul.empty();
+                ul.show();
+
                 for (const value of data) {
                     let li = document.createElement('li');
                     li.innerHTML = `<a href="/cheese/${value.name}">
@@ -22,4 +25,8 @@ $('#searchbar').on('keyup', (data) => {
                 }
             })
     }
+});
+
+$('#searchbar').focusout(() => {
+    $('#searchbar-dropdown').hide();
 });
