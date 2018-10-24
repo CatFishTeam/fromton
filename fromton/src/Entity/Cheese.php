@@ -44,6 +44,12 @@ class Cheese
     private $category;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="cheeses")
+     */
+    private $location;
+
+
+    /**
      * @OneToMany(targetEntity="UsersCheesesRatings", mappedBy="cheese")
      */
     private $usersCheesesRatings;
@@ -60,11 +66,6 @@ class Cheese
     {
         return $this->id;
     }
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="cheeses")
-     */
-    private $location;
 
     /**
      * @return mixed

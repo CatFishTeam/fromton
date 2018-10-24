@@ -5,7 +5,7 @@
 {% block body %}
 
     <div class="container">
-        <h1>Les users</h1>
+        <h1 class="my-4">Communauté</h1>
 
         <div class="users">
             {% for user in users %}
@@ -13,7 +13,7 @@
                     <div class="users__single">
                         {{ user.fullName }}
                         {% if follow is not defined or (follow is defined and user != follow) %}
-                            <a href="{{ path('follow', {'id': user.id}) }}">Suivre cet utilisateur</a>
+                            <a href="{{ path('follow', {'id': user.id}) }}" class="link">Suivre cet utilisateur</a>
                         {% else %}
                             <span>Vous suivez cet individu</span>
                         {% endif %}
