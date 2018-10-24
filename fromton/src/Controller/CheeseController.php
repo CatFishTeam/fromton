@@ -24,12 +24,14 @@ class CheeseController extends AbstractController {
      */
     public function show(Cheese $cheese)
     {
-        //@todo If user not connected !!!
         //@todo Remove on add or get last or create globalRating column and update on click
         $usersCheesesRatingsRepo = $this->getDoctrine()->getRepository(UsersCheesesRatings::class);
         $rating = 0;
         if($this->getUser()){
-            $rating =  $usersCheesesRatings = $usersCheesesRatingsRepo->getRating($this->getUser(), $cheese)->getRating()->getMark();
+            //@todo if co and 0 note
+            if($usersCheesesRatingsRepo->getRating($this->getUser(), $cheese) !== null){
+                $rating =  $usersCheesesRatings = $usersCheesesRatingsRepo->getRating($this->getUser(), $cheese)->getRating()->getMark();
+            }
         };
         //$globalRating = $usersCheesesRatingsRepo->getGlobalRating($cheese);
 
