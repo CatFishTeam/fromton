@@ -17,6 +17,7 @@
     "webpack-notifier": "^1.6.0"
   },
   "dependencies": {
+    "autocomplete-js": "^2.7.1",
     "rateyo": "^2.3.5",
     "toastr": "^2.1.4"
   }
