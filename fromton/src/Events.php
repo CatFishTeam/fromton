@@ -12,4 +12,5 @@ final class Events
 *
 * @var string
 */
+Const RATE_CHEESE = "";
 }
