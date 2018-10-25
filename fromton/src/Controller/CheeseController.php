@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cheese;
+use App\Entity\Notification;
 use App\Entity\Rating;
 use App\Entity\UsersCheesesRatings;
 use Doctrine\ORM\EntityManagerInterface;
@@ -57,13 +58,23 @@ class CheeseController extends AbstractController {
         $rating->setMark($data['rating']);
 
         $user = $this->getUser();
-
+        $xp = $user->getXp();
+        $user->setXp($xp + 5);
         $userCheeseRating = new UsersCheesesRatings();
         $userCheeseRating->setRating($rating);
         $userCheeseRating->setCheese($cheese);
         $userCheeseRating->setUser($user);
         $this->em->persist($userCheeseRating);
         $this->em->flush();
+
+        //@TODO: lister tout les amis du user et foreach sur chaque user
+        $notification = new Notification();
+        $notification->setTexte("Votre ami ".$user->getUsername()." a noté un fromage: ".$cheese->getName());
+        $notification->setCreatedAt(new \DateTime());
+        $notification->setUser($user);
+        $this->em->persist($notification);
+        $this->em->flush();
+
 
         return $this->json(['rating'=> $data['rating']]);
     }

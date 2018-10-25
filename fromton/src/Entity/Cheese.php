@@ -59,6 +59,10 @@ class Cheese
      */
     private $location;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="cheese")
+     */
+    private $likes;
 
     /**
      * @ORM\OneToMany(targetEntity="UsersCheesesRatings", mappedBy="cheese")
@@ -136,6 +140,22 @@ class Cheese
         $this->location = $location;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * @param mixed $likes
+     */
+    public function setLikes($likes): void
+    {
+        $this->likes = $likes;
     }
 
     public function getAnimal(): ?Animal
