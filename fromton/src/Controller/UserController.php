@@ -36,12 +36,14 @@ class UserController extends AbstractController
         $users = $repository->findAll();
         $me = $this->getUser();
 
-        $friends = $friendRepo->getAllFriends($me);
-
         $friendsArray = [];
 
-        foreach ($friends as $friend) {
-            $friendsArray[] = $friend->getFriend()->getFullName();
+        if ($me) {
+            $friends = $friendRepo->getAllFriends($me);
+
+            foreach ($friends as $friend) {
+                $friendsArray[] = $friend->getFriend()->getFullName();
+            }
         }
 
         return $this->render('user/users.html.twig', [
