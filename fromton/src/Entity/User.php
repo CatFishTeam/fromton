@@ -2,12 +2,11 @@
 
 namespace App\Entity;
 
+
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\JoinTable;
-use Doctrine\ORM\Mapping\ManyToMany;
-use Doctrine\ORM\Mapping\OneToMany;
+use App\Entity\Traits\TimestampableTrait;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -21,6 +20,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface, \Serializable
 {
+    use TimestampableTrait;
+
     /**
      * @var int
      *
@@ -90,15 +91,26 @@ class User implements UserInterface, \Serializable
      */
     private $xp;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $created_at;
 
     /**
-     * @OneToMany(targetEntity="UsersCheesesRatings", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="UsersCheesesRatings", mappedBy="user")
      */
-    private $eventsPeopleRoles;
+    private $usersCheesesRatings;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cheese", mappedBy="user")
+     */
+    private $notifications;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cheeze", mappedBy="user")
+     */
+    private $cheezes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Publication", mappedBy="user")
+     */
+    private $publications;
 
     /**
      * @ORM\OneToMany(targetEntity="Friendship", mappedBy="user")
@@ -112,11 +124,17 @@ class User implements UserInterface, \Serializable
     private $friendsWithMe;
 
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Badge", mappedBy="users")
+     */
+    private $badges;
+
     public function __construct()
     {
-        $this->friends = new ArrayCollection();
-        $this->friendsWithMe = new ArrayCollection();
-        $this->eventsPeopleRoles = new ArrayCollection();
+        $this->usersCheesesRatings = new ArrayCollection();
+        $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->badges = new ArrayCollection();
     }
 
     public function getId(): int
@@ -127,6 +145,22 @@ class User implements UserInterface, \Serializable
     public function setFullName(string $fullName): void
     {
         $this->fullName = $fullName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPublications()
+    {
+        return $this->publications;
+    }
+
+    /**
+     * @param mixed $publications
+     */
+    public function setPublications($publications): void
+    {
+        $this->publications = $publications;
     }
 
     // le ? signifie que cela peur aussi retourner null
@@ -241,21 +275,42 @@ class User implements UserInterface, \Serializable
         $this->xp = $xp;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    /**
+     * @return mixed
+     */
+    public function getCheezes()
     {
-        return $this->created_at;
+        return $this->cheezes;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    /**
+     * @param mixed $cheezes
+     */
+    public function setCheezes($cheezes): void
     {
-        $this->created_at = $created_at;
+        $this->cheezes = $cheezes;
+    }
 
-        return $this;
+    /**
+     * @return mixed
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
+    }
+
+    /**
+     * @param mixed $notifications
+     */
+    public function setNotifications($notifications): void
+    {
+        $this->notifications = $notifications;
     }
 
     public function getCheeses() {
         return $this->cheeses;
     }
+
 
     public function addCheese(Cheese $cheese)
     {
@@ -303,5 +358,33 @@ class User implements UserInterface, \Serializable
     public function unserialize($serialized): void
     {
         [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    /**
+     * @return Collection|Badge[]
+     */
+    public function getBadges(): Collection
+    {
+        return $this->badges;
+    }
+
+    public function addBadge(Badge $badge): self
+    {
+        if (!$this->badges->contains($badge)) {
+            $this->badges[] = $badge;
+            $badge->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBadge(Badge $badge): self
+    {
+        if ($this->badges->contains($badge)) {
+            $this->badges->removeElement($badge);
+            $badge->removeUser($this);
+        }
+
+        return $this;
     }
 }

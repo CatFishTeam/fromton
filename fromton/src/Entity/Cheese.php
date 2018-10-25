@@ -1,10 +1,9 @@
 <?php
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\ManyToMany;
-use Doctrine\ORM\Mapping\OneToMany;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -32,6 +31,12 @@ class Cheese
     private $name;
 
     /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+
+    /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
      */
@@ -44,13 +49,29 @@ class Cheese
     private $category;
 
     /**
-     * @OneToMany(targetEntity="UsersCheesesRatings", mappedBy="cheese")
+     * @ORM\ManyToOne(targetEntity="Animal")
+     * @ORM\JoinColumn(name="animal_id", referencedColumnName="id")
      */
-    private $eventsPeopleRoles;
+    private $animal;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="cheeses")
+     */
+    private $location;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cheeze", mappedBy="cheese")
+     */
+    private $cheezes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="UsersCheesesRatings", mappedBy="cheese")
+     */
+    private $usersCheesesRatings;
 
     public function __construct()
     {
-        $this->eventsPeopleRoles = new ArrayCollection();
+        $this->usersCheesesRatings = new ArrayCollection();
     }
 
     /**
@@ -60,11 +81,6 @@ class Cheese
     {
         return $this->id;
     }
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="cheeses")
-     */
-    private $location;
 
     /**
      * @return mixed
@@ -101,6 +117,22 @@ class Cheese
     /**
      * @return mixed
      */
+    public function getCheezes()
+    {
+        return $this->cheezes;
+    }
+
+    /**
+     * @param mixed $cheezes
+     */
+    public function setCheezes($cheezes): void
+    {
+        $this->cheezes = $cheezes;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getCategory()
     {
         return $this->category;
@@ -124,5 +156,41 @@ class Cheese
         $this->location = $location;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * @param mixed $likes
+     */
+    public function setLikes($likes): void
+    {
+        $this->likes = $likes;
+    }
+
+    public function getAnimal(): ?Animal
+    {
+        return $this->animal;
+    }
+
+    public function setAnimal(?Animal $animal): self
+    {
+        $this->animal = $animal;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

@@ -10,11 +10,12 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Faker;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements OrderedFixtureInterface
 {
     private $passwordEncoder;
 
@@ -42,14 +43,24 @@ class UserFixtures extends Fixture
         }
         $user = new User();
         $user->setFullName("admin");
-        $user->setUsername("admin");
+        $user->setUsername("root");
         $user->setEmail("mael.mayon@free.fr");
-        $user->setPassword("admin");
+        $user->setPassword($this->passwordEncoder->encodePassword($user, "root"));
         $user->setCreatedAt($faker->dateTime);
         $user->setXp($faker->numberBetween(1, 3000));
         $user->setValidate(true);
         $user->setToken(md5(random_bytes(20)));
         $manager->persist($user);
         $manager->flush();
+    }
+
+    /**
+     * Get the order of this fixture
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return 5;
     }
 }

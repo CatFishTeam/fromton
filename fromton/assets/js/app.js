@@ -7,10 +7,13 @@ import 'bootstrap'
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
 
+import './global'
+
 //Components
 import './components/navbar'
 import './components/rating'
 import './components/notify.js';
+import './components/searchbar.js';
 
 //Images
 require('../images/svg/mouse.svg');

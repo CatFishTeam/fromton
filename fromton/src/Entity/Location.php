@@ -62,7 +62,7 @@ class Location
     }
 
     /**
-     * @return Collection|Location[]
+     * @return Collection|Cheese[]
      */
     public function getCheeses(): Collection
     {

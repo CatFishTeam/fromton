@@ -17,6 +17,9 @@ class HomeController extends AbstractController
         $cheeseRepository = $this->getDoctrine()->getRepository(Cheese::class);
 
         $cheeses = $cheeseRepository->findBy([],[], 4);
+        foreach ($cheeses as $cheese){
+            $cheese->rating = $cheeseRepository->globalRating($cheese);
+        }
         $cheeseOfTheWeek = $cheeseRepository->cheeseOfTheWeek();
 
         return $this->render('home/index.html.twig', ['cheeses' => $cheeses, 'cheeseOfTheWeek' => $cheeseOfTheWeek]);
