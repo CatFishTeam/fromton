@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Cheese;
 use App\Entity\Cheeze;
 use App\Entity\Notification;
+use App\Entity\Publication;
 use App\Entity\Rating;
 use App\Entity\UsersCheesesRatings;
 use Doctrine\ORM\EntityManagerInterface;
@@ -92,11 +93,11 @@ class CheeseController extends AbstractController {
         $this->em->flush();
 
         //@TODO: lister tout les amis du user et foreach sur chaque user
-        $notification = new Notification();
-        $notification->setTexte("Votre ami ".$user->getUsername()." a noté un fromage: ".$cheese->getName());
-        $notification->setCreatedAt(new \DateTime());
-        $notification->setUser($user);
-        $this->em->persist($notification);
+        $publication = new Publication();
+        $publication->setTexte("Votre ami ".$user->getUsername()." a noté un fromage: ".$cheese->getName());
+        $publication->setCreatedAt(new \DateTime());
+        $publication->setUser($user);
+        $this->em->persist($publication);
         $this->em->flush();
 
 
@@ -130,12 +131,11 @@ class CheeseController extends AbstractController {
         $this->em->persist($user);
 
         //@TODO a faire avec publication à la place et pour tous les amis
-        $notification = new Notification();
-        $notification->setTexte("Votre ami ".$user->getUsername()." a liké un fromage: ".$cheese->getName());
-        $notification->setCreatedAt(new \DateTime());
-        $notification->setUser($user);
-        $notification->setSeen(false);
-        $this->em->persist($notification);
+        $publication = new Publication();
+        $publication->setTexte("Votre ami ".$user->getUsername()." a liké un fromage: ".$cheese->getName());
+        $publication->setCreatedAt(new \DateTime());
+        $publication->setUser($user);
+        $this->em->persist($publication);
 
         $like = new Cheeze();
         $like->setUser($user);
