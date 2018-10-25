@@ -65,6 +65,16 @@
                 </div>
             </a>
 
+            <a href="{{ path('easyadmin', { entity: 'Badge', action: 'list' }) }}">
+                <div class="info-box">
+                    <span class="info-box-icon bg-red"><i class="fa fa-check-square"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Badges</span>
+                        <span class="info-box-number">{{ badgesNb }}</span>
+                    </div>
+                </div>
+            </a>
+
         </div>
     </div>
 {% endblock %}

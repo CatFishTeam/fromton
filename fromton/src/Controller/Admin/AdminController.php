@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Animal;
+use App\Entity\Badge;
 use App\Entity\Category;
 use App\Entity\Cheese;
 use App\Entity\Country;
@@ -25,6 +26,7 @@ class AdminController extends BaseAdminController
         $locationsNb = $this->getDoctrine()->getRepository(Location::class)->count([]);
         $countriesNb = $this->getDoctrine()->getRepository(Country::class)->count([]);
         $animalsNb = $this->getDoctrine()->getRepository(Animal::class)->count([]);
+        $badgesNb = $this->getDoctrine()->getRepository(Badge::class)->count([]);
 
         return $this->render('admin/dashboard.html.twig', [
             'cheesesNb' => $cheesesNb,
@@ -33,6 +35,7 @@ class AdminController extends BaseAdminController
             'locationsNb' => $locationsNb,
             'countriesNb' => $countriesNb,
             'animalsNb' => $animalsNb,
+            'badgesNb' => $badgesNb,
         ]);
     }
 
