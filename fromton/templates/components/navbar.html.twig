@@ -32,6 +32,7 @@
                         <a class="dropdown-item" href="{{ path('profil_index', {'id': app.user.id}) }}">Mon compte</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ path('security_logout')}}">Déconnexion</a>
+                        <a class="dropdown-item" href="{{ path('publications', {'id': app.user.id}) }}">Mon mur</a>
                     {%  endif %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Something else here</a>
