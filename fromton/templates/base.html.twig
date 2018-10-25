@@ -11,13 +11,12 @@
     <body>
         <span class="js-user-rating" data-is-authenticated="{{ app.user ? 'true' : 'false' }}"></span>
         <div class="burgerMenu__links">
-            <span class="menuClose">&times;</span>
             <ul>
                 <li><a href="{{ path('home') }}">Accueil</a></li>
                 <li><a href="{{ path('users') }}">Communauté</a></li>
             </ul>
+        </div>
         <main>
-            </div>
             {% block navbar %}
                 {% include 'components/navbar.html.twig' %}
             {% endblock %}
