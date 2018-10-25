@@ -97,6 +97,16 @@ class User implements UserInterface, \Serializable
     private $usersCheesesRatings;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cheese", mappedBy="user")
+     */
+    private $notifications;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="user")
+     */
+    private $likes;
+
+    /**
      * Many Users have Many Users.
      * @ORM\ManyToMany(targetEntity="User", mappedBy="myFriends")
      */
@@ -181,8 +191,6 @@ class User implements UserInterface, \Serializable
         $this->token = $token;
     }
 
-
-
     /**
      * Retourne les rôles de l'user
      */
@@ -233,6 +241,38 @@ class User implements UserInterface, \Serializable
         $this->created_at = $created_at;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
+    }
+
+    /**
+     * @param mixed $notifications
+     */
+    public function setNotifications($notifications): void
+    {
+        $this->notifications = $notifications;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * @param mixed $likes
+     */
+    public function setLikes($likes): void
+    {
+        $this->likes = $likes;
     }
 
     public function getCheeses() {
