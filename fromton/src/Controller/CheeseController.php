@@ -112,14 +112,6 @@ class CheeseController extends AbstractController
         $this->em->persist($notification);
         $this->em->flush();
 
-        //@TODO: lister tout les amis du user et foreach sur chaque user
-        $notification = new Notification();
-        $notification->setTexte("Votre ami " . $user->getUsername() . " a noté un fromage: " . $cheese->getName());
-        $notification->setCreatedAt(new \DateTime());
-        $notification->setUser($user);
-        $this->em->persist($notification);
-        $this->em->flush();
-
 
         return $this->json(['rating' => $data['rating']]);
     }
