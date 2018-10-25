@@ -35,4 +35,7 @@ stars.rateYo({rating: stars.data('rating')})
         });
 });
 
-$('.show__cheese__rating--global').rateYo({rating: $('.show__cheese__rating--global').data('rating')});
+$('.show__cheese__rating--global').rateYo({
+    rating: $('.show__cheese__rating--global').data('rating'),
+    readOnly: true,
+});
