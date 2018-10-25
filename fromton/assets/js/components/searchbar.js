@@ -13,7 +13,7 @@ $('#searchbar').on('keyup', (data) => {
 
                 for (const value of data) {
                     let li = document.createElement('li');
-                    li.setAttribute('data-link', '/cheese/'+value.name)
+                    li.setAttribute('data-link', '/cheese/'+value.slug)
                     li.innerHTML = `<img src='/build/assets/images/svg/roundedChesse.c4eacb29.svg'>
                                         <div class="search-result-content">
                                             <p>${value.name}</p>

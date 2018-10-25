@@ -2,7 +2,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\OneToMany;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -25,21 +24,17 @@ class Cheese
      */
     private $id;
 
-
-    /**
-     * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(length=128, unique=true)
-     */
-    /*
-    private $slug;
-    */
-
-
     /**
      * @ORM\Column(type="string", unique=true)
      * @Assert\NotBlank()
      */
     private $name;
+
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
     /**
      * @ORM\Column(type="text")
@@ -66,7 +61,7 @@ class Cheese
 
 
     /**
-     * @OneToMany(targetEntity="UsersCheesesRatings", mappedBy="cheese")
+     * @ORM\OneToMany(targetEntity="UsersCheesesRatings", mappedBy="cheese")
      */
     private $usersCheesesRatings;
 
@@ -158,10 +153,8 @@ class Cheese
     /**
      * @return mixed
      */
-    /*
     public function getSlug()
     {
         return $this->slug;
     }
-    */
 }

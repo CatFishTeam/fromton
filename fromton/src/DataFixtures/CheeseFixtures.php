@@ -7,7 +7,6 @@ use App\Entity\Category;
 use App\Entity\Cheese;
 use App\Entity\Location;
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker;
@@ -16,7 +15,7 @@ class CheeseFixtures extends AbstractFixture implements OrderedFixtureInterface
 {
 
     private $cheeses = [
-        "Abondance - AOP -",
+        "Abondance - AOP",
         "Abbaye de Timadeuc",
         "Abbaye du Mont des Cats",
         "Affidelice au Chablis",

@@ -20,7 +20,7 @@ class CheeseController extends AbstractController {
     }
 
     /**
-     * @Route ("/cheese/{name}", name="cheese_show", methods={"GET"})
+     * @Route ("/cheese/{slug}", name="cheese_show", methods={"GET"})
      */
     public function show(Cheese $cheese)
     {
