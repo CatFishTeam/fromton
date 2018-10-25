@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Followers{% endblock %}
+
+{% block body %}
+   <div class="container">
+       <h1 class="my-4">Vous suivez</h1>
+
+       <div class="friends">
+           {% if me %}
+               {% for friend in friends %}
+                   <div class="users__single">
+                       {{ friend.friend.fullName }}
+                       <a href="{{ path('unfollow', {'id': friend.friend.id}) }}" class="link">Ne plus suivre ce fromageophile</a>
+                   </div>
+               {% else %}
+                   Vous n'avez pas d'abonnements
+               {% endfor %}
+           {% else %}
+               <a href="{{ path('security_login') }}" class="link">Connectez-vous pour voir vos abonnements</a>
+           {% endif %}
+       </div>
+   </div>
+{% endblock %}

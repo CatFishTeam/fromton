@@ -241,9 +241,20 @@ class User implements UserInterface, \Serializable
         $friendship->getFriend()->addFriendshipWithMe($friendship);
     }
 
+    public function removeFriendship(Friendship $friendship)
+    {
+        $this->friends->remove($friendship);
+        $friendship->getFriend()->removeFriendshipWithMe($friendship);
+    }
+
     public function addFriendshipWithMe(Friendship $friendship)
     {
         $this->friendsWithMe->add($friendship);
+    }
+
+    public function removeFriendshipWithMe(Friendship $friendship)
+    {
+        $this->friendsWithMe->remove($friendship);
     }
 
     public function addFriend(User $friend)
@@ -254,6 +265,13 @@ class User implements UserInterface, \Serializable
         $this->addFriendship($friendship);
     }
 
+    public function removeFriend(User $friend)
+    {
+        $friendship = new Friendship();
+        $friendship->setUser($this);
+        $friendship->setFriend($friend);
+        $this->removeFriendship($friendship);
+    }
 
     public function isValidate(): bool
     {

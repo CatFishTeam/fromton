@@ -68,7 +68,26 @@ class UserController extends AbstractController
         $em->persist($me);
         $em->flush();
 
-        $this->addFlash('success', 'Vous êtes maintenant ami avec ' . $user->getFullName());
+        $this->addFlash('success', 'Vous suivez ' . $user->getFullName());
+
+        return $this->redirectToRoute('friends');
+    }
+
+    /**
+     * @Route("/unfollow/{id}", name="unfollow")
+     * @param User $user
+     * @param EntityManagerInterface $em
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function unfollow(User $user, EntityManagerInterface $em)
+    {
+        /** @var User $me */
+        $me = $this->getUser();
+        $me->removeFriend($user);
+        $em->persist($me);
+        $em->flush();
+
+        $this->addFlash('success', 'Vous ne suivez plus ' . $user->getFullName());
 
         return $this->redirectToRoute('users');
     }
