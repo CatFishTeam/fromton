@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\TimestampableTrait;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -122,11 +124,17 @@ class User implements UserInterface, \Serializable
     private $friendsWithMe;
 
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Badge", mappedBy="users")
+     */
+    private $badges;
+
     public function __construct()
     {
-        $this->friends = new ArrayCollection();
-        $this->friendsWithMe = new ArrayCollection();
-        $this->eventsPeopleRoles = new ArrayCollection();
+        $this->usersCheesesRatings = new ArrayCollection();
+        $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->badges = new ArrayCollection();
     }
 
     public function getId(): int
@@ -350,5 +358,33 @@ class User implements UserInterface, \Serializable
     public function unserialize($serialized): void
     {
         [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    /**
+     * @return Collection|Badge[]
+     */
+    public function getBadges(): Collection
+    {
+        return $this->badges;
+    }
+
+    public function addBadge(Badge $badge): self
+    {
+        if (!$this->badges->contains($badge)) {
+            $this->badges[] = $badge;
+            $badge->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBadge(Badge $badge): self
+    {
+        if ($this->badges->contains($badge)) {
+            $this->badges->removeElement($badge);
+            $badge->removeUser($this);
+        }
+
+        return $this;
     }
 }

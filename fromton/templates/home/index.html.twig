@@ -8,6 +8,8 @@
                 <div class="col home home__cheese">
                     <img src="{{ asset('build/assets/images/svg/mouse.svg') }}" alt="mouse" class="home home__cheese__img">
                     <h4 class="home home__cheese__title">{{ cheese.name }}</h4>
+                    <p>{{ cheese.category.name }} - {{ cheese.animal.name }}</p>
+                    <p>{{ cheese.location.name }} - {{ cheese.location.country.name }}</p>
                     <div class="home__cheese__rating">
                         <div class="rating" data-rating="{{ cheese.rating }}"></div>
                     </div>
