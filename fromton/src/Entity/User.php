@@ -101,25 +101,21 @@ class User implements UserInterface, \Serializable
     private $eventsPeopleRoles;
 
     /**
-     * Many Users have Many Users.
-     * @ManyToMany(targetEntity="User", mappedBy="myFriends")
+     * @ORM\OneToMany(targetEntity="Friendship", mappedBy="user")
      */
-    private $friendsWithMe;
+    private $friends;
 
     /**
      * Many Users have many Users.
-     * @ManyToMany(targetEntity="User", inversedBy="friendsWithMe")
-     * @JoinTable(name="friends",
-     *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="friend_user_id", referencedColumnName="id")}
-     *      )
+     * @ORM\OneToMany(targetEntity="Friendship", mappedBy="friend", cascade={"persist"})
      */
-    private $myFriends;
+    private $friendsWithMe;
+
 
     public function __construct()
     {
-        $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->friends = new ArrayCollection();
+        $this->friendsWithMe = new ArrayCollection();
         $this->eventsPeopleRoles = new ArrayCollection();
     }
 
@@ -185,8 +181,6 @@ class User implements UserInterface, \Serializable
         $this->token = $token;
     }
 
-
-
     /**
      * Retourne les rôles de l'user
      */
@@ -206,6 +200,26 @@ class User implements UserInterface, \Serializable
     {
         $this->roles = $roles;
     }
+
+    public function addFriendship(Friendship $friendship)
+    {
+        $this->friends->add($friendship);
+        $friendship->getFriend()->addFriendshipWithMe($friendship);
+    }
+
+    public function addFriendshipWithMe(Friendship $friendship)
+    {
+        $this->friendsWithMe->add($friendship);
+    }
+
+    public function addFriend(User $friend)
+    {
+        $friendship = new Friendship();
+        $friendship->setUser($this);
+        $friendship->setFriend($friend);
+        $this->addFriendship($friendship);
+    }
+
 
     public function isValidate(): bool
     {
