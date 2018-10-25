@@ -1,0 +1,17 @@
+easy_admin:
+  entities:
+    Animal:
+      class: App\Entity\Animal
+      label: 'Animals'
+      list:
+        fields:
+        - id
+        - name
+      show:
+        fields:
+        - id
+        - name
+      form:
+        fields:
+        - { type: 'group', css_class: 'col', label: 'Basic information', icon: 'pencil' }
+        - { property: 'name', css_class: 'large' }

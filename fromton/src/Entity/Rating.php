@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\Common\Collections\ArrayCollection;
+use App\Entity\Traits\TimestampableTrait;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RatingRepository")
  */
 class Rating
 {
+    use TimestampableTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -19,7 +21,7 @@ class Rating
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $mark;
 
@@ -29,23 +31,15 @@ class Rating
     private $review;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\OneToMany(targetEntity="UsersCheesesRatings", mappedBy="rating")
      */
-    private $created_at;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $updated_at;
-
-    /**
-     * @OneToMany(targetEntity="UsersCheesesRatings", mappedBy="rating")
-     */
-    private $eventsPeopleRoles;
+    private $usersCheesesRatings;
 
     public function __construct()
     {
-        $this->eventsPeopleRoles = new ArrayCollection();
+        $this->created_at = new \DateTime();
+        $this->updated_at = new \DateTime();
+        $this->usersCheesesRatings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -53,12 +47,12 @@ class Rating
         return $this->id;
     }
 
-    public function getMark(): ?int
+    public function getMark(): ?float
     {
         return $this->mark;
     }
 
-    public function setMark(int $mark): self
+    public function setMark(float $mark): self
     {
         $this->mark = $mark;
 
@@ -77,27 +71,4 @@ class Rating
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
-    {
-        $this->updated_at = $updated_at;
-
-        return $this;
-    }
 }
