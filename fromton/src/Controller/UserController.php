@@ -75,21 +75,28 @@ class UserController extends AbstractController
 
     /**
      * @Route("/unfollow/{id}", name="unfollow")
-     * @param User $user
+     * @param User $friend
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function unfollow(User $user, EntityManagerInterface $em)
+    public function unfollow(User $friend, EntityManagerInterface $em)
     {
         /** @var User $me */
         $me = $this->getUser();
-        $me->removeFriend($user);
-        $em->persist($me);
+
+        /** @var FriendshipRepository $friendRepo */
+        $friendRepo = $this->getDoctrine()->getRepository(Friendship::class);
+        $friendship = $friendRepo->findOneBy([
+            'user' => $me,
+            'friend' => $friend,
+        ]);
+
+        $em->remove($friendship);
         $em->flush();
 
-        $this->addFlash('success', 'Vous ne suivez plus ' . $user->getFullName());
+        $this->addFlash('success', 'Vous ne suivez plus ' . $friend->getFullName());
 
-        return $this->redirectToRoute('users');
+        return $this->redirectToRoute('friends');
     }
 
     public function calculLevel($xp)
