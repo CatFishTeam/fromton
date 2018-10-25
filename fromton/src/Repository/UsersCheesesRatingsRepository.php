@@ -21,8 +21,14 @@ class UsersCheesesRatingsRepository extends ServiceEntityRepository
         parent::__construct($registry, UsersCheesesRatings::class);
     }
 
-    public function getRating(User $user, Cheese $cheese){
-        return $this->findOneBy(['user' => $user, 'cheese' => $cheese], ['id'=>'DESC']);
+    public function getRating(User $user, Cheese $cheese)
+    {
+        return $this->findOneBy(['user' => $user, 'cheese' => $cheese]);
+    }
+
+    public function getAllCheesesRatedByUser(User $user)
+    {
+        return $this->findBy(['user' => $user]);
     }
 
 }
