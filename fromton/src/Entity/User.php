@@ -106,6 +106,11 @@ class User implements UserInterface, \Serializable
     private $likes;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Publication", mappedBy="user")
+     */
+    private $publications;
+
+    /**
      * Many Users have Many Users.
      * @ORM\ManyToMany(targetEntity="User", mappedBy="myFriends")
      */
@@ -136,6 +141,22 @@ class User implements UserInterface, \Serializable
     public function setFullName(string $fullName): void
     {
         $this->fullName = $fullName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPublications()
+    {
+        return $this->publications;
+    }
+
+    /**
+     * @param mixed $publications
+     */
+    public function setPublications($publications): void
+    {
+        $this->publications = $publications;
     }
 
     // le ? signifie que cela peur aussi retourner null
@@ -228,18 +249,6 @@ class User implements UserInterface, \Serializable
     public function setXp(int $xp): void
     {
         $this->xp = $xp;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
     }
 
     /**
