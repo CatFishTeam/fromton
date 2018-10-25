@@ -96,6 +96,21 @@ class User implements UserInterface, \Serializable
     private $usersCheesesRatings;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cheese", mappedBy="user")
+     */
+    private $notifications;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cheeze", mappedBy="user")
+     */
+    private $cheezes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Publication", mappedBy="user")
+     */
+    private $publications;
+
+    /**
      * Many Users have Many Users.
      * @ORM\ManyToMany(targetEntity="User", mappedBy="myFriends")
      */
@@ -126,6 +141,22 @@ class User implements UserInterface, \Serializable
     public function setFullName(string $fullName): void
     {
         $this->fullName = $fullName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPublications()
+    {
+        return $this->publications;
+    }
+
+    /**
+     * @param mixed $publications
+     */
+    public function setPublications($publications): void
+    {
+        $this->publications = $publications;
     }
 
     // le ? signifie que cela peur aussi retourner null
@@ -180,8 +211,6 @@ class User implements UserInterface, \Serializable
         $this->token = $token;
     }
 
-
-
     /**
      * Retourne les rôles de l'user
      */
@@ -222,9 +251,42 @@ class User implements UserInterface, \Serializable
         $this->xp = $xp;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCheezes()
+    {
+        return $this->cheezes;
+    }
+
+    /**
+     * @param mixed $cheezes
+     */
+    public function setCheezes($cheezes): void
+    {
+        $this->cheezes = $cheezes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
+    }
+
+    /**
+     * @param mixed $notifications
+     */
+    public function setNotifications($notifications): void
+    {
+        $this->notifications = $notifications;
+    }
+
     public function getCheeses() {
         return $this->cheeses;
     }
+
 
     public function addCheese(Cheese $cheese)
     {
