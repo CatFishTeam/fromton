@@ -158,6 +158,22 @@ class Cheese
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * @param mixed $likes
+     */
+    public function setLikes($likes): void
+    {
+        $this->likes = $likes;
+    }
+
     public function getAnimal(): ?Animal
     {
         return $this->animal;

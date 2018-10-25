@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Cheese;
 use App\Entity\Cheeze;
-use App\Entity\Like;
 use App\Entity\Notification;
 use App\Entity\Rating;
 use App\Entity\UsersCheesesRatings;
@@ -91,6 +90,15 @@ class CheeseController extends AbstractController {
         $notification->setSeen(false);
         $this->em->persist($notification);
         $this->em->flush();
+
+        //@TODO: lister tout les amis du user et foreach sur chaque user
+        $notification = new Notification();
+        $notification->setTexte("Votre ami ".$user->getUsername()." a noté un fromage: ".$cheese->getName());
+        $notification->setCreatedAt(new \DateTime());
+        $notification->setUser($user);
+        $this->em->persist($notification);
+        $this->em->flush();
+
 
         return $this->json(['rating'=> $data['rating']]);
     }

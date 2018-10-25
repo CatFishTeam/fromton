@@ -283,7 +283,6 @@ class User implements UserInterface, \Serializable
         $this->notifications = $notifications;
     }
 
-
     public function getCheeses() {
         return $this->cheeses;
     }

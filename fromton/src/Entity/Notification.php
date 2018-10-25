@@ -67,7 +67,6 @@ class Notification
         return $this;
     }
 
-
     public function getUser()
     {
         return $this->user;
