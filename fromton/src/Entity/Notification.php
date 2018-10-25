@@ -27,7 +27,7 @@ class Notification
     private $created_at;
 
     /**
-     * @ORM\Column(type="boolean", options={"default" : 0})
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $seen;
 
@@ -67,19 +67,26 @@ class Notification
         return $this;
     }
 
-    public function getSeen(): boolean
-    {
-        return $this->seen;
-    }
-
-    public function setSeen(boolean $seen): void
-    {
-        $this->seen = $seen;
-    }
 
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSeen()
+    {
+        return $this->seen;
+    }
+
+    /**
+     * @param mixed $seen
+     */
+    public function setSeen($seen): void
+    {
+        $this->seen = $seen;
     }
 
     public function setUser($user): void

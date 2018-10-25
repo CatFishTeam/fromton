@@ -30,6 +30,27 @@ class Publication
     /**
      * @return mixed
      */
+    public function getCheezes()
+    {
+        return $this->cheezes;
+    }
+
+    /**
+     * @param mixed $cheezes
+     */
+    public function setCheezes($cheezes): void
+    {
+        $this->cheezes = $cheezes;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cheeze", mappedBy="publication")
+     */
+    private $cheezes;
+
+    /**
+     * @return mixed
+     */
     public function getUser()
     {
         return $this->user;
@@ -43,24 +64,4 @@ class Publication
         $this->user = $user;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLikes()
-    {
-        return $this->likes;
-    }
-
-    /**
-     * @param mixed $likes
-     */
-    public function setLikes($likes): void
-    {
-        $this->likes = $likes;
-    }
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="publication")
-     */
-    private $likes;
 }

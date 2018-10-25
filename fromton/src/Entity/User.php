@@ -101,9 +101,9 @@ class User implements UserInterface, \Serializable
     private $notifications;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Cheeze", mappedBy="user")
      */
-    private $likes;
+    private $cheezes;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Publication", mappedBy="user")
@@ -254,6 +254,22 @@ class User implements UserInterface, \Serializable
     /**
      * @return mixed
      */
+    public function getCheezes()
+    {
+        return $this->cheezes;
+    }
+
+    /**
+     * @param mixed $cheezes
+     */
+    public function setCheezes($cheezes): void
+    {
+        $this->cheezes = $cheezes;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getNotifications()
     {
         return $this->notifications;
@@ -267,25 +283,11 @@ class User implements UserInterface, \Serializable
         $this->notifications = $notifications;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLikes()
-    {
-        return $this->likes;
-    }
-
-    /**
-     * @param mixed $likes
-     */
-    public function setLikes($likes): void
-    {
-        $this->likes = $likes;
-    }
 
     public function getCheeses() {
         return $this->cheeses;
     }
+
 
     public function addCheese(Cheese $cheese)
     {

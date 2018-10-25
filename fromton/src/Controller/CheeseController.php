@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Cheese;
+use App\Entity\Cheeze;
+use App\Entity\Like;
 use App\Entity\Notification;
 use App\Entity\Rating;
 use App\Entity\UsersCheesesRatings;
@@ -11,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\UserController;
 
 class CheeseController extends AbstractController {
 
@@ -60,22 +63,77 @@ class CheeseController extends AbstractController {
         $user = $this->getUser();
         $xp = $user->getXp();
         $user->setXp($xp + 5);
+        $userController = new UserController();
+        $tab = $userController->calculLevel($xp);
+        $tab2 = $userController->calculLevel($user->getXp());
+        if ($tab[0] != $tab2[0]) {
+            $notificationLevel = new Notification();
+            $notificationLevel->setTexte("Vous avez gagné un niveau. Vous êtes maintenant niveau ".$tab2[0]);
+            $notificationLevel->setCreatedAt(new \DateTime());
+            $notificationLevel->setUser($user);
+            $notificationLevel->setSeen(false);
+            $this->em->persist($notificationLevel);
+        }
+        $this->em->persist($user);
+
         $userCheeseRating = new UsersCheesesRatings();
         $userCheeseRating->setRating($rating);
         $userCheeseRating->setCheese($cheese);
         $userCheeseRating->setUser($user);
         $this->em->persist($userCheeseRating);
-        $this->em->flush();
 
         //@TODO: lister tout les amis du user et foreach sur chaque user
+        //@TODO à faire avec publication à la place
         $notification = new Notification();
         $notification->setTexte("Votre ami ".$user->getUsername()." a noté un fromage: ".$cheese->getName());
         $notification->setCreatedAt(new \DateTime());
         $notification->setUser($user);
+        $notification->setSeen(false);
         $this->em->persist($notification);
         $this->em->flush();
 
-
         return $this->json(['rating'=> $data['rating']]);
+    }
+
+    /**
+     * @Security("is_granted('ROLE_USER')")
+     * @param $id
+     * @Route ("/cheese/like/{id}", name="cheese_like", methods={"GET"})
+     */
+    public function like(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cheese = $em->getRepository(Cheese::class)->find($id);
+
+        $user = $this->getUser();
+        $xp = $user->getXp();
+        $user->setXp($xp + 2);
+        $userController = new UserController();
+        $tab = $userController->calculLevel($xp);
+        $tab2 = $userController->calculLevel($user->getXp());
+        if ($tab[0] != $tab2[0]) {
+            $notificationLevel = new Notification();
+            $notificationLevel->setTexte("Vous avez gagné un niveau. Vous êtes maintenant niveau ".$tab2[0]);
+            $notificationLevel->setCreatedAt(new \DateTime());
+            $notificationLevel->setUser($user);
+            $notificationLevel->setSeen(false);
+            $this->em->persist($notificationLevel);
+        }
+        $this->em->persist($user);
+
+        //@TODO a faire avec publication à la place et pour tous les amis
+        $notification = new Notification();
+        $notification->setTexte("Votre ami ".$user->getUsername()." a liké un fromage: ".$cheese->getName());
+        $notification->setCreatedAt(new \DateTime());
+        $notification->setUser($user);
+        $notification->setSeen(false);
+        $this->em->persist($notification);
+
+        $like = new Cheeze();
+        $like->setUser($user);
+        $like->setCheese($cheese);
+        $like->setPublication(null);
+        $this->em->persist($like);
+        $this->em->flush();
     }
 }
