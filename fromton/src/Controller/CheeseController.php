@@ -117,6 +117,7 @@ class CheeseController extends AbstractController
 
     /**
      * @Security("is_granted('ROLE_USER')")
+     * @param Request $request
      * @param $id
      * @Route ("/cheese/like/{id}", name="cheese_like", methods={"GET"})
      */
@@ -154,5 +155,7 @@ class CheeseController extends AbstractController
         $like->setPublication(null);
         $this->em->persist($like);
         $this->em->flush();
+
+    //@TODO: faire call ajax
     }
 }
