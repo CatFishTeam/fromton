@@ -1,3 +1,24 @@
+.banner
+    position: relative
+    img
+        display: block
+        position: relative
+        z-index: -1
+    h2
+        color: #fff
+        position: absolute
+        text-align: right
+        right: 5%
+        font-size: 48px
+        line-height: 1.5
+        &::before
+            height: 36px
+            top: 36px
+        &.l1
+            top: 34%
+        &.l2
+            top: 52%
+
 .home
     &__cheese
         background: $beige
