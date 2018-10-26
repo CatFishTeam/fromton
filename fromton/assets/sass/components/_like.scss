@@ -6,9 +6,11 @@
   background-size: 100%;
   background-image: url("../assets/images/svg/dislike.svg");
   transition-duration: 0.2s;
+  transform: rotate(25deg);
   &:hover {
     background-image: url("../assets/images/svg/like.svg");
     transition-duration: 0.2s;
+    transform: rotate(0deg);
 
     .cheeze {
       display: block;

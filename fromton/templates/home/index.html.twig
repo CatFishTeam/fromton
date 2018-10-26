@@ -4,20 +4,32 @@
     <section class="container-fluid">
         <div class="row mt-5">
             {% for cheese in cheeses  %}
-                {% if loop.index == 1 or loop.index == 3 %}<div class="col flex-row">{% endif %}
+                {% if loop.index == 1 or loop.index == 3 %}<div class="col-4 flex-row">{% endif %}
                 <div class="col home home__cheese">
-                    <img src="{{ asset('build/assets/images/svg/mouse.svg') }}" alt="mouse" class="home home__cheese__img">
                     <h4 class="home home__cheese__title">{{ cheese.name }}</h4>
-                    <p>{{ cheese.category.name }} - {{ cheese.animal.name }}</p>
-                    <p>{{ cheese.location.name }} - {{ cheese.location.country.name }}</p>
-                    <div class="home__cheese__rating">
-                        <div class="rating" data-rating="{{ cheese.rating }}"></div>
+                    <div class="row pt-4">
+                        <div class="col-4">
+                            <img src="https://res.cloudinary.com/ds8br8lm0/image/upload/v1540586741/fromton/{{ cheese.slug }}.png" alt="mouse" class="home home__cheese__img">
+                        </div>
+                        <div class="col-8">
+                            <p>{{ cheese.category.name }} - {{ cheese.animal.name }}</p>
+                            <p>{{ cheese.location.name }} - {{ cheese.location.country.name }}</p>
+                        </div>
                     </div>
-                    <a class="home__cheese__link text-beige2" href="{{ url('cheese_show', {slug: cheese.slug}) }}">Notez-le !</a>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="home__cheese__rating">
+                                <div class="rating" data-rating="{{ cheese.rating }}"></div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <a class="home__cheese__link link text-beige2" href="{{ url('cheese_show', {slug: cheese.slug}) }}">Notez-le !</a>
+                        </div>
+                    </div>
                 </div>
                 {% if loop.index % 2 == 0 %}</div>{% endif %}
             {% endfor %}
-            <div class="col">
+            <div class="col-4">
                 {%  include 'components/cheeseOfTheWeek.html.twig' with {'cheese' : cheeseOfTheWeek } only %}
             </div>
         </div>
