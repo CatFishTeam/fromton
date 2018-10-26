@@ -8,6 +8,8 @@ use App\Entity\Notification;
 use App\Entity\Rating;
 use App\Entity\UsersCheesesRatings;
 use App\Events;
+use App\Repository\CheeseRepository;
+use App\Repository\UsersCheesesRatingsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -16,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Controller\UserController;
+use Knp\Component\Pager\PaginatorInterface;
 
 class CheeseController extends AbstractController
 {
@@ -37,9 +40,9 @@ class CheeseController extends AbstractController
         $rating = 0;
         if ($this->getUser()) {
             if ($usersCheesesRatingsRepo->getRating($this->getUser(), $cheese) !== null) {
-                $rating = $usersCheesesRatings = $usersCheesesRatingsRepo->getRating($this->getUser(), $cheese)->getRating()->getMark();
+                $rating = $usersCheesesRatingsRepo->getRating($this->getUser(), $cheese)->getRating()->getMark();
             }
-        };
+        }
         $globalRating = $this->getDoctrine()->getRepository(Cheese::class)->globalRating($cheese);
 
         return $this->render('cheese/show.html.twig',
@@ -47,6 +50,49 @@ class CheeseController extends AbstractController
                 'cheese' => $cheese,
                 'rating' => $rating,
                 'globalRating' => $globalRating
+            ]);
+    }
+
+    /**
+     * @Route ("/all-cheeses", name="cheese_all", methods={"GET"})
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param PaginatorInterface $paginator
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function all(Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator)
+    {
+        /** @var CheeseRepository $cheeseRepo */
+        $cheeseRepo = $entityManager->getRepository(Cheese::class);
+        $allCheesesQuery = $cheeseRepo->createQueryBuilder('c')->getQuery();
+
+        $allCheeses = $paginator->paginate(
+            $allCheesesQuery,
+            $request->query->getInt('page', 1),
+            15
+        );
+
+        $ratings = [];
+        $globalRatings = [];
+        /** @var UsersCheesesRatingsRepository $usersCheesesRatingsRepo */
+        $usersCheesesRatingsRepo = $this->getDoctrine()->getRepository(UsersCheesesRatings::class);
+        $me = $this->getUser();
+
+        foreach ($allCheeses as $cheese) {
+            $ratings[] = 0;
+            if ($me) {
+                if ($usersCheesesRatingsRepo->getRating($me, $cheese) !== null) {
+                    $ratings[] = $usersCheesesRatingsRepo->getRating($me, $cheese)->getRating()->getMark();
+                }
+            }
+            $globalRatings[] = $cheeseRepo->globalRating($cheese);
+        }
+
+        return $this->render('cheese/all.html.twig',
+            [
+                'cheeses' => $allCheeses,
+                'ratings' => $ratings,
+                'globalRatings' => $globalRatings,
             ]);
     }
 

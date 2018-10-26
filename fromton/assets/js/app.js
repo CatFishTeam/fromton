@@ -20,6 +20,8 @@ require('../images/svg/mouse.svg');
 require('../images/svg/cheese.svg');
 require('../images/svg/notification.svg');
 require('../images/svg/notification_new.svg');
+require('../images/svg/like.svg');
+require('../images/svg/dislike.svg');
 
 //@TODO change to images (only for dev purpose)
 require('../images/svg/roundedChesse.svg');

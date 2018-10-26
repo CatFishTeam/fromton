@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="container">
+        <h1 class="my-4">Les fromages</h1>
+        <div class="cheeses">
+            {% for cheese in cheeses %}
+            <div class="cheeses__single my-4">
+                <h2 class="show__cheese__title">{{ cheese.name }}</h2>
+                <p class="show__cheese__description">{{ cheese.description }}</p>
+                User : <span class="show__cheese__rating--user" data-rating="{{ ratings[loop.index]|default }}" data-cheese="{{ cheese.id }}"></span><br>
+                Moyenne : <span class="show__cheese__rating--global" data-rating="{{ globalRatings[loop.index]|default }}">}</span><br>
+                <a href="{{ path('cheese_like', {'id': cheese.id})}}" class="like"><span class="cheeze">Cheeze !</span></a>
+            </div>
+            {% else %}
+            <div class="col">Aucun fromage n'a été trouvé</div>
+            {% endfor %}
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(cheeses) }}
+        </div>
+    </section>
+{% endblock %}
