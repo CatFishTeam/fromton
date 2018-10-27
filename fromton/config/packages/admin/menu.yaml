@@ -1,6 +1,6 @@
 easy_admin:
   design:
-    brand_color: '#A13C3D'
+    brand_color: '#f426db'
     menu:
       - { label: Dashboard, icon: dashboard, route: admin_dashboard, default: true }
       - { entity: 'User', icon: 'users', label: 'Users' }
