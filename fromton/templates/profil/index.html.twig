@@ -1,4 +1,3 @@
-
 {% extends 'base.html.twig' %}
 
 {% block body %}
@@ -7,5 +6,25 @@
     <p>Email: {{ user.email }}</p>
     <p>Niveau: {{ level }}</p>
     <p>Expérience nécessaire pour le prochain niveau: {{ reste }}</p>
+
+    <h4>Badges</h4>
+    <ul>
+        {% for badge in badges %}
+            <li>
+                <p>{{ badge.name }}</p>
+                <span>{{ badge.description }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h4>Notes</h4>
+    <ul>
+        {% for rating in ratings %}
+            <li>
+                <p>{{ rating.cheese.name }}</p>
+                <span>{{ rating.rating.mark }}</span>
+            </li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}

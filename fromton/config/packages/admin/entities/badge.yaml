@@ -1,0 +1,20 @@
+easy_admin:
+  entities:
+    Badge:
+      class: App\Entity\Badge
+      label: 'Badges'
+      list:
+        fields:
+        - id
+        - name
+        - description
+      show:
+        fields:
+        - id
+        - name
+        - description
+      form:
+        fields:
+        - { type: 'group', css_class: 'col', label: 'Basic information', icon: 'pencil' }
+        - { property: 'name' }
+        - { property: 'description' }

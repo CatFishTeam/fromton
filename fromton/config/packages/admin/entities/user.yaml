@@ -24,7 +24,7 @@ easy_admin:
         - password
         - roles
         - validate
-        - created_at
+        - xp
       show:
         fields:
         - id
@@ -34,7 +34,7 @@ easy_admin:
         - password
         - roles
         - validate
-        - created_at
+        - xp
       form:
         fields:
         - { type: 'group', css_class: 'col-sm-8', label: 'Basics informations', icon: 'pencil' }
@@ -42,9 +42,10 @@ easy_admin:
         - { property: 'username' }
         - { type: 'divider' }
         - { property: 'email' }
+        - { property: 'badges' }
         - { type: 'group', css_class: 'col-sm-4', label: 'Privates informations', icon: 'cube' }
         - { property: 'password', type: 'password' }
         - { type: 'group', label: 'Advanced Settings', icon: 'warning' }
 #        - { property: 'roles' }
         - { property: 'validate'}
-        - { property: 'created_at'}
+        - { property: 'xp', type: 'number'}
