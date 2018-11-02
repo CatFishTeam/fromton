@@ -10,6 +10,7 @@ use App\Entity\UsersCheesesRatings;
 use App\Events;
 use App\Repository\CheeseRepository;
 use App\Repository\UsersCheesesRatingsRepository;
+use App\Utils\Tools;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -103,7 +104,7 @@ class CheeseController extends AbstractController
      * @param EventDispatcherInterface $eventDispatcher
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function setMark(Request $request, EventDispatcherInterface $eventDispatcher)
+    public function setMark(Request $request, EventDispatcherInterface $eventDispatcher, Tools $tools)
     {
         //@TODO: If user is connected -> ...  Else: toastr."Vous devez être connecté"
         $data = \GuzzleHttp\json_decode($request->getContent(), true);
@@ -116,9 +117,8 @@ class CheeseController extends AbstractController
         $user = $this->getUser();
         $xp = $user->getXp();
         $user->setXp($xp + 5);
-        $userController = new UserController();
-        $tab = $userController->calculLevel($xp);
-        $tab2 = $userController->calculLevel($user->getXp());
+        $tab = $tools->calculLevel($xp);
+        $tab2 = $tools->calculLevel($user->getXp());
         if ($tab[0] != $tab2[0]) {
             $notificationLevel = new Notification();
             $notificationLevel->setTexte("Vous avez gagné un niveau. Vous êtes maintenant niveau " . $tab2[0]);
@@ -167,7 +167,7 @@ class CheeseController extends AbstractController
      * @param $id
      * @Route ("/cheese/like/{id}", name="cheese_like", methods={"GET"})
      */
-    public function like(Request $request, $id)
+    public function like(Request $request, $id, Tools $tools)
     {
         $em = $this->getDoctrine()->getManager();
         $cheese = $em->getRepository(Cheese::class)->find($id);
@@ -175,9 +175,8 @@ class CheeseController extends AbstractController
         $user = $this->getUser();
         $xp = $user->getXp();
         $user->setXp($xp + 2);
-        $userController = new UserController();
-        $tab = $userController->calculLevel($xp);
-        $tab2 = $userController->calculLevel($user->getXp());
+        $tab = $tools->calculLevel($xp);
+        $tab2 = $tools->calculLevel($user->getXp());
         if ($tab[0] != $tab2[0]) {
             $notificationLevel = new Notification();
             $notificationLevel->setTexte("Vous avez gagné un niveau. Vous êtes maintenant niveau " . $tab2[0]);

@@ -51,4 +51,12 @@ class Animal
     {
         return $this->cheeses;
     }
+
+    /**
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

@@ -7,17 +7,23 @@
   background-color: white
   position: absolute
   z-index: 99
+  margin-right: 15px
+  height: 600px
+  overflow-y: auto
 
   a
     text-decoration: none
     color: inherit
     display: inherit
-    &:hover
-      background-color: darkgrey
+
 
   li
     display: flex
     padding: 10px
+
+    &:hover
+      background-color: darkgrey
+      cursor: pointer
 
     .search-result-content
       display: flex
