@@ -228,3 +228,5 @@ typings/
 /fromton/var/cache/*
 /fromton/public/build/*
 /fromton/src/Migrations/*
+
+.DS_Store

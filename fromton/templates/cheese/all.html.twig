@@ -7,7 +7,7 @@
             {% for cheese in cheeses %}
             <div class="cheeses__single my-4 row">
                 <div class="col-2">
-                    <img src="https://res.cloudinary.com/ds8br8lm0/image/upload/v1540586741/fromton/{{ cheese.slug }}.png" alt="{{ cheese.name }}" class="cheeses__single__image">
+                    <img src="https://res.cloudinary.com/ds8br8lm0/image/upload/d_unknown-cheese.png/v1540586741/fromton/{{ cheese.slug }}.png" alt="{{ cheese.name }}" class="cheeses__single__image">
                 </div>
                 <div class="col-10">
                     <h2 class="show__cheese__title"><a href="{{ url('cheese_show', {slug: cheese.slug}) }}">{{ cheese.name }}</a></h2>

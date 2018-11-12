@@ -16,7 +16,7 @@ trait TimestampableTrait
 
     /**
      * @var datetime $updatedAt
-     * @Gedmo\Timestampable(on="create")
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updatedAt;
