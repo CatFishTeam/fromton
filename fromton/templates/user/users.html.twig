@@ -12,10 +12,12 @@
                 {% if user != me %}
                     <div class="users__single">
                         {{ user.fullName }}
-                        {% if user.fullName not in friends %}
+                        {% if me and user.fullName not in friends %}
                             <a href="{{ path('follow', {'id': user.id}) }}" class="link">Suivre cet utilisateur</a>
-                        {% else %}
+                        {% elseif me and user.fullName in friends %}
                             <span>Vous suivez ce fromageophile</span>
+                            {% else %}
+                                <a href="{{ path('security_login') }}" class="link">Connectez-vous pour ajouter un ami</a>
                         {% endif %}
                     </div>
                 {% endif %}

@@ -1,16 +1,20 @@
 <?php
+
 namespace App\Controller;
 
+use App\Entity\UsersCheesesRatings;
+use App\Form\ArticleType;
 use App\Entity\User;
+use App\Utils\Tools;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Controller\UserController;
+
 /**
  * @Route(path="/profil")
  */
-
 class ProfilController extends AbstractController
 {
     /**
@@ -19,19 +23,33 @@ class ProfilController extends AbstractController
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function index(Request $request, $id)
+    public function index(Request $request, $id, Tools $tools)
     {
-        $userController = new UserController();
         $em = $this->getDoctrine()->getManager();
+
+        /** @var User $user */
         $user = $em->getRepository(User::class)->find($id);
-        $tab = $userController->calculLevel($user->getXp());
+
+        $badges = $user->getBadges();
+
+        $ratings = $this->getDoctrine()->getRepository(UsersCheesesRatings::class)->findBy(['user' => $user]);
+
+        $tab = $tools->calculLevel($user->getXp());
         //@TODO :
         // affichage des amis
         // affichage des ratings
         // affichage des cheezes
-        // affichage des notes
 
-        return $this->render('profil/index.html.twig', ['user'=> $user, 'level'=> $tab[0], 'reste'=> $tab[1]]);
+
+        return $this->render('profil/index.html.twig',
+            [
+                'user' => $user,
+                'level' => $tab[0],
+                'reste' => $tab[1],
+                'badges' => $badges,
+                'ratings' => $ratings,
+            ]
+        );
     }
 
 }

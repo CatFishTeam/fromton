@@ -137,7 +137,7 @@ class User implements UserInterface, \Serializable
         $this->badges = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -254,8 +254,7 @@ class User implements UserInterface, \Serializable
         $this->addFriendship($friendship);
     }
 
-
-    public function isValidate(): bool
+    public function isValidate(): ?bool
     {
         return $this->validate;
     }
@@ -265,7 +264,7 @@ class User implements UserInterface, \Serializable
         $this->validate = $validate;
     }
 
-    public function getXp(): int
+    public function getXp(): ?int
     {
         return $this->xp;
     }

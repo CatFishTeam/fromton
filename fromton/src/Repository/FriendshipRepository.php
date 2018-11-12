@@ -25,6 +25,11 @@ class FriendshipRepository extends ServiceEntityRepository
         return $this->findBy(['user' => $user]);
     }
 
+    public function getAllFollowers(User $user)
+    {
+        return $this->findBy(['friend' => $user]);
+    }
+
 //    /**
 //     * @return Friendship[] Returns an array of Friendship objects
 //     */

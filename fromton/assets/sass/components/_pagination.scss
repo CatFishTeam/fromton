@@ -1,0 +1,35 @@
+.navigation {
+  .pagination {
+    span {
+      padding: 4px 10px;
+      margin: 10px;
+
+      &:not(.first),
+      &:not(.previous),
+      &:not(.next),
+      &:not(.last) {
+        border: 1px solid $brown;
+        border-radius: 3px;
+      }
+
+      &.current {
+        color: $brown1;
+        background-color: $beige1;
+      }
+      &.page {
+        background-color: $beige;
+        a {
+          color: $brown;
+        }
+      }
+      &.first,
+      &.previous,
+      &.last,
+      &.next {
+        a {
+          color: $brown1;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+.like {
+  display: block;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background-size: 100%;
+  background-image: url("../assets/images/svg/dislike.svg");
+  transition-duration: 0.2s;
+  transform: rotate(25deg);
+  &:hover {
+    background-image: url("../assets/images/svg/like.svg");
+    transition-duration: 0.2s;
+    transform: rotate(0deg);
+
+    .cheeze {
+      display: block;
+      transform: translateX(10px) translateY(-50%);
+      transition-duration: 1s;
+    }
+  }
+
+  .cheeze {
+    position: absolute;
+    left: 26px;
+    top: 50%;
+    display: none;
+    transform: translateY(-50%);
+    font-size: 11px;
+    width: 100px;
+    color: $brown;
+    transition-duration: 0.2s;
+  }
+}

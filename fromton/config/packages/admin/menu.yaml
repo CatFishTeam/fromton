@@ -1,6 +1,6 @@
 easy_admin:
   design:
-    brand_color: '#A13C3D'
+    brand_color: '#f426db'
     menu:
       - { label: Dashboard, icon: dashboard, route: admin_dashboard, default: true }
       - { entity: 'User', icon: 'users', label: 'Users' }
@@ -9,4 +9,5 @@ easy_admin:
       - { entity: 'Location', icon: 'globe', label: 'Locations' }
       - { entity: 'Country', icon: 'globe', label: 'Countries' }
       - { entity: 'Animal', icon: 'paw', label: 'Animals' }
+      - { entity: 'Badge', icon: 'check-square', label: 'Badges' }
       - label: 'Env: %env(APP_ENV)%'
