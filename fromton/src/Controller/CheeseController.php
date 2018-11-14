@@ -143,6 +143,8 @@ class CheeseController extends AbstractController
             $notificationLevel->setUser($user);
             $notificationLevel->setSeen(false);
             $this->em->persist($notificationLevel);
+            $this->addFlash('success', 'Vous avez gagné un niveau. Vous êtes maintenant niveau ' . $tab2[0]);
+
         }
         $this->em->persist($user);
 
@@ -165,23 +167,19 @@ class CheeseController extends AbstractController
         $event = new GenericEvent($userCheeseRating);
         $eventDispatcher->dispatch(Events::CHEESE_RATE, $event);
 
-        //@TODO: lister tout les amis du user et foreach sur chaque user
-
-        $usersFriends = $this->getDoctrine()->getRepository(Friendship::class)->findAll(['friend'=>$user]);
-        dump($usersFriends);
+        $usersFriends = $this->getDoctrine()->getRepository(Friendship::class)->getAllFollowers($user);
         foreach ($usersFriends as $usersFriend){
             $friend = $this->getDoctrine()->getRepository(User::class)->find($usersFriend->getUser());
+            if ($friend == $user) { continue; }
             $publicationFriend = new Publication();
             $publicationFriend->setTexte("Votre ami ".$user->getUsername()." a noté un fromage: ".$cheese->getName());
             $publicationFriend->setUser($friend);
             $this->em->persist($publicationFriend);
         }
         $publication = new Publication();
-        $publication->setTexte("Vous avez noté un fromage: ".$cheese->getName());
-        $publication->setUser($user);
+        $publication->addPublication($user, "Vous avez noté ".$data['rating']." le fromage ".$cheese->getName());
         $this->em->persist($publication);
         $this->em->flush();
-
 
         return $this->json(['rating' => $data['rating']]);
     }
@@ -216,11 +214,12 @@ class CheeseController extends AbstractController
             $notificationLevel->setUser($user);
             $notificationLevel->setSeen(false);
             $this->em->persist($notificationLevel);
+            $this->addFlash('success', 'Vous avez gagné un niveau. Vous êtes maintenant niveau ' . $tab2[0]);
         }
         $this->em->persist($user);
 
-        $usersFriends = $this->getDoctrine()->getRepository(Friendship::class)->findAll(['friend'=>$user]);
-        dump($usersFriends);
+
+        $usersFriends = $this->getDoctrine()->getRepository(Friendship::class)->getAllFollowers($user);
         foreach ($usersFriends as $usersFriend){
             $friend = $this->getDoctrine()->getRepository(User::class)->find($usersFriend->getUser());
             $publicationFriend = new Publication();
@@ -229,8 +228,7 @@ class CheeseController extends AbstractController
             $this->em->persist($publicationFriend);
         }
         $publication = new Publication();
-        $publication->setTexte("Vous avez liké un fromage: ".$cheese->getName());
-        $publication->setUser($user);
+        $publication->addPublication($user, 'Vous avez liké un fromage: '.$cheese->getName());
         $this->em->persist($publication);
 
         $like = new Cheeze();
@@ -239,6 +237,8 @@ class CheeseController extends AbstractController
         $like->setPublication(null);
         $this->em->persist($like);
         $this->em->flush();
+
+        $this->addFlash('success', 'Vous avez liké  le fromage '.$cheese->getName());
 
         //@TODO: faire call ajax
 
@@ -278,6 +278,8 @@ class CheeseController extends AbstractController
         $like =  $this->getDoctrine()->getRepository(Cheeze::class)->findOneBy(['cheese'=>$cheese, 'user'=> $this->getUser()]);
         $this->em->remove($like);
         $this->em->flush();
+
+        $this->addFlash('success', "Vous n'êtes plus fondu du fromage ".$cheese->getName());
 
         //@TODO: faire call ajax
 

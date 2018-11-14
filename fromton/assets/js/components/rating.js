@@ -30,7 +30,7 @@ stars.rateYo({rating: stars.data('rating')})
             return response.json();
         })
         .then(function(myJson) {
-            window.toastr.success('Votre notre a bien été enregistrée !');
+            window.toastr.success('Votre note a bien été enregistrée !');
             console.log(JSON.stringify(myJson));
         });
 });

@@ -108,4 +108,10 @@ class Publication
         $this->notifications = $notifications;
     }
 
+    public function addPublication(User $user, $text)
+    {
+        $this->setTexte($text);
+        $this->setUser($user);
+    }
+
 }
