@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\TimestampableTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Publication
 {
+    use TimestampableTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -20,11 +23,6 @@ class Publication
      * @ORM\Column(type="text")
      */
     private $texte;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $created_at;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="publications")
@@ -61,22 +59,6 @@ class Publication
     public function setTexte($texte): void
     {
         $this->texte = $texte;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
-    }
-
-    /**
-     * @param mixed $created_at
-     */
-    public function setCreatedAt($created_at): void
-    {
-        $this->created_at = $created_at;
     }
 
     /**

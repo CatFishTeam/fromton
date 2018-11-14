@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Cheese;
 use App\Entity\Cheeze;
+use App\Entity\Friendship;
 use App\Entity\Notification;
 use App\Entity\Publication;
 use App\Entity\Rating;
+use App\Entity\User;
 use App\Entity\UsersCheesesRatings;
 use App\Events;
 use App\Repository\CheeseRepository;
@@ -138,7 +140,6 @@ class CheeseController extends AbstractController
         if ($tab[0] != $tab2[0]) {
             $notificationLevel = new Notification();
             $notificationLevel->setTexte("Vous avez gagné un niveau. Vous êtes maintenant niveau " . $tab2[0]);
-            $notificationLevel->setCreatedAt(new \DateTime());
             $notificationLevel->setUser($user);
             $notificationLevel->setSeen(false);
             $this->em->persist($notificationLevel);
@@ -165,9 +166,18 @@ class CheeseController extends AbstractController
         $eventDispatcher->dispatch(Events::CHEESE_RATE, $event);
 
         //@TODO: lister tout les amis du user et foreach sur chaque user
+
+        $usersFriends = $this->getDoctrine()->getRepository(Friendship::class)->findAll(['friend'=>$user]);
+        dump($usersFriends);
+        foreach ($usersFriends as $usersFriend){
+            $friend = $this->getDoctrine()->getRepository(User::class)->find($usersFriend->getUser());
+            $publicationFriend = new Publication();
+            $publicationFriend->setTexte("Votre ami ".$user->getUsername()." a noté un fromage: ".$cheese->getName());
+            $publicationFriend->setUser($friend);
+            $this->em->persist($publicationFriend);
+        }
         $publication = new Publication();
-        $publication->setTexte("Votre ami ".$user->getUsername()." a noté un fromage: ".$cheese->getName());
-        $publication->setCreatedAt(new \DateTime());
+        $publication->setTexte("Vous avez noté un fromage: ".$cheese->getName());
         $publication->setUser($user);
         $this->em->persist($publication);
         $this->em->flush();
@@ -203,17 +213,23 @@ class CheeseController extends AbstractController
         if ($tab[0] != $tab2[0]) {
             $notificationLevel = new Notification();
             $notificationLevel->setTexte("Vous avez gagné un niveau. Vous êtes maintenant niveau " . $tab2[0]);
-            $notificationLevel->setCreatedAt(new \DateTime());
             $notificationLevel->setUser($user);
             $notificationLevel->setSeen(false);
             $this->em->persist($notificationLevel);
         }
         $this->em->persist($user);
 
-        //@TODO: avec tout les friends
+        $usersFriends = $this->getDoctrine()->getRepository(Friendship::class)->findAll(['friend'=>$user]);
+        dump($usersFriends);
+        foreach ($usersFriends as $usersFriend){
+            $friend = $this->getDoctrine()->getRepository(User::class)->find($usersFriend->getUser());
+            $publicationFriend = new Publication();
+            $publicationFriend->setTexte("Votre ami ".$user->getUsername()." a liké un fromage: ".$cheese->getName());
+            $publicationFriend->setUser($friend);
+            $this->em->persist($publicationFriend);
+        }
         $publication = new Publication();
-        $publication->setTexte("Votre ami ".$user->getUsername()." a liké un fromage: ".$cheese->getName());
-        $publication->setCreatedAt(new \DateTime());
+        $publication->setTexte("Vous avez liké un fromage: ".$cheese->getName());
         $publication->setUser($user);
         $this->em->persist($publication);
 
