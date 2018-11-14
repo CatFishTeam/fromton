@@ -1,0 +1,9 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% for publication in publications %}
+        <li>{{ publication.texte }} <a href="{{ path('publication_like', {'id': publication.id})}}">like</a></li>
+    {% endfor %}
+{% endblock %}

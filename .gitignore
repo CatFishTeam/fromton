@@ -229,4 +229,5 @@ typings/
 /fromton/public/build/*
 /fromton/src/Migrations/*
 
+.idea
 .DS_Store

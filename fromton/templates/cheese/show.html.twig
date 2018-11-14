@@ -11,7 +11,12 @@
                 <p class="show__cheese__description">{{ cheese.description }}</p>
                 Utilisateur : <span class="show__cheese__rating--user" data-rating="{{ rating }}" data-cheese="{{ cheese.id }}"></span><br>
                 Moyenne : <span class="show__cheese__rating--global" data-rating="{{ globalRating }}">}</span><br>
-                <a href="{{ path('cheese_like', {'id': cheese.id})}}" class="like"><span class="cheeze">Cheeze !</span></a>
+                {%  if cheeze %}
+                    <a href="{{ path('cheese_unlike', {'id': cheese.id})}}" class="like_on"><span class="cheeze">Cheeze !</span></a>
+                {%  endif %}
+                {%  if not cheeze %}
+                    <a href="{{ path('cheese_like', {'id': cheese.id})}}" class="like"><span class="cheeze">Cheeze !</span></a>
+                {%  endif %}
             </div>
         </div>
     </section>
