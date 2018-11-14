@@ -28,6 +28,10 @@ $('#searchbar').on('keyup', (data) => {
                     }
                 })
         }, 1000);
+    } else {
+        clearTimeout(delayTimer);
+        $('#searchbar-dropdown').hide();
+        return;
     }
 });
 
