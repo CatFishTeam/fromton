@@ -37,6 +37,12 @@ class Notification
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Publication")
+     * @ORM\JoinColumn(name="publication_id", referencedColumnName="id")
+     */
+    private $publication;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +97,22 @@ class Notification
     public function setUser($user): void
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPublication()
+    {
+        return $this->publication;
+    }
+
+    /**
+     * @param mixed $publication
+     */
+    public function setPublication($publication): void
+    {
+        $this->publication = $publication;
     }
 
 }

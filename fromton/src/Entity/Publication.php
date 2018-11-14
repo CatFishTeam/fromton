@@ -37,6 +37,11 @@ class Publication
      */
     private $cheezes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Notification", mappedBy="publication")
+     */
+    private $notifications;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +109,21 @@ class Publication
     public function setUser($user): void
     {
         $this->user = $user;
+    }
+    /**
+     * @return mixed
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
+    }
+
+    /**
+     * @param mixed $notifications
+     */
+    public function setNotifications($notifications): void
+    {
+        $this->notifications = $notifications;
     }
 
 }
