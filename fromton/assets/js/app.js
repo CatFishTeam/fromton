@@ -14,6 +14,7 @@ import './components/navbar'
 import './components/rating'
 import './components/notify.js';
 import './components/searchbar.js';
+import './components/like_cheese.js';
 
 //Images
 require('../images/svg/mouse.svg');

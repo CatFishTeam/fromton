@@ -12,10 +12,10 @@
                 Utilisateur : <span class="show__cheese__rating--user" data-rating="{{ rating }}" data-cheese="{{ cheese.id }}"></span><br>
                 Moyenne : <span class="show__cheese__rating--global" data-rating="{{ globalRating }}">}</span><br>
                 {%  if cheeze %}
-                    <a href="{{ path('cheese_unlike', {'id': cheese.id})}}" class="like_on"><span class="cheeze">Cheeze !</span></a>
+                    <a href="#" class="like_cheese_link like_on unlike_cheese" data-cheese="{{ cheese.id }}"><span class="cheeze">Cheeze !</span></a>
                 {%  endif %}
                 {%  if not cheeze %}
-                    <a href="{{ path('cheese_like', {'id': cheese.id})}}" class="like"><span class="cheeze">Cheeze !</span></a>
+                    <a href="#" class="like_cheese_link like like_cheese" data-cheese="{{ cheese.id }}"><span class="cheeze">Cheeze !</span></a>
                 {%  endif %}
             </div>
         </div>

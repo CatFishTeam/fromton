@@ -17,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Controller\UserController;
@@ -272,5 +273,46 @@ class CheeseController extends AbstractController
                 'globalRating' => $globalRating,
                 'cheeze' => 0
             ]);
+    }
+
+    /**
+     * @Route ("/like_cheese", name="like_cheese", methods={"POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function likeCheese(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->getUser();
+        $cheese = $em->getRepository(Cheese::class)->find($request->get('cheeseId'));
+
+        $like = new Cheeze();
+        $like->setUser($user);
+        $like->setCheese($cheese);
+        $like->setPublication(null);
+        $this->em->persist($like);
+        $this->em->flush();
+
+        return new Response("ok");
+    }
+
+    /**
+     * @Route ("/unlike_cheese", name="unlike_cheese", methods={"POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function unlikeCheese(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->getUser();
+        $cheese = $em->getRepository(Cheese::class)->find($request->get('cheeseId'));
+
+        $like =  $em->getRepository(Cheeze::class)->findOneBy(['cheese'=>$cheese, 'user'=> $user]);
+        $em->remove($like);
+        $em->flush();
+
+        return new Response("removed");
     }
 }
