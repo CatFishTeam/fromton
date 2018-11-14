@@ -32,13 +32,13 @@ class Notification
     private $seen;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="notifications")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Publication")
+     * @ORM\ManyToOne(targetEntity="Publication", inversedBy="notifications")
      * @ORM\JoinColumn(name="publication_id", referencedColumnName="id")
      */
     private $publication;
