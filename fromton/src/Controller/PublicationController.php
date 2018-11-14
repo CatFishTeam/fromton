@@ -61,7 +61,7 @@ class PublicationController extends AbstractController
         $notification->setTexte("Votre ami ".$user->getUsername()." a aimé votre publication");
         $notification->setCreatedAt(new \DateTime());
         $notification->setUser($publication->getUser());
-        $notification->setPublication($publication->getId());
+        $notification->setPublication($publication);
         $notification->setSeen(false);
         $this->em->persist($notification);
 

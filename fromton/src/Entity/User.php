@@ -98,7 +98,7 @@ class User implements UserInterface, \Serializable
     private $usersCheesesRatings;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Cheese", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Notification", mappedBy="user")
      */
     private $notifications;
 

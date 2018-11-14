@@ -17,20 +17,19 @@ class Cheeze
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Cheese")
+     * @ORM\ManyToOne(targetEntity="Cheese", inversedBy="cheezes")
      * @ORM\JoinColumn(name="cheese_id", referencedColumnName="id", nullable=true)
      */
     private $cheese;
 
-
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="cheezes")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Publication")
+     * @ORM\ManyToOne(targetEntity="Publication", inversedBy="cheezes")
      * @ORM\JoinColumn(name="publication_id", referencedColumnName="id", nullable=true)
      */
     private $publication;
