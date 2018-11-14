@@ -46,12 +46,18 @@ class CheeseController extends AbstractController
             }
         }
         $globalRating = $this->getDoctrine()->getRepository(Cheese::class)->globalRating($cheese);
-
+        $cheeze = $this->getDoctrine()->getRepository(Cheeze::class)->findBy(['cheese'=>$cheese, 'user'=> $this->getUser()]);
+        if ($cheeze) {
+            $cheeze_to_view = 1;
+        } else {
+            $cheeze_to_view = 0;
+        }
         return $this->render('cheese/show.html.twig',
             [
                 'cheese' => $cheese,
                 'rating' => $rating,
-                'globalRating' => $globalRating
+                'globalRating' => $globalRating,
+                'cheeze' => $cheeze_to_view
             ]);
     }
 
@@ -88,6 +94,14 @@ class CheeseController extends AbstractController
                 }
             }
             $globalRatings[] = $cheeseRepo->globalRating($cheese);
+
+            $cheeze = $this->getDoctrine()->getRepository(Cheeze::class)->findBy(['cheese'=>$cheese, 'user'=> $this->getUser()]);
+            dump($cheeze);
+            if ($cheeze) {
+                $cheeze_to_view[$cheese->getId()] = true;
+            } else {
+                $cheeze_to_view[$cheese->getId()] = false;
+            }
         }
 
         return $this->render('cheese/all.html.twig',
@@ -95,6 +109,7 @@ class CheeseController extends AbstractController
                 'cheeses' => $allCheeses,
                 'ratings' => $ratings,
                 'globalRatings' => $globalRatings,
+                'cheeze' => $cheeze_to_view
             ]);
     }
 
@@ -171,6 +186,14 @@ class CheeseController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $cheese = $em->getRepository(Cheese::class)->find($id);
+        $usersCheesesRatingsRepo = $this->getDoctrine()->getRepository(UsersCheesesRatings::class);
+        $rating = 0;
+        if ($this->getUser()) {
+            if ($usersCheesesRatingsRepo->getRating($this->getUser(), $cheese) !== null) {
+                $rating = $usersCheesesRatingsRepo->getRating($this->getUser(), $cheese)->getRating()->getMark();
+            }
+        }
+        $globalRating = $this->getDoctrine()->getRepository(Cheese::class)->globalRating($cheese);
 
         $user = $this->getUser();
         $xp = $user->getXp();
@@ -201,6 +224,53 @@ class CheeseController extends AbstractController
         $this->em->persist($like);
         $this->em->flush();
 
-    //@TODO: faire call ajax
+        //@TODO: faire call ajax
+
+        return $this->render('cheese/show.html.twig',
+            [
+                'cheese' => $cheese,
+                'rating' => $rating,
+                'globalRating' => $globalRating,
+                'cheeze' => 1
+            ]);
+    }
+
+    /**
+     * @Security("is_granted('ROLE_USER')")
+     * @param Request $request
+     * @param $id
+     * @Route ("/cheese/unlike/{id}", name="cheese_unlike", methods={"GET"})
+     */
+    public function unlike(Request $request, $id, Tools $tools)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cheese = $em->getRepository(Cheese::class)->find($id);
+        $usersCheesesRatingsRepo = $this->getDoctrine()->getRepository(UsersCheesesRatings::class);
+        $rating = 0;
+        if ($this->getUser()) {
+            if ($usersCheesesRatingsRepo->getRating($this->getUser(), $cheese) !== null) {
+                $rating = $usersCheesesRatingsRepo->getRating($this->getUser(), $cheese)->getRating()->getMark();
+            }
+        }
+        $globalRating = $this->getDoctrine()->getRepository(Cheese::class)->globalRating($cheese);
+
+        $user = $this->getUser();
+        $xp = $user->getXp();
+        $user->setXp($xp - 2);
+        $this->em->persist($user);
+
+        $like =  $this->getDoctrine()->getRepository(Cheeze::class)->findOneBy(['cheese'=>$cheese, 'user'=> $this->getUser()]);
+        $this->em->remove($like);
+        $this->em->flush();
+
+        //@TODO: faire call ajax
+
+        return $this->render('cheese/show.html.twig',
+            [
+                'cheese' => $cheese,
+                'rating' => $rating,
+                'globalRating' => $globalRating,
+                'cheeze' => 0
+            ]);
     }
 }

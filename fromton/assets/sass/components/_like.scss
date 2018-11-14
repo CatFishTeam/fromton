@@ -31,3 +31,34 @@
     transition-duration: 0.2s;
   }
 }
+
+.like_on {
+  display: block;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background-size: 100%;
+  background-image: url("../assets/images/svg/like.svg");
+  transition-duration: 0.2s;
+  &:hover {
+    background-image: url("../assets/images/svg/dislike.svg");
+    transition-duration: 0.2s;
+    transform: rotate(25deg);
+
+    .cheeze {
+      transform: translateX(-10px) translateY(+50%);
+      transition-duration: 1s;
+      opacity: 0;
+    }
+  }
+    .cheeze {
+    transform: translateY(-50%) translateX(10px);
+    display: block;
+    position: absolute;
+    left: 26px;
+    top: 50%;
+    font-size: 11px;
+    width: 100px;
+    color: $brown;
+  }
+}
