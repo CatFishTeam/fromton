@@ -53,7 +53,7 @@ class BadgeSubscriber implements EventSubscriberInterface
                 $this->em->persist($user);
                 break;
             case 10:
-                $user->addBadge($this->badgeRepository->find(Badge::BADGE_CHEESE_1));
+                $user->addBadge($this->badgeRepository->find(Badge::BADGE_CHEESE_10));
                 $this->em->persist($user);
                 break;
             default:
