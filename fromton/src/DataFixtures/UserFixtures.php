@@ -50,6 +50,7 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
         $user->setXp($faker->numberBetween(1, 3000));
         $user->setValidate(true);
         $user->setToken(md5(random_bytes(20)));
+        $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
         $manager->persist($user);
         $manager->flush();
     }

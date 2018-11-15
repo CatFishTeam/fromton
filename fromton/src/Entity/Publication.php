@@ -27,7 +27,7 @@ class Publication
     private $created_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="publications")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
