@@ -99,7 +99,7 @@ class CheeseController extends AbstractController
             $globalRatings[] = $cheeseRepo->globalRating($cheese);
 
             $cheeze = $this->getDoctrine()->getRepository(Cheeze::class)->findBy(['cheese'=>$cheese, 'user'=> $this->getUser()]);
-            dump($cheeze);
+
             if ($cheeze) {
                 $cheeze_to_view[$cheese->getId()] = true;
             } else {

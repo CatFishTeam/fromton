@@ -22,6 +22,7 @@ class PublicationController extends AbstractController
     {
         $this->em = $em;
     }
+
     /**
      * @Route(path="publication/{id}", methods={"GET"}, name="publications")
      * @Security("is_granted('ROLE_USER')")
@@ -34,7 +35,21 @@ class PublicationController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $publications = $em->getRepository(Publication::class)->findBy(['user'=>$id]);
 
-        return $this->render('publication/base.html.twig', ['publications'=> $publications]);
+        $cheezes_to_view = [];
+
+        foreach ($publications as $publication) {
+            $cheeze = $this->getDoctrine()->getRepository(Cheeze::class)->findBy(['publication'=>$publication, 'user'=> $this->getUser()]);
+            if ($cheeze) {
+                $cheezes_to_view[] = 1;
+            } else {
+                $cheezes_to_view[] = 0;
+            }
+        }
+
+        return $this->render('publication/base.html.twig', [
+            'publications'=> $publications,
+            'cheezes' => $cheezes_to_view
+        ]);
     }
 
     /**
@@ -68,5 +83,51 @@ class PublicationController extends AbstractController
         $this->em->flush();
         //@TODO ajax
         return $this->render('publication/base.html.twig', ['publications'=> $publications]);
+    }
+
+    /**
+     * @Security("is_granted('ROLE_USER')")
+     * @param Request $request
+     * @Route ("like_publication", name="like_publication", methods={"POST"})
+     * @return Response
+     */
+    public function likePublication(Request $request)
+    {
+        $user = $this->getUser();
+        $publication = $this->em->getRepository(Publication::class)->find($request->get('publicationId'));
+
+        $like = new Cheeze();
+        $like->setUser($user);
+        $like->setCheese(null);
+        $like->setPublication($publication);
+        $this->em->persist($like);
+
+        $notification = new Notification();
+        $notification->setTexte($user->getUsername()." (".$user->getFullName().") a aimé votre publication");
+        $notification->setCreatedAt(new \DateTime());
+        $notification->setUser($publication->getUser());
+        $notification->setPublication($publication);
+        $notification->setSeen(false);
+        $this->em->persist($notification);
+
+        $this->em->flush();
+        return new Response('liked');
+    }
+
+    /**
+     * @Route ("/unlike_publication", name="unlike_publication", methods={"POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function unlikePublication(Request $request)
+    {
+        $user = $this->getUser();
+        $publication = $this->em->getRepository(Publication::class)->find($request->get('publicationId'));
+
+        $like = $this->em->getRepository(Cheeze::class)->findOneBy(['publication'=>$publication, 'user'=> $user]);
+        $this->em->remove($like);
+        $this->em->flush();
+
+        return new Response("unliked");
     }
 }
