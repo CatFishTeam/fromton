@@ -18,6 +18,8 @@
                         {{ badge.name }}
                         <span>{{ badge.description }}</span>
                     </div>
+                {% else %}
+                    <p>Aucun badge.</p>
                 {% endfor %}
             </div>
 
@@ -25,12 +27,17 @@
             <div class="ratings">
                 {% for rating in ratings %}
                     <div class="ratings__single">
-                        {{ rating.cheese.name }}
+                        <div>
+                            {{ rating.cheese.name }}
+                            <a class="ml-4 link text-beige2" href="{{ url('cheese_show', {slug: rating.cheese.slug}) }}">Voir la fiche</a>
+                        </div>
                         <div>
                             <span>{{ rating.rating.mark }}</span>
                             /5
                         </div>
                     </div>
+                {% else %}
+                    <p>Aucune note attribuée.</p>
                 {% endfor %}
             </div>
         </div>

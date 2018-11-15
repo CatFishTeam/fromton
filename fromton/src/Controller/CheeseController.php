@@ -173,7 +173,7 @@ class CheeseController extends AbstractController
             $friend = $this->getDoctrine()->getRepository(User::class)->find($usersFriend->getUser());
             if ($friend == $user) { continue; }
             $publicationFriend = new Publication();
-            $publicationFriend->setTexte($user->getUsername()." (".$user->getFullName().") a noté un fromage: ".$cheese->getName());
+            $publicationFriend->setTexte($user->getUsername()." (".$user->getFullName().") a noté ".$data['rating']." un fromage: ".$cheese->getName());
             $publicationFriend->setUser($friend);
             $this->em->persist($publicationFriend);
         }
