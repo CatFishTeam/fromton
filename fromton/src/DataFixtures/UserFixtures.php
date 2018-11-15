@@ -26,8 +26,20 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
 
     public function load(ObjectManager $manager)
     {
-
         $faker = Faker\Factory::create('fr_FR');
+
+        $user = new User();
+        $user->setFullName("admin");
+        $user->setUsername("root");
+        $user->setEmail("mael.mayon@free.fr");
+        $user->setPassword($this->passwordEncoder->encodePassword($user, "root"));
+        $user->setCreatedAt($faker->dateTime);
+        $user->setXp($faker->numberBetween(1, 3000));
+        $user->setValidate(true);
+        $user->setToken(md5(random_bytes(20)));
+        $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+        $manager->persist($user);
+        $manager->flush();
 
         for ($i = 0; $i < 10; $i++) {
             $user = new User();
