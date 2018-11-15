@@ -3,7 +3,23 @@
 
 {% block body %}
 
-    {% for publication in publications %}
-        <li>{{ publication.texte }} <a href="{{ path('publication_like', {'id': publication.id})}}">like</a></li>
-    {% endfor %}
+    <div class="container">
+        <h1 class="my-4">Mur et activités</h1>
+
+        <div class="activities">
+            {% for publication in publications %}
+                <div class="activities__single">
+                    {{ publication.texte }}
+                    {%  if cheezes[loop.index0] %}
+                        <a href="#" class="like_publication_link like_on unlike_publication" data-publication="{{ publication.id }}"><span class="cheeze">Cheeze !</span></a>
+                    {%  endif %}
+                    {%  if not cheezes[loop.index0] %}
+                        <a href="#" class="like_publication_link like like_publication" data-publication="{{ publication.id }}"><span class="cheeze">Cheeze !</span></a>
+                    {%  endif %}
+                </div>
+            {% else %}
+                <p>Aucune publication.</p>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

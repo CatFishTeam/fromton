@@ -1,0 +1,60 @@
+.badges {
+  &__single {
+    padding: 20px;
+    margin: 15px 0;
+    display: flex;
+    border: 3px solid $beige;
+    border-radius: 3px;
+    align-items: center;
+    justify-content: space-between;
+
+    span {
+      font-size: 20px;
+      color: #777;
+      position: relative;
+      margin-right: 20px;
+      font-family: Lora, serif;
+
+      &::before {
+        content: '“';
+        font-family: Times, serif;
+        font-size: 34px;
+        position: absolute;
+        left: -30px;
+        top: 0;
+        font-weight: bold;
+        line-height: 30px;
+      }
+
+      &::after {
+        content: '”';
+        font-family: Times, serif;
+        font-size: 34px;
+        position: absolute;
+        right: -26px;
+        top: 0;
+        font-weight: bold;
+        line-height: 50px;
+      }
+    }
+  }
+}
+
+.ratings {
+  &__single {
+    padding: 20px;
+    margin: 15px 0;
+    display: flex;
+    border: 3px solid $beige;
+    border-radius: 3px;
+    align-items: center;
+    justify-content: space-between;
+
+    span {
+      font-family: Lora, serif;
+      font-size: 26px;
+      font-weight: bold;
+      color: #777;
+    }
+  }
+}

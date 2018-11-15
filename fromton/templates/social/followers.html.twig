@@ -10,7 +10,7 @@
             {% if me %}
                 {% for follower in followers %}
                     <div class="users__single">
-                        {{ follower.friend.fullName }}
+                        {{ follower.friend.fullName }} (@{{ follower.friend.username }})
                             <a href="{{ path('follow', {'id': follower.id}) }}" class="link">Suivre cet utilisateur</a>
                     </div>
                 {% else %}

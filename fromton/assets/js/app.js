@@ -7,13 +7,18 @@ import 'bootstrap'
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
 
-import './global'
+import swal from 'sweetalert';
+
+import './global';
 
 //Components
 import './components/navbar'
 import './components/rating'
 import './components/notify.js';
 import './components/searchbar.js';
+import './components/like_cheese.js';
+import './components/like_publication.js';
+import './components/konami.js';
 
 //Images
 require('../images/svg/mouse.svg');

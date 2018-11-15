@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\TimestampableTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Publication
 {
+    use TimestampableTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -63,22 +66,6 @@ class Publication
     /**
      * @return mixed
      */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
-    }
-
-    /**
-     * @param mixed $created_at
-     */
-    public function setCreatedAt($created_at): void
-    {
-        $this->created_at = $created_at;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getCheezes()
     {
         return $this->cheezes;
@@ -121,6 +108,12 @@ class Publication
     public function setNotifications($notifications): void
     {
         $this->notifications = $notifications;
+    }
+
+    public function addPublication(User $user, $text)
+    {
+        $this->setTexte($text);
+        $this->setUser($user);
     }
 
 }

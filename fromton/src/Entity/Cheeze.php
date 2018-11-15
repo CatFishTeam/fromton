@@ -22,7 +22,6 @@ class Cheeze
      */
     private $cheese;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="cheezes")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")

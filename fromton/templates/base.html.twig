@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>Fromton | {% block title %}Welcome!{% endblock %}</title>
+        <title>Fromton | {% block title %}Accueil{% endblock %}</title>
         {% block stylesheets %}
             <link href="{{ asset('build/css/fromton.css') }}" rel="stylesheet" />
         {% endblock %}
@@ -25,6 +25,13 @@
             {% endblock %}
             {% block body %}{% endblock %}
         </main>
+
+        <div id="pacman-popup" style="display: none">
+            <iframe id="pacman-iframe" src="">
+                <p>Your browser does not support iframes.</p>
+            </iframe>
+            <a href="#" class="close">X</a>
+        </div>
 
         {% block javascripts %}
             <script src="{{ asset('build/js/fromton.js') }}" type="text/javascript"></script>

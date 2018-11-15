@@ -6,6 +6,7 @@ if(levels.length > 0){
     for(const key in Object.keys(levels)){
         let rating = $(levels[key]).data('rating');
         $(levels[key]).rateYo({
+            starWidth: '26px',
             readOnly: true,
             rating: rating
         });
@@ -30,7 +31,7 @@ stars.rateYo({rating: stars.data('rating')})
             return response.json();
         })
         .then(function(myJson) {
-            window.toastr.success('Votre notre a bien été enregistrée !');
+            window.toastr.success('Votre note a bien été enregistrée !');
             console.log(JSON.stringify(myJson));
         });
 });

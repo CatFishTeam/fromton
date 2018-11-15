@@ -10,7 +10,7 @@
            {% if me %}
                {% for friend in friends %}
                    <div class="users__single">
-                       {{ friend.friend.fullName }}
+                       {{ friend.friend.fullName }} (@{{ friend.friend.username }})
                        <a href="{{ path('unfollow', {'id': friend.friend.id}) }}" class="link">Ne plus suivre ce fromageophile</a>
                    </div>
                {% else %}

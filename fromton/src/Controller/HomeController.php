@@ -25,4 +25,12 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', ['cheeses' => $cheeses, 'cheeseOfTheWeek' => $cheeseOfTheWeek]);
     }
 
+    /**
+     * @Route("/pacman", name="pacman", methods={"GET"}, host="dev.fromton.io")
+     */
+    public function pacman()
+    {
+        return $this->render('pacman.html.twig');
+    }
+
 }

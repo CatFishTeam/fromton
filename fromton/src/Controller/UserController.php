@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Friendship;
+use App\Entity\Publication;
 use App\Entity\User;
+use App\Events;
 use App\Repository\FriendshipRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
@@ -60,15 +64,28 @@ class UserController extends AbstractController
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function follow(User $user, EntityManagerInterface $em)
+    public function follow(User $user, EntityManagerInterface $em, EventDispatcherInterface $eventDispatcher)
     {
         /** @var User $me */
         $me = $this->getUser();
         $me->addFriend($user);
         $em->persist($me);
+
+        $publicationThis = new Publication();
+        $publicationThis->addPublication($this->getUser(), 'Vous suivez '.$user->getUsername().' ('.$user->getFullName().')');
+        $em->persist($publicationThis);
+
+        $publicationUser = new Publication();
+
+        $publicationUser->addPublication($user, $me->getUsername().' ('.$me->getFullName().') a commencé à vous suivre.');
+        $em->persist($publicationUser);
+
+        $this->addFlash('success', 'Vous suivez ' . $user->getUsername());
+
         $em->flush();
 
-        $this->addFlash('success', 'Vous suivez ' . $user->getFullName());
+        $event = new GenericEvent($me);
+        $eventDispatcher->dispatch(Events::FRIEND_ADD, $event);
 
         return $this->redirectToRoute('friends');
     }
@@ -94,7 +111,7 @@ class UserController extends AbstractController
         $em->remove($friendship);
         $em->flush();
 
-        $this->addFlash('success', 'Vous ne suivez plus ' . $friend->getFullName());
+        $this->addFlash('success', 'Vous ne suivez plus ' . $friend->getUsername());
 
         return $this->redirectToRoute('friends');
     }

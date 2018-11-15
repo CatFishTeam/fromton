@@ -1,0 +1,11 @@
+.activities {
+  &__single {
+    padding: 20px;
+    margin: 15px 0;
+    display: flex;
+    border: 3px solid $beige;
+    border-radius: 3px;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
