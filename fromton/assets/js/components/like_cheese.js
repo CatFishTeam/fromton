@@ -3,14 +3,14 @@ $('.like_cheese_link').click(function (e) {
     let link = e.target;
     let cheeseId = $(link).data('cheese');
 
-    $(link).addClass('like_loading');
-
-    let data = { cheeseId };
-
     if(window.isAuthenticated === "false"){
         window.toastr.error('Vous devez être authentifié pour cheezé.<br><a href="/login">Se connecter &larr;</a>');
         return;
     }
+    $(link).addClass('like_loading');
+
+    let data = { cheeseId };
+
     if ($(link).hasClass('like_cheese')) {
         $.ajax({
             type: "POST",

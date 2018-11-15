@@ -3,14 +3,14 @@ $('.like_publication_link').click(function (e) {
     let link = e.target;
     let publicationId = $(link).data('publication');
 
-    $(link).addClass('like_loading');
-
-    let data = { publicationId };
-
     if(window.isAuthenticated === "false"){
         window.toastr.error('Vous devez être authentifié pour cheezé.<br><a href="/login">Se connecter &larr;</a>');
         return;
     }
+
+    $(link).addClass('like_loading');
+
+    let data = { publicationId };
 
     if ($(link).hasClass('like_publication')) {
         $.ajax({
