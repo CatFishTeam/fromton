@@ -65,6 +65,11 @@ class Cheese
     private $cheezes;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="user")
+     */
+    private $user;
+
+    /**
      * @ORM\OneToMany(targetEntity="UsersCheesesRatings", mappedBy="cheese")
      */
     private $usersCheesesRatings;
@@ -192,5 +197,21 @@ class Cheese
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
     }
 }

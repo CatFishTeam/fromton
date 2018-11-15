@@ -26,11 +26,6 @@ class Publication
      */
     private $created_at;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="publications")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    private $user;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Cheeze", mappedBy="publication")
@@ -38,9 +33,11 @@ class Publication
     private $cheezes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Notification", mappedBy="publication")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="publications")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $notifications;
+    private $user;
+
 
     public function getId(): ?int
     {

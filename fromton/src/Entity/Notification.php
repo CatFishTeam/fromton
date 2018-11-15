@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\NotificationRepository")
@@ -22,14 +24,38 @@ class Notification
     private $texte;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $created_at;
-
-    /**
      * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $seen;
+
+
+    /**
+     * @var datetime $createdAt
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * Get createdAt
+     * @return datetime
+     */
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+
+    /**
+     * Set createdAt
+     * @param datetime $createdAt
+     */
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="notifications")
@@ -37,17 +63,10 @@ class Notification
      */
     private $user;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Publication", inversedBy="notifications")
-     * @ORM\JoinColumn(name="publication_id", referencedColumnName="id")
-     */
-    private $publication;
-
     public function getId(): ?int
     {
         return $this->id;
     }
-
 
     public function getTexte(): ?string
     {
@@ -61,22 +80,6 @@ class Notification
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUser()
-    {
-        return $this->user;
-    }
 
     /**
      * @return mixed
@@ -97,22 +100,6 @@ class Notification
     public function setUser($user): void
     {
         $this->user = $user;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPublication()
-    {
-        return $this->publication;
-    }
-
-    /**
-     * @param mixed $publication
-     */
-    public function setPublication($publication): void
-    {
-        $this->publication = $publication;
     }
 
 }
