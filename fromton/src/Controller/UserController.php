@@ -5,11 +5,14 @@ namespace App\Controller;
 use App\Entity\Friendship;
 use App\Entity\Publication;
 use App\Entity\User;
+use App\Events;
 use App\Repository\FriendshipRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
@@ -61,7 +64,7 @@ class UserController extends AbstractController
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function follow(User $user, EntityManagerInterface $em)
+    public function follow(User $user, EntityManagerInterface $em, EventDispatcherInterface $eventDispatcher)
     {
         /** @var User $me */
         $me = $this->getUser();
@@ -80,6 +83,9 @@ class UserController extends AbstractController
         $this->addFlash('success', 'Vous suivez ' . $user->getUsername());
 
         $em->flush();
+
+        $event = new GenericEvent($me);
+        $eventDispatcher->dispatch(Events::FRIEND_ADD, $event);
 
         return $this->redirectToRoute('friends');
     }
