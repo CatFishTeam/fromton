@@ -17,6 +17,8 @@
                         <a href="#" class="like_publication_link like like_publication" data-publication="{{ publication.id }}"><span class="cheeze">Cheeze !</span></a>
                     {%  endif %}
                 </div>
+            {% else %}
+                <p>Aucune publication.</p>
             {% endfor %}
         </div>
     </div>
