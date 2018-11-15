@@ -101,4 +101,10 @@ class Notification
         $this->publication = $publication;
     }
 
+    public function addNotification(User $user, $text)
+    {
+        $this->setTexte($text);
+        $this->setUser($user);
+        $this->setSeen(false);
+    }
 }
