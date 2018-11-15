@@ -7,7 +7,7 @@
             {% for cheese in cheeses %}
             <div class="cheeses__single my-4 row">
                 <div class="col-2">
-                    <img src="https://res.cloudinary.com/ds8br8lm0/image/upload/v1540586741/fromton/{{ cheese.slug }}.png" alt="{{ cheese.name }}" class="cheeses__single__image">
+                    <img src="https://res.cloudinary.com/ds8br8lm0/image/upload/d_unknown-cheese.png/v1540586741/fromton/{{ cheese.slug }}.png" alt="{{ cheese.name }}" class="cheeses__single__image">
                 </div>
                 <div class="col-10">
                     <h2 class="show__cheese__title"><a href="{{ url('cheese_show', {slug: cheese.slug}) }}">{{ cheese.name }}</a></h2>
@@ -15,9 +15,9 @@
                     Utilisateur : <span class="show__cheese__rating--user" data-rating="{{ ratings[loop.index]|default }}" data-cheese="{{ cheese.id }}"></span><br>
                     Moyenne : <span class="show__cheese__rating--global" data-rating="{{ globalRatings[loop.index]|default }}">}</span><br>
                     {%  if cheeze[cheese.id] %}
-                        <a href="{{ path('cheese_unlike', {'id': cheese.id})}}" class="like_on"><span class="cheeze">Cheeze !</span></a>
+                        <a href="#" class="like_cheese_link like_on unlike_cheese" data-cheese="{{ cheese.id }}"><span class="cheeze">Cheeze !</span></a>
                     {%  else %}
-                        <a href="{{ path('cheese_like', {'id': cheese.id})}}" class="like"><span class="cheeze">Cheeze !</span></a>
+                        <a href="#" class="like_cheese_link like like_cheese" data-cheese="{{ cheese.id }}"><span class="cheeze">Cheeze !</span></a>
                     {%  endif %}  </div>
             </div>
             {% else %}

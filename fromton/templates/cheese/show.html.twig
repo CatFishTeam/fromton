@@ -2,9 +2,9 @@
 
 {% block body %}
     <section class="container-fluid">
-        <div class="row show__cheese">
+        <div class="row show__cheese m-4">
             <div class="col-2">
-                <img src="https://res.cloudinary.com/ds8br8lm0/image/upload/v1540586741/fromton/{{ cheese.slug }}.png" class="show__cheese__image" alt="{{ cheese.name }}">
+                <img src="https://res.cloudinary.com/ds8br8lm0/image/upload/d_unknown-cheese.png/v1540586741/fromton/{{ cheese.slug }}.png" class="show__cheese__image" alt="{{ cheese.name }}">
             </div>
             <div class="col-10">
                 <h1 class="show__cheese__title">{{ cheese.name }}</h1>
@@ -12,10 +12,10 @@
                 Utilisateur : <span class="show__cheese__rating--user" data-rating="{{ rating }}" data-cheese="{{ cheese.id }}"></span><br>
                 Moyenne : <span class="show__cheese__rating--global" data-rating="{{ globalRating }}">}</span><br>
                 {%  if cheeze %}
-                    <a href="{{ path('cheese_unlike', {'id': cheese.id})}}" class="like_on"><span class="cheeze">Cheeze !</span></a>
+                    <a href="#" class="like_cheese_link like_on unlike_cheese" data-cheese="{{ cheese.id }}"><span class="cheeze">Cheeze !</span></a>
                 {%  endif %}
                 {%  if not cheeze %}
-                    <a href="{{ path('cheese_like', {'id': cheese.id})}}" class="like"><span class="cheeze">Cheeze !</span></a>
+                    <a href="#" class="like_cheese_link like like_cheese" data-cheese="{{ cheese.id }}"><span class="cheeze">Cheeze !</span></a>
                 {%  endif %}
             </div>
         </div>

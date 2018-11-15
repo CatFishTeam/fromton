@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Friendship;
+use App\Entity\Publication;
 use App\Entity\User;
 use App\Repository\FriendshipRepository;
 use App\Repository\UserRepository;
@@ -66,9 +67,19 @@ class UserController extends AbstractController
         $me = $this->getUser();
         $me->addFriend($user);
         $em->persist($me);
-        $em->flush();
 
-        $this->addFlash('success', 'Vous suivez ' . $user->getFullName());
+        $publicationThis = new Publication();
+        $publicationThis->addPublication($this->getUser(), 'Vous suivez '.$user->getUsername().' ('.$user->getFullName().')');
+        $em->persist($publicationThis);
+
+        $publicationUser = new Publication();
+
+        $publicationUser->addPublication($user, $me->getUsername().' ('.$me->getFullName().') a commencé à vous suivre.');
+        $em->persist($publicationUser);
+
+        $this->addFlash('success', 'Vous suivez ' . $user->getUsername());
+
+        $em->flush();
 
         return $this->redirectToRoute('friends');
     }
@@ -94,7 +105,7 @@ class UserController extends AbstractController
         $em->remove($friendship);
         $em->flush();
 
-        $this->addFlash('success', 'Vous ne suivez plus ' . $friend->getFullName());
+        $this->addFlash('success', 'Vous ne suivez plus ' . $friend->getUsername());
 
         return $this->redirectToRoute('friends');
     }

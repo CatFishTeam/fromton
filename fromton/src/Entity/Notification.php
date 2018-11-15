@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\TimestampableTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Notification
 {
+    use TimestampableTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -20,11 +23,6 @@ class Notification
      * @ORM\Column(type="text")
      */
     private $texte;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $created_at;
 
     /**
      * @ORM\Column(type="boolean", options={"default" : false})
@@ -57,18 +55,6 @@ class Notification
     public function setTexte(string $texte): self
     {
         $this->texte = $texte;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
 
         return $this;
     }
