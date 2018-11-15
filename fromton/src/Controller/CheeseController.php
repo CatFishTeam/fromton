@@ -235,7 +235,7 @@ class CheeseController extends AbstractController
         $em->persist($like);
         $em->flush();
 
-        $this->addFlash('success', 'Vous avez cheezé le fromage '.$cheese->getName());
+        //$this->addFlash('success', 'Vous avez cheezé le fromage '.$cheese->getName());
 
         return new Response("liked");
     }
@@ -260,7 +260,7 @@ class CheeseController extends AbstractController
         $em->remove($like);
         $em->flush();
 
-        $this->addFlash('success', "Vous n'êtes plus fondu du fromage ".$cheese->getName());
+        //$this->addFlash('success', "Vous n'êtes plus fondu du fromage ".$cheese->getName());
 
         return new Response("unliked");
     }
