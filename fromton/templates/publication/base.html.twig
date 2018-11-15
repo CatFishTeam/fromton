@@ -3,7 +3,15 @@
 
 {% block body %}
 
-    {% for publication in publications %}
-        <li>{{ publication.texte }} <a href="{{ path('publication_like', {'id': publication.id})}}">like</a></li>
-    {% endfor %}
+    <div class="container">
+        <h1 class="my-4">Mur et activités</h1>
+
+        <div class="activities">
+            {% for publication in publications %}
+                <div class="activities__single">
+                    {{ publication.texte }} <a href="{{ path('publication_like', {'id': publication.id})}}">like</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

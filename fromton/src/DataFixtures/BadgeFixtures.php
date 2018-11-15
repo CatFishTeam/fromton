@@ -27,25 +27,25 @@ class BadgeFixtures extends Fixture implements OrderedFixtureInterface
         $badge1 = new Badge();
         $badge1->setId(1);
         $badge1->setName("Premier Fromage");
-        $badge1->setDescription("Vous avez note votre premier fromage");
+        $badge1->setDescription("Vous avez noté votre premier fromage");
         $manager->persist($badge1);
 
         $badge2 = new Badge();
         $badge2->setId(2);
-        $badge2->setName("Debutant fromager");
-        $badge2->setDescription("Vous avez note 10 fromages");
+        $badge2->setName("Débutant fromager");
+        $badge2->setDescription("Vous avez noté 10 fromages");
         $manager->persist($badge2);
 
         $badge3 = new Badge();
         $badge3->setId(3);
-        $badge3->setName("Debutant fromages de chevre");
-        $badge3->setDescription("Vous avez note 10 fromages de chevre");
+        $badge3->setName("Débutant fromages de chèvre");
+        $badge3->setDescription("Vous avez noté 10 fromages de chèvre");
         $manager->persist($badge3);
 
         $badge4 = new Badge();
         $badge4->setId(4);
         $badge4->setName("Sociabilisation");
-        $badge4->setDescription("Vous avez ajoute votre premier ami");
+        $badge4->setDescription("Vous avez ajouté votre premier ami");
         $manager->persist($badge4);
 
         $badge5 = new Badge();

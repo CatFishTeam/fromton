@@ -69,12 +69,12 @@ class UserController extends AbstractController
         $em->persist($me);
 
         $publicationThis = new Publication();
-        $publicationThis->addPublication($this->getUser(), 'Vous suivez '.$user->getUsername());
+        $publicationThis->addPublication($this->getUser(), 'Vous suivez '.$user->getUsername().' ('.$user->getFullName().')');
         $em->persist($publicationThis);
 
         $publicationUser = new Publication();
 
-        $publicationUser->addPublication($user, $this->getUser()->getUsername().' a commencé à vous suivre.');
+        $publicationUser->addPublication($user, $me->getUsername().' ('.$me->getFullName().') a commencé à vous suivre.');
         $em->persist($publicationUser);
 
         $this->addFlash('success', 'Vous suivez ' . $user->getUsername());

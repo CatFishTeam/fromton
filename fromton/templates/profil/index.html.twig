@@ -2,29 +2,38 @@
 
 {% block body %}
 
-    <h3>{{ user.fullname }} : {{ user.username }}</h3>
-    <p>Email: {{ user.email }}</p>
-    <p>Niveau: {{ level }}</p>
-    <p>Expérience nécessaire pour le prochain niveau: {{ reste }}</p>
+    <div class="container">
+        <h1 class="my-4">Profil</h1>
 
-    <h4>Badges</h4>
-    <ul>
-        {% for badge in badges %}
-            <li>
-                <p>{{ badge.name }}</p>
-                <span>{{ badge.description }}</span>
-            </li>
-        {% endfor %}
-    </ul>
+        <div class="profile">
+            <h3 class="my-3">{{ user.fullname }} : (@{{ user.username }})</h3>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Niveau:</strong> {{ level }}</p>
+            <p><strong>Expérience nécessaire pour le prochain niveau:</strong> {{ reste }}</p>
 
-    <h4>Notes</h4>
-    <ul>
-        {% for rating in ratings %}
-            <li>
-                <p>{{ rating.cheese.name }}</p>
-                <span>{{ rating.rating.mark }}</span>
-            </li>
-        {% endfor %}
-    </ul>
+            <h4>Badges</h4>
+            <div class="badges">
+                {% for badge in badges %}
+                    <div class="badges__single">
+                        {{ badge.name }}
+                        <span>{{ badge.description }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <h4>Notes</h4>
+            <div class="ratings">
+                {% for rating in ratings %}
+                    <div class="ratings__single">
+                        {{ rating.cheese.name }}
+                        <div>
+                            <span>{{ rating.rating.mark }}</span>
+                            /5
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
