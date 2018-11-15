@@ -13,4 +13,6 @@ final class Events
      * @var string
      */
     const CHEESE_RATE = "cheese.rate";
+    const XP_UP = "xp.up";
+    const FRIEND_ADD = "friend.add";
 }
