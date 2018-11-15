@@ -168,6 +168,9 @@ class CheeseController extends AbstractController
         $event = new GenericEvent($userCheeseRating);
         $eventDispatcher->dispatch(Events::CHEESE_RATE, $event);
 
+        $event = new GenericEvent($user);
+        $eventDispatcher->dispatch(Events::XP_UP, $event);
+
         $usersFriends = $this->getDoctrine()->getRepository(Friendship::class)->getAllFollowers($user);
         foreach ($usersFriends as $usersFriend){
             $friend = $this->getDoctrine()->getRepository(User::class)->find($usersFriend->getUser());
