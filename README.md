@@ -12,6 +12,10 @@
 
 - Go to **dev.fromton.io** (or **dev.fromton.io:your-nginx-port** described in docker-compose file) for the app
 
+# WHEN YOU DON'T CARE ANYMORE
+
+- `d:s:u --force && d:f:l`
+
 ## Setup database
 
 - Check that DB exists by logging on Adminer with docker-compose credentials

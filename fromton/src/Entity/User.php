@@ -98,19 +98,19 @@ class User implements UserInterface, \Serializable
     private $usersCheesesRatings;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Notification", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Notification", mappedBy="user", fetch="EAGER")
      */
     private $notifications;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Publication", mappedBy="user", fetch="EAGER")
+     */
+    private $publication;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Cheeze", mappedBy="user")
      */
     private $cheezes;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Publication", mappedBy="user")
-     */
-    private $publications;
 
     /**
      * @ORM\OneToMany(targetEntity="Friendship", mappedBy="user")
@@ -123,6 +123,10 @@ class User implements UserInterface, \Serializable
      */
     private $friendsWithMe;
 
+    /**
+     * ORM\OneToMany(targetEntity="Cheese", mappedBy="cheese")
+     */
+    private $cheese;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Badge", mappedBy="users")
@@ -132,9 +136,11 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
         $this->usersCheesesRatings = new ArrayCollection();
-        $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->friendsWithMe = new ArrayCollection();
+        $this->myFriends = new ArrayCollection();
         $this->badges = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
+        $this->publication = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,23 +153,7 @@ class User implements UserInterface, \Serializable
         $this->fullName = $fullName;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPublications()
-    {
-        return $this->publications;
-    }
-
-    /**
-     * @param mixed $publications
-     */
-    public function setPublications($publications): void
-    {
-        $this->publications = $publications;
-    }
-
-    // le ? signifie que cela peur aussi retourner null
+    // le ? signifie que cela peut aussi retourner null
     public function getFullName(): ?string
     {
         return $this->fullName;
@@ -290,22 +280,6 @@ class User implements UserInterface, \Serializable
         $this->cheezes = $cheezes;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getNotifications()
-    {
-        return $this->notifications;
-    }
-
-    /**
-     * @param mixed $notifications
-     */
-    public function setNotifications($notifications): void
-    {
-        $this->notifications = $notifications;
-    }
-
     public function getCheeses() {
         return $this->cheeses;
     }
@@ -385,5 +359,37 @@ class User implements UserInterface, \Serializable
         }
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCheese()
+    {
+        return $this->cheese;
+    }
+
+    /**
+     * @param mixed $cheese
+     */
+    public function setCheese($cheese): void
+    {
+        $this->cheese = $cheese;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPublication()
+    {
+        return $this->publication;
     }
 }

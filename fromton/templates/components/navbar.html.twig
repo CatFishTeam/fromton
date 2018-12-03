@@ -15,7 +15,9 @@
             <div class="navbar-nav m-auto">
                 <a class="navbar-brand text-beige" href="/"><img src="{{ asset('build/assets/images/svg/cheese.svg') }}" alt="mouse">FROMTON</a>
             </div>
-            {{ notifications()|raw }}
+            {% if app.user %}
+                {{ notifications(app.user) | raw }}
+            {% endif %}
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="{{ asset('build/assets/images/svg/mouse.svg') }}" alt="mouse">
