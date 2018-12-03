@@ -7,12 +7,18 @@ $('.burgerMenu').on('click', '.fa-bars, .menuClose', () => {
     burgerMenuState = !burgerMenuState;
     if (burgerMenuState) {
         menuSidebar.css('left', '0');
-        main.css('margin-left', '300px');
-        linkToBurgerMenu.css('left', '-300px');
+        menuSidebar.removeClass('closed');
+        if (window.innerWidth > 375) {
+            main.css('margin-left', '300px');
+            linkToBurgerMenu.css('left', '-300px');
+        }
     } else {
         menuSidebar.css('left', '-300px');
-        main.css('margin-left', '0');
-        linkToBurgerMenu.css('left', '0');
+        menuSidebar.addClass('closed');
+        if (window.innerWidth > 375) {
+            main.css('margin-left', '0');
+            linkToBurgerMenu.css('left', '0');
+        }
     }
 });
 

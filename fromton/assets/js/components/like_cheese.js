@@ -4,7 +4,7 @@ $('.like_cheese_link').click(function (e) {
     let cheeseId = $(link).data('cheese');
 
     if(window.isAuthenticated === "false"){
-        window.toastr.error('Vous devez être authentifié pour cheezé.<br><a href="/login">Se connecter &larr;</a>');
+        window.toastr.error('Vous devez être authentifié pour cheezer.<br><a href="/login">Se connecter &larr;</a>');
         return;
     }
     $(link).addClass('like_loading');

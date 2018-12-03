@@ -17,7 +17,7 @@ services:
         container_name: fromton-php
         build: ./php-fpm
         volumes:
-            - ./fromton:/var/www/fromton:cached
+            - ./fromton:/var/www/fromton
             - ./php-fpm/config/php.ini:/usr/local/etc/php/php.ini
     nginx:
         container_name: fromton-nginx
@@ -30,7 +30,7 @@ services:
             - db
             - mailhog
         volumes:
-            - ./fromton:/var/www/fromton:cached
+            - ./fromton:/var/www/fromton
             - ./nginx/fromton.conf:/etc/nginx/conf.d/fromton.conf
 
     mailhog:

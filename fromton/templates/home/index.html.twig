@@ -9,7 +9,7 @@
     <section class="container-fluid">
         <div class="row mt-5">
             {% for cheese in cheeses  %}
-                {% if loop.index == 1 or loop.index == 3 %}<div class="col-4 flex-row">{% endif %}
+                {% if loop.index == 1 or loop.index == 3 %}<div class="col-sm-6 col-lg-4 flex-row">{% endif %}
                 <div class="col home home__cheese">
                     <h4 class="home home__cheese__title">{{ cheese.name }}</h4>
                     <div class="row pt-4">
@@ -34,7 +34,7 @@
                 </div>
                 {% if loop.index % 2 == 0 %}</div>{% endif %}
             {% endfor %}
-            <div class="col-4">
+            <div class="col-sm-6 col-lg-4">
                 {%  include 'components/cheeseOfTheWeek.html.twig' with {'cheese' : cheeseOfTheWeek } only %}
             </div>
         </div>

@@ -1,4 +1,9 @@
 nav
+    #navbarSupportedContent
+        width: 100%
+        display: flex
+        align-items: center
+
     .navbar-brand
         font-size: 2rem
         font-family: Lora
@@ -34,6 +39,7 @@ nav
     position: relative
     transition: 0.7s
     left: 0
+    z-index: 1
     .fa-bars
         color: #fff
         font-size: 28px
@@ -48,6 +54,7 @@ nav
         background: rgba(0,0,0,0.8)
         padding: 150px 50px
         transition-duration: 0.7s
+
         ul
             padding: 0
             list-style-type: none
@@ -56,3 +63,14 @@ nav
                     color: $beige
                     font-size: 24px
                     font-family: Lora
+
+
+@media (max-width: 768px)
+    .burgerMenu
+        &__links
+            z-index: 1
+            width: 100%
+            left: -100%
+
+            &.closed
+                opacity: 0
