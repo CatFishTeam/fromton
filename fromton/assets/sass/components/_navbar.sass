@@ -3,14 +3,19 @@ nav
         width: 100%
         display: flex
         align-items: center
+        position: relative
 
     .navbar-brand
         font-size: 2rem
-        font-family: Lora
+        font-family: Lora, serif
         position: absolute
         left: 50%
         transform: translateX(-50%)
         top: 10px
+        @media (max-width: 768px)
+            font-size: 1.2rem
+            top: 0
+
         img
             width: 2.5rem
             margin-right: 1rem
