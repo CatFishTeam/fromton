@@ -24,7 +24,7 @@ $('.burgerMenu').on('click', '.fa-bars, .menuClose', () => {
         menuSidebar.css('left', '-300px');
         menuSidebar.addClass('closed');
         if (window.innerWidth <= 375) {
-            searchbarContainer.animate({width: 0}, 100, () => searchbar.css('padding', '0'));
+            searchbarContainer.animate({width: 0}, 50, 'linear', function () { searchbar.css('padding', '0')});
         } else {
             main.css('margin-left', '0');
             linkToBurgerMenu.css('left', '0');

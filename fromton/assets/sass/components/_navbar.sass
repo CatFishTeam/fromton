@@ -4,6 +4,11 @@ nav
         display: flex
         align-items: center
         position: relative
+        @media (max-width: 768px)
+            width: 80%
+
+        #navbarDropdown
+            padding-right: 0
 
     .navbar-brand
         font-size: 2rem
@@ -14,7 +19,8 @@ nav
         top: 10px
         @media (max-width: 768px)
             font-size: 1.2rem
-            top: 0
+            top: 5px
+            left: 20%
 
         img
             width: 2.5rem
@@ -22,6 +28,10 @@ nav
     .notification
         width: 45px
         cursor: pointer
+        @media (max-width: 768px)
+            left: 15px
+            position: relative
+
         &__number
             position: relative
             top: -12px
@@ -29,12 +39,16 @@ nav
             font-size: 0.8rem
             color: white
             cursor: pointer
+            @media (max-width: 768px)
+                left: -2px
             &--overten
                 position: relative
                 top: -12px
                 left: -20px
                 font-size: 0.7rem
                 color: white
+                @media (max-width: 768px)
+                    left: -5px
             &--overninethousand
                 &::after
                     content: "+"
