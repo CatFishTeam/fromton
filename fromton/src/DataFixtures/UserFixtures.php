@@ -31,7 +31,7 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
         $user = new User();
         $user->setFullName("admin");
         $user->setUsername("root");
-        $user->setEmail("mael.mayon@free.fr");
+            $user->setEmail("mael.mayon@free.fr");
         $user->setPassword($this->passwordEncoder->encodePassword($user, "root"));
         $user->setCreatedAt($faker->dateTime);
         $user->setXp($faker->numberBetween(1, 3000));

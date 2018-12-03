@@ -27,5 +27,4 @@ class NotificationController extends AbstractController {
         $this->em->flush();
     }
     */
-
 }
