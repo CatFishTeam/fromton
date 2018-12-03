@@ -49,7 +49,7 @@
         },
         "sort-packages": true,
         "bin-dir": "bin",
-        "vendor-dir": "/app-vendor"
+        "vendor-dir": "vendor"
     },
     "autoload": {
         "psr-4": {
