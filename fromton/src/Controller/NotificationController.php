@@ -20,12 +20,12 @@ class NotificationController extends AbstractController {
      * @param Notification $notification
      * @Route('/notification/setSeen', methods={POST})
      */
+    /*
     public function IsSeen(Notification $notification) {
-        dump($notification);
         $notification->setSeen(true);
-
         $this->em->persist($notification);
         $this->em->flush();
     }
+    */
 
 }

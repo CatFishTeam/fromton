@@ -24,11 +24,6 @@ class Publication
      */
     private $texte;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $created_at;
-
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Cheeze", mappedBy="publication")
