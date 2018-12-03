@@ -87,4 +87,10 @@ class Cheeze
         $this->publication = $publication;
     }
 
+    public function addCheeze(User $user, Cheese $cheese, Publication $publication)
+    {
+        $this->setUser($user);
+        $this->setCheese($cheese);
+        $this->setPublication($publication);
+    }
 }

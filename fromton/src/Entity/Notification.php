@@ -121,4 +121,26 @@ class Notification
         $this->user = $user;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPublication()
+    {
+        return $this->publication;
+    }
+
+    /**
+     * @param mixed $publication
+     */
+    public function setPublication($publication): void
+    {
+        $this->publication = $publication;
+    }
+
+    public function addNotification(User $user, $text)
+    {
+        $this->setTexte($text);
+        $this->setUser($user);
+        $this->setSeen(false);
+    }
 }
