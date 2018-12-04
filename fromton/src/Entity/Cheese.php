@@ -77,6 +77,7 @@ class Cheese
     public function __construct()
     {
         $this->usersCheesesRatings = new ArrayCollection();
+        $this->cheeseOftheWeek = new ArrayCollection();
     }
 
     /**
@@ -162,6 +163,11 @@ class Cheese
 
         return $this;
     }
+
+    /**
+     * @ORM\OneToMany(targetEntity="CheeseOfTheWeek", mappedBy="cheese_of_the_week")
+     */
+    private $cheeseOftheWeek;
 
     /**
      * @return mixed

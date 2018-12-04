@@ -1,0 +1,21 @@
+{% extends '@EasyAdmin/default/layout.html.twig' %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+            </div>
+            <div class="col">
+                <img src="https://res.cloudinary.com/ds8br8lm0/image/upload/d_unknown-cheese.png/v1540586741/fromton/{{ cheese.slug }}.png" alt="{{ cheese.name }}" class="home home__cheese__img">
+                <h2>{{ cheese.name }}</h2>
+                <p>{{ cheese.description }}</p>
+            </div>
+        </div>
+    </div>
+    <script>
+
+    </script>
+{% endblock %}

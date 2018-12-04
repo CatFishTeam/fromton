@@ -11,7 +11,10 @@ use App\Entity\Rating;
 use App\Entity\User;
 use App\Entity\UsersCheesesRatings;
 use App\Events;
+use App\Repository\CheeseOfTheWeekRepository;
 use App\Repository\CheeseRepository;
+use App\Repository\FriendshipRepository;
+use App\Repository\UserRepository;
 use App\Repository\UsersCheesesRatingsRepository;
 use App\Utils\Tools;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,21 +25,29 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Controller\UserController;
 use Knp\Component\Pager\PaginatorInterface;
 
+/**
+ * Class CheeseController
+ * @package App\Controller
+ */
 class CheeseController extends AbstractController
 {
 
     private $em;
+    private $userRepository;
+    private $cheeseRepository;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, UserRepository $userRepository, CheeseRepository $cheeseRepository)
     {
         $this->em = $em;
+        $this->userRepository = $userRepository;
+        $this->cheeseRepository = $cheeseRepository;
     }
 
     /**
      * @Route ("/cheese/{slug}", name="cheese_show", methods={"GET"})
+     * @param Cheese $cheese
      */
     public function show(Cheese $cheese)
     {
@@ -48,8 +59,8 @@ class CheeseController extends AbstractController
                 $rating = $usersCheesesRatingsRepo->getRating($this->getUser(), $cheese)->getRating()->getMark();
             }
         }
-        $globalRating = $this->getDoctrine()->getRepository(Cheese::class)->globalRating($cheese);
-        $cheeze = $this->getDoctrine()->getRepository(Cheeze::class)->findBy(['cheese'=>$cheese, 'user'=> $this->getUser()]);
+        $globalRating = $this->cheeseRepository->globalRating($cheese);
+        $cheeze = $this->cheeseRepository->findBy(['cheese'=>$cheese, 'user'=> $this->getUser()]);
         if ($cheeze) {
             $cheeze_to_view = 1;
         } else {
@@ -73,9 +84,7 @@ class CheeseController extends AbstractController
      */
     public function all(Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator)
     {
-        /** @var CheeseRepository $cheeseRepo */
-        $cheeseRepo = $entityManager->getRepository(Cheese::class);
-        $allCheesesQuery = $cheeseRepo->createQueryBuilder('c')->getQuery();
+        $allCheesesQuery = $this->cheeseRepository->createQueryBuilder('c')->getQuery();
 
         $allCheeses = $paginator->paginate(
             $allCheesesQuery,
@@ -121,14 +130,19 @@ class CheeseController extends AbstractController
      * @Route ("/cheese/setNote", name="cheese_setnot", methods={"POST"})
      * @param Request $request
      * @param EventDispatcherInterface $eventDispatcher
+     * @param Tools $tools
+     * @param FriendshipRepository $friendshipRepository
+     * @param UsersCheesesRatingsRepository $usersCheesesRatingsRepository
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function setMark(Request $request, EventDispatcherInterface $eventDispatcher, Tools $tools)
+    public function setMark(Request $request, EventDispatcherInterface $eventDispatcher, Tools $tools, FriendshipRepository $friendshipRepository, UsersCheesesRatingsRepository $usersCheesesRatingsRepository)
     {
+
+        //@TODO: Update moyenne aussi...
         //@TODO: If user is connected -> ...  Else: toastr."Vous devez être connecté"
         $data = \GuzzleHttp\json_decode($request->getContent(), true);
 
-        $cheese = $this->getDoctrine()->getRepository(Cheese::class)->find($data['cheese']);
+        $cheese = $this->cheeseRepository->find($data['cheese']);
 
         $rating = new Rating();
         $rating->setMark($data['rating']);
@@ -148,9 +162,9 @@ class CheeseController extends AbstractController
             $publicationLevel->addPublication($user, 'Vous avez gagné un niveau. Vous êtes maintenant niveau ' . $tab2[0]);
             $this->em->persist($publicationLevel);
 
-            $usersFriends = $this->getDoctrine()->getRepository(Friendship::class)->getAllFollowers($user);
+            $usersFriends = $friendshipRepository->getAllFollowers($user);
             foreach ($usersFriends as $usersFriend){
-                $friend = $this->getDoctrine()->getRepository(User::class)->find($usersFriend->getUser());
+                $friend = $this->userRepository->find($usersFriend->getUser());
                 $publicationLevelFriend = new Publication();
                 $publicationLevelFriend->addPublication($friend,'Votre ami '.$user->getUsername().' ('.$user->getFullName().') est passé niveau '.$tab2[0]);
                 $this->em->persist($publicationLevelFriend);
@@ -158,7 +172,7 @@ class CheeseController extends AbstractController
         }
         $this->em->persist($user);
 
-        $userCheeseRating = $this->getDoctrine()->getRepository(UsersCheesesRatings::class)->getRating($user, $cheese);
+        $userCheeseRating =  $usersCheesesRatingsRepository->getRating($user, $cheese);
 
         if (isset($userCheeseRating)) {
             $userCheeseRating->setRating($rating);
@@ -180,9 +194,9 @@ class CheeseController extends AbstractController
         $event = new GenericEvent($user);
         $eventDispatcher->dispatch(Events::XP_UP, $event);
 
-        $usersFriends = $this->getDoctrine()->getRepository(Friendship::class)->getAllFollowers($user);
+        $usersFriends = $friendshipRepository->getAllFollowers($user);
         foreach ($usersFriends as $usersFriend){
-            $friend = $this->getDoctrine()->getRepository(User::class)->find($usersFriend->getUser());
+            $friend = $this->userRepository->find($usersFriend->getUser());
             if ($friend == $user) { continue; }
             $publicationFriend = new Publication();
             $publicationFriend->addPublication($friend, $user->getUsername()." (".$user->getFullName().") a noté un fromage: ".$cheese->getName());
@@ -201,14 +215,15 @@ class CheeseController extends AbstractController
      * @Route ("/like_cheese", name="like_cheese", methods={"POST"})
      * @param Request $request
      * @param Tools $tools
+     * @param FriendshipRepository $friendshipRepository
      * @return Response
      */
-    public function likeCheese(Request $request, Tools $tools)
+    public function likeCheese(Request $request, Tools $tools, FriendshipRepository $friendshipRepository)
     {
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->getUser();
-        $cheese = $em->getRepository(Cheese::class)->find($request->get('cheeseId'));
+        $cheese = $this->cheeseRepository->find($request->get('cheeseId'));
 
         $xp = $user->getXp();
         $user->setXp($xp + 2);
@@ -224,9 +239,9 @@ class CheeseController extends AbstractController
             $publicationLevel->addPublication($user, 'Vous avez gagné un niveau. Vous êtes maintenant niveau ' . $tab2[0]);
             $em->persist($publicationLevel);
 
-            $usersFriends = $this->getDoctrine()->getRepository(Friendship::class)->getAllFollowers($user);
+            $usersFriends = $friendshipRepository->getAllFollowers($user);
             foreach ($usersFriends as $usersFriend){
-                $friend = $this->getDoctrine()->getRepository(User::class)->find($usersFriend->getUser());
+                $friend = $this->userRepository->find($usersFriend->getUser());
                 $publicationLevelFriend = new Publication();
                 $publicationLevelFriend->addPublication($friend,'Votre ami '.$user->getUsername().' ('.$user->getFullName().') est passé niveau '.$tab2[0]);
                 $em->persist($publicationLevelFriend);
@@ -264,17 +279,37 @@ class CheeseController extends AbstractController
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->getUser();
-        $cheese = $em->getRepository(Cheese::class)->find($request->get('cheeseId'));
+        $cheese = $this->cheeseRepository->find($request->get('cheeseId'));
 
         $xp = $user->getXp();
         $user->setXp($xp - 2);
         $em->persist($user);
 
-        $like =  $em->getRepository(Cheeze::class)->findOneBy(['cheese'=>$cheese, 'user'=> $user]);
+        $like =  $this->cheeseRepository->findOneBy(['cheese'=>$cheese, 'user'=> $user]);
         $em->remove($like);
         $em->flush();
 
         //$this->addFlash('success', "Vous n'êtes plus fondu du fromage ".$cheese->getName());
+
+        return new Response("unliked");
+    }
+
+    /**
+     * @Route("/cheeseOfTheWeek/clicked", methods={"POST"})
+     * @param $request
+     * @return Response
+     */
+    public function clickCOW(Request $request, CheeseOfTheWeekRepository $cheeseOfTheWeekRepository)
+    {
+        //@Todo check login or ip
+        $parametersAsArray = [];
+        if ($content = $request->getContent()) {
+            $parametersAsArray = json_decode($content, true);
+        }
+        $cheeseOfTheWeek = $cheeseOfTheWeekRepository->findOneBy(['cheese' => $parametersAsArray['cheese']]);
+        $cheeseOfTheWeek->setClicks($cheeseOfTheWeek->getClicks() + 1);
+        $this->em->persist($cheeseOfTheWeek);
+        $this->em->flush();
 
         return new Response("unliked");
     }

@@ -1,6 +1,6 @@
 easy_admin:
   design:
-    brand_color: '#f426db'
+    brand_color: '#f44265'
     menu:
       - { label: Dashboard, icon: dashboard, route: admin_dashboard, default: true }
       - { entity: 'User', icon: 'users', label: 'Users' }
@@ -10,4 +10,8 @@ easy_admin:
       - { entity: 'Country', icon: 'globe', label: 'Countries' }
       - { entity: 'Animal', icon: 'paw', label: 'Animals' }
       - { entity: 'Badge', icon: 'check-square', label: 'Badges' }
+      - { url: 'cheeseOfTheWeek' , icon: 'calendar', label: 'Cheese Of The Week' }
       - label: 'Env: %env(APP_ENV)%'
+  assets:
+    css:
+      - 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap-grid.css'

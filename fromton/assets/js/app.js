@@ -19,6 +19,7 @@ import './components/searchbar.js';
 import './components/like_cheese.js';
 import './components/like_publication.js';
 import './components/konami.js';
+import './components/cheeseOfTheWeek.js'
 
 //Images
 require('../images/svg/mouse.svg');
