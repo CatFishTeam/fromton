@@ -26,7 +26,7 @@ class HomeController extends AbstractController
             $cheese->rating = $cheeseRepository->globalRating($cheese);
         }
 
-        $cheeseOfTheWeek = $cheeseOfTheWeekRepository->findOneBy([]);
+        $cheeseOfTheWeek = $cheeseOfTheWeekRepository->actualCheese();
         $cheeseOfTheWeek = $cheeseRepository->find($cheeseOfTheWeek->getCheese());
 
         return $this->render('home/index.html.twig', ['cheeses' => $cheeses, 'cheeseOfTheWeek' => $cheeseOfTheWeek]);

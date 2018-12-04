@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Cheese;
 use App\Entity\CheeseOfTheWeek;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -19,9 +20,19 @@ class CheeseOfTheWeekRepository extends ServiceEntityRepository
         parent::__construct($registry, CheeseOfTheWeek::class);
     }
 
-    public function actualCheese()
+    public function actualCheese(): CheeseOfTheWeek
     {
-
+        $COWS = $this->findBy([], ['startingDateOfPromotion' => 'ASC']);
+        $today = new \DateTime();
+        foreach ($COWS as $i => $COW) {
+            if($COW->getStartingDateOfPromotion() > $today){
+                unset($COWS[$i]);
+            }
+            if($COW->getEndingDateOfPromotion() < $today){
+                unset($COWS[$i]);
+            }
+        }
+        return $COWS[count($COWS)];
     }
 
 }
