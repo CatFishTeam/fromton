@@ -4,7 +4,6 @@ services:
     db:
         container_name: fromton-db
         image: postgres:10.1
-        restart: always
         environment:
             - POSTGRES_DB=fromton
             - POSTGRES_USER=fromton
@@ -17,7 +16,7 @@ services:
         container_name: fromton-php
         build: ./php-fpm
         volumes:
-            - ./fromton:/var/www/fromton:cached
+            - ./fromton:/var/www/fromton
             - ./php-fpm/config/php.ini:/usr/local/etc/php/php.ini
     nginx:
         container_name: fromton-nginx
@@ -30,7 +29,7 @@ services:
             - db
             - mailhog
         volumes:
-            - ./fromton:/var/www/fromton:cached
+            - ./fromton:/var/www/fromton
             - ./nginx/fromton.conf:/etc/nginx/conf.d/fromton.conf
 
     mailhog:
@@ -43,7 +42,6 @@ services:
     adminer:
         container_name: fromton-adminer
         image: adminer
-        restart: always
         depends_on:
         - db
         ports:
