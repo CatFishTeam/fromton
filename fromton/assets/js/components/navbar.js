@@ -2,17 +2,33 @@ let burgerMenuState = false;
 const menuSidebar = $('.burgerMenu__links');
 const main = $('main');
 const linkToBurgerMenu = $('.burgerMenu');
+const searchbarContainer = $('.searchbar-container');
+const searchbar = $('#searchbar');
 
 $('.burgerMenu').on('click', '.fa-bars, .menuClose', () => {
     burgerMenuState = !burgerMenuState;
+    // Menu s'ouvre
     if (burgerMenuState) {
         menuSidebar.css('left', '0');
-        main.css('margin-left', '300px');
-        linkToBurgerMenu.css('left', '-300px');
-    } else {
+        menuSidebar.removeClass('closed');
+        if (window.innerWidth <= 375) {
+            searchbarContainer.animate({width: '100%'}, 250);
+            searchbar.css('padding', '0 10px');
+        } else {
+            main.css('margin-left', '300px');
+            linkToBurgerMenu.css('left', '-300px');
+        }
+    }
+    // Menu se ferme
+    else {
         menuSidebar.css('left', '-300px');
-        main.css('margin-left', '0');
-        linkToBurgerMenu.css('left', '0');
+        menuSidebar.addClass('closed');
+        if (window.innerWidth <= 375) {
+            searchbarContainer.animate({width: 0}, 50, 'linear', function () { searchbar.css('padding', '0')});
+        } else {
+            main.css('margin-left', '0');
+            linkToBurgerMenu.css('left', '0');
+        }
     }
 });
 
