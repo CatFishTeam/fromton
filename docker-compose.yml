@@ -4,7 +4,6 @@ services:
     db:
         container_name: fromton-db
         image: postgres:10.1
-        restart: always
         environment:
             - POSTGRES_DB=fromton
             - POSTGRES_USER=fromton
@@ -43,7 +42,6 @@ services:
     adminer:
         container_name: fromton-adminer
         image: adminer
-        restart: always
         depends_on:
         - db
         ports:
