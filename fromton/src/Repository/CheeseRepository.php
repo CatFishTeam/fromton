@@ -20,12 +20,6 @@ class CheeseRepository extends ServiceEntityRepository
         parent::__construct($registry, Cheese::class);
     }
 
-    //@TODO Shall not Change
-    public function cheeseOfTheWeek(): ?Cheese
-    {
-        $cheese = $this->findOneBy([], []);
-        return $cheese;
-    }
 
     public function search($name)
     {

@@ -1,3 +1,8 @@
-<img src="{{ asset('build/assets/images/svg/roundedChesse.svg') }}" alt="Rounded Cheese">
-<h3>{{ cheese.name }}</h3>
-<p>{{ cheese.description|slice(0, 50) ~ '...' }}</p>
+<div id="cheeseOfTheWeek" data-id="{{ cheese.id }}">
+    <a href="{{ url('cheese_show', {slug: cheese.slug}) }}">
+        <img src="{{ asset('build/assets/images/svg/roundedChesse.svg') }}" alt="Rounded Cheese">
+        <h3>{{ cheese.name }}</h3>
+        <p>{{ cheese.description|slice(0, 50) ~ '...' }}</p>
+    </a>
+</div>
+

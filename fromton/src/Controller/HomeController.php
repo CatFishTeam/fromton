@@ -20,7 +20,8 @@ class HomeController extends AbstractController
         foreach ($cheeses as $cheese){
             $cheese->rating = $cheeseRepository->globalRating($cheese);
         }
-        $cheeseOfTheWeek = $cheeseRepository->cheeseOfTheWeek();
+
+        $cheeseOfTheWeek = $cheeseRepository->findOneBy([]);
 
         return $this->render('home/index.html.twig', ['cheeses' => $cheeses, 'cheeseOfTheWeek' => $cheeseOfTheWeek]);
     }
