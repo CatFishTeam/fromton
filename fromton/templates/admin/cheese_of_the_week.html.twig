@@ -3,19 +3,30 @@
 {% block main %}
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col qfc-container">
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
                 {{ form_end(form) }}
             </div>
             <div class="col">
-                <img src="https://res.cloudinary.com/ds8br8lm0/image/upload/d_unknown-cheese.png/v1540586741/fromton/{{ cheese.slug }}.png" alt="{{ cheese.name }}" class="home home__cheese__img">
-                <h2>{{ cheese.name }}</h2>
-                <p>{{ cheese.description }}</p>
+                <div class="row">
+                    <div class="col">
+                        <img src="https://res.cloudinary.com/ds8br8lm0/image/upload/d_unknown-cheese.png/v1540586741/fromton/{{ cheese.slug }}.png" alt="{{ cheese.name }}">
+                    </div>
+                    <div class="col">
+                        <h2>{{ cheese.name }}</h2>
+                        <p>{{ cheese.description }}</p>
+                        <p>Clicks of the week : {{ cheeseOfTheWeek.clicks }}</p>
+                        <p>From : {{ cheeseOfTheWeek.startingDateOfPromotion|date("m/d/Y")  }}</p>
+                        <p>To : {{ cheeseOfTheWeek.endingDateOfPromotion|date("m/d/Y")  }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <canvas id="myChart" width="400" height="400"></canvas>
             </div>
         </div>
     </div>
-    <script>
-
-    </script>
 {% endblock %}

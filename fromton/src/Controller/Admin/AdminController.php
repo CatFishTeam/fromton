@@ -55,7 +55,7 @@ class AdminController extends BaseAdminController
      */
     public function cheeseOfTheWeek(Request $request, CheeseOfTheWeekRepository $cheeseOfTheWeekRepository, CheeseRepository $cheeseRepository)
     {
-        $cheeseOfTheWeek = $cheeseOfTheWeekRepository->findOneBy([]);
+        $cheeseOfTheWeek = $cheeseOfTheWeekRepository->actualCheese();
         $cheese = $cheeseOfTheWeek->getCheese();
 
         $form = $this->createFormBuilder()
@@ -69,7 +69,7 @@ class AdminController extends BaseAdminController
             ->add('ending_date_of_promotion', DateType::class, [
                 'widget' => 'single_text'
             ])
-            ->add('save', SubmitType::class, array('label' => 'Programmer le fromage du jour'))
+            ->add('save', SubmitType::class, array('label' => 'Programmer'))
             ->getForm();
 
         $form->handleRequest($request);
@@ -79,7 +79,6 @@ class AdminController extends BaseAdminController
             // but, the original `$task` variable has also been updated
             $cheeseOfTheWeek = new CheeseOfTheWeek();
             $cheeseOfTheWeek->setCheese($form->get('cheese')->getData());
-            dump($form->getData());
             $cheeseOfTheWeek->setStartingDateOfPromotion($form->get('starting_date_of_promotion')->getData());
             $cheeseOfTheWeek->setEndingDateOfPromotion($form->get('ending_date_of_promotion')->getData());
             $entityManager = $this->getDoctrine()->getManager();
