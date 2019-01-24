@@ -18,10 +18,9 @@ class CheeseOfTheWeekFixtures extends AbstractFixture implements OrderedFixtureI
         $faker = Faker\Factory::create('fr_FR');
 
         $cheeses = $manager->getRepository(Cheese::class)->findAll();
-
         $cheeseOfTheWeek = new CheeseOfTheWeek();
-        $cheeseOfTheWeek->setStartingDateOfPromotion($faker->dateTime);
-        $cheeseOfTheWeek->setEndingDateOfPromotion($faker->dateTime);
+        $cheeseOfTheWeek->setStartingDateOfPromotion($faker->dateTimeBetween('-8 days', '-6 days'));
+        $cheeseOfTheWeek->setEndingDateOfPromotion($faker->dateTimeBetween('+2 days', '+3 days'));
         $cheeseOfTheWeek->setCreatedAt($faker->dateTime);
         $cheeseOfTheWeek->setUpdatedAt($faker->dateTime);
 

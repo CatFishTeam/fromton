@@ -32,7 +32,7 @@ class CheeseOfTheWeekRepository extends ServiceEntityRepository
                 unset($COWS[$i]);
             }
         }
-        return $COWS[count($COWS)];
+        return $COWS[0];
     }
 
 }
