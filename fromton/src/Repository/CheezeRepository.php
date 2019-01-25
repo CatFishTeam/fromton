@@ -22,7 +22,7 @@ class CheezeRepository extends ServiceEntityRepository
 //    /**
 //     * @return Cheeze[] Returns an array of Cheeze objects
 //     */
-    /*
+
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('c')
@@ -34,9 +34,8 @@ class CheezeRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
 
-    /*
+
     public function findOneBySomeField($value): ?Cheeze
     {
         return $this->createQueryBuilder('c')
@@ -46,5 +45,5 @@ class CheezeRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+
 }

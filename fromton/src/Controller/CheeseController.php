@@ -13,6 +13,7 @@ use App\Entity\UsersCheesesRatings;
 use App\Events;
 use App\Repository\CheeseOfTheWeekRepository;
 use App\Repository\CheeseRepository;
+use App\Repository\CheezeRepository;
 use App\Repository\FriendshipRepository;
 use App\Repository\UserRepository;
 use App\Repository\UsersCheesesRatingsRepository;
@@ -37,12 +38,14 @@ class CheeseController extends AbstractController
     private $em;
     private $userRepository;
     private $cheeseRepository;
+    private $cheezeRepository;
 
-    public function __construct(EntityManagerInterface $em, UserRepository $userRepository, CheeseRepository $cheeseRepository)
+    public function __construct(EntityManagerInterface $em, UserRepository $userRepository, CheeseRepository $cheeseRepository, CheezeRepository $cheezeRepository)
     {
         $this->em = $em;
         $this->userRepository = $userRepository;
         $this->cheeseRepository = $cheeseRepository;
+        $this->cheezeRepository = $cheezeRepository;
     }
 
     /**
@@ -60,7 +63,7 @@ class CheeseController extends AbstractController
             }
         }
         $globalRating = $this->cheeseRepository->globalRating($cheese);
-        $cheeze = $this->cheeseRepository->findBy(['cheese'=>$cheese, 'user'=> $this->getUser()]);
+        $cheeze = $this->cheezeRepository->findBy(['cheese'=>$cheese, 'user'=> $this->getUser()]);
         if ($cheeze) {
             $cheeze_to_view = 1;
         } else {
