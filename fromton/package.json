@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "autocomplete-js": "^2.7.1",
+    "chart.js": "^2.7.3",
     "konami": "^1.6.2",
     "rateyo": "^2.3.5",
     "sweetalert": "^2.1.2",

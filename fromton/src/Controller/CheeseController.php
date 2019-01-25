@@ -108,7 +108,7 @@ class CheeseController extends AbstractController
                     $ratings[] = $usersCheesesRatingsRepo->getRating($me, $cheese)->getRating()->getMark();
                 }
             }
-            $globalRatings[] = $cheeseRepo->globalRating($cheese);
+            $globalRatings[] = $this->cheeseRepository->globalRating($cheese);
 
             $cheeze = $this->getDoctrine()->getRepository(Cheeze::class)->findBy(['cheese'=>$cheese, 'user'=> $this->getUser()]);
 
